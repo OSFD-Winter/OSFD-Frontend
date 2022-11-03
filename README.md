@@ -8,7 +8,7 @@ npm run dev
 
 ## how to contribute / git basics
 
-Send Leo your github username to be added to the repo, you'll receive an invite through email.
+Send Taner your github username to be added to the repo, you'll receive an invite through email.
 
 First, get the latest code by pulling while on the `master` branch, `git pull origin master`
 
@@ -35,3 +35,5 @@ When ready for code review, push to github and make a merge request. Then messag
 Make sure to pull to merge the latest code before pushing to avoid merge conflicts
 
 `git pull origin master` while on your branch
+
+
