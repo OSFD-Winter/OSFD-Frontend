@@ -2,6 +2,8 @@
 
 nvm use 18.4.0
 <br>
+npm i
+<br>
 npm run dev
 <br>
 
