@@ -24,7 +24,7 @@ import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import MintPreview from "./mintPreview"
 import Sandbox from "./sandbox"
-import Header from "./header"
+import Header from "../components/header"
 
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
@@ -454,15 +454,7 @@ const Home: NextPage = () => {
       <div style={{ marginTop: 100 }}>
         <Feedback ></Feedback>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", paddingBlock: 100 }} >
-        <img src={"./black-logo.png"}></img>
-      </div>
-      <div style={{ backgroundImage: `url(Bottom.png)`, minHeight: 170, color: "white" }}>
-        <div style={{ paddingTop: 100, paddingLeft: 100 }}>
-          <a href={"/terms"}> Terms of Service | Sales Agreements | Privacy Policy</a>
-        </div>
 
-      </div>
 
     </div >
   );
