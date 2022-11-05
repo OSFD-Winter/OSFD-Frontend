@@ -13,10 +13,19 @@ const divStyle: CSS.Properties = {
     fontSize:"12px"
 };
 
+const addressStyle: CSS.Properties = {
+    cursor: 'pointer'
+};
+
 function MintLogs({ addressList }: addressProps) {
+
     // Redirect to etherscan when the address is clicked
     const openInNewTab = (url: string) => {
         window.open(url, '_blank', 'noopener,noreferrer');
+    };
+
+    const handleAddressClick = (address: string) => {
+        openInNewTab(`https://etherscan.io/address/${address}`)
     };
     
     return(
@@ -26,7 +35,7 @@ function MintLogs({ addressList }: addressProps) {
                     return(
                         <div key={address}>
                             <p>
-                                <span style={{cursor: 'pointer'}} onClick={() => openInNewTab(`https://etherscan.io/address/${address}`)}>
+                                <span style={addressStyle} onClick={() =>handleAddressClick(address)}>
                                     {address}
                                 </span>
                                 <span>
