@@ -1,53 +1,92 @@
-import React from 'react';
-import CSS from 'csstype';
+import React, { useEffect, useState } from "react";
+import CSS from "csstype";
+import axios from "axios";
 
 type addressProps = {
-    addressList: string[];
+    address: string;
 };
 
 const divStyle: CSS.Properties = {
     // Temp styles to make component scrollable
-    overflowX : 'auto',
-    height:'100px',
-    width:'330px',
-    fontSize:"12px"
+    overflowX: "auto",
+    height: "100px",
+    width: "330px",
+    fontSize: "12px",
 };
 
-const addressStyle: CSS.Properties = {
-    cursor: 'pointer'
+const clickableStyle: CSS.Properties = {
+    cursor: "pointer",
 };
 
-function MintLogs({ addressList }: addressProps) {
+const API_BASE_URL = "https://api-goerli.etherscan.io";
+const API_KEY = "TB6SRX149MX582H2EBP45TDXXZUI22NRC2";
 
-    // Redirect to etherscan when the address is clicked
+function MintLogs({ address }: addressProps) {
+    const [minters, setMinters] = useState([]); // [{mintAddr:String, tokenID:Sting, time:String, hash:String}, ..., {}]
+
     const openInNewTab = (url: string) => {
-        window.open(url, '_blank', 'noopener,noreferrer');
+        window.open(url, "_blank", "noopener,noreferrer");
     };
 
+    // Redirect to etherscan when the element is clicked
     const handleAddressClick = (address: string) => {
-        openInNewTab(`https://etherscan.io/address/${address}`)
+        openInNewTab(`https://etherscan.io/address/${address}`);
     };
-    
-    return(
+
+    const handleIDClick = (hash: string) => {
+        openInNewTab(`https://goerli.etherscan.io/tx/${hash}`);
+    };
+
+    async function getMinters() {
+        const res = await axios.get(
+            `${API_BASE_URL}/api?module=account&action=tokennfttx&contractaddress=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${API_KEY}`
+        );
+        let minters = res.data.result.map(function (transaction: any) {
+            return {
+                minterAddr: transaction["to"],
+                tokenID: transaction["tokenID"],
+                time: transaction["timeStamp"],
+                hash: transaction["hash"],
+            };
+        });
+        setMinters(minters);
+    }
+
+    useEffect(() => {
+        getMinters();
+    }, []);
+
+    return (
         <div style={divStyle}>
-            {/* Reverse the list to make the element just appended come first */} 
-            {addressList?.slice(0).reverse().map((address: any) => {
-                    return(
-                        <div key={address}>
+            {/* Reverse the list to make the element just appended come first */}
+            {minters
+                ?.slice(0)
+                .reverse()
+                .map((minter: any) => {
+                    return (
+                        <div key={minter.tokenID}>
                             <p>
-                                <span style={addressStyle} onClick={() =>handleAddressClick(address)}>
-                                    {address}
+                                <span
+                                    style={clickableStyle}
+                                    onClick={() =>
+                                        handleAddressClick(minter.minterAddr)
+                                    }
+                                >
+                                    {minter.minterAddr}
                                 </span>
-                                <span>
-                                    &nbsp;&nbsp;minted!
-                                </span>     
+                                <span>&nbsp;minted&nbsp;</span>
+                                <span
+                                    style={clickableStyle}
+                                    onClick={() => handleIDClick(minter.hash)}
+                                >
+                                    {minter.tokenID}!
+                                </span>
                             </p>
                         </div>
                     );
-                })
-            }
+                })}
         </div>
-    )
+    );
 }
 
 export default MintLogs;
