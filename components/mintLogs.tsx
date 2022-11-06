@@ -10,8 +10,8 @@ const divStyle: CSS.Properties = {
     // Temp styles to make component scrollable
     overflowX: "auto",
     height: "100px",
-    width: "330px",
-    fontSize: "12px",
+    width: "auto",
+    fontSize: "14px",
 };
 
 const clickableStyle: CSS.Properties = {
@@ -38,18 +38,23 @@ function MintLogs({ address }: addressProps) {
     };
 
     async function getMinters() {
-        const res = await axios.get(
-            `${API_BASE_URL}/api?module=account&action=tokennfttx&contractaddress=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${API_KEY}`
-        );
-        let minters = res.data.result.map(function (transaction: any) {
-            return {
-                minterAddr: transaction["to"],
-                tokenID: transaction["tokenID"],
-                time: transaction["timeStamp"],
-                hash: transaction["hash"],
-            };
-        });
-        setMinters(minters);
+        try {
+            const res = await axios.get(
+                `${API_BASE_URL}/api?module=account&action=tokennfttx&contractaddress=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${API_KEY}`
+            );
+            let minters = res?.data.result.map(function (transaction: any) {
+                return {
+                    minterAddr: transaction["to"],
+                    tokenID: transaction["tokenID"],
+                    time: transaction["timeStamp"],
+                    hash: transaction["hash"],
+                };
+            });
+            setMinters(minters);
+        } catch (err) {
+            console.log("MintLogs: Something is wrong with the address");
+            console.log(err);
+        }
     }
 
     useEffect(() => {
@@ -58,7 +63,7 @@ function MintLogs({ address }: addressProps) {
 
     return (
         <div style={divStyle}>
-            {/* Reverse the list to make the element just appended come first */}
+            {/* Reverse the list to make the element just appended comes first */}
             {minters
                 ?.slice(0)
                 .reverse()
@@ -72,7 +77,9 @@ function MintLogs({ address }: addressProps) {
                                         handleAddressClick(minter.minterAddr)
                                     }
                                 >
-                                    {minter.minterAddr}
+                                    {minter.minterAddr.slice(0, 6)}
+                                    ...
+                                    {minter.minterAddr.slice(38, 42)}
                                 </span>
                                 <span>&nbsp;minted&nbsp;</span>
                                 <span
