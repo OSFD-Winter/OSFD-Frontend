@@ -15,19 +15,24 @@ function TreasuryDisplay({ safeAddress }: displayProps) {
     }, []);
     async function getBalance() {
         const resp = await axios.get(API_URL);
-        setBalance(resp.data.balance);
+        const weiBalance = resp.data.result;
+        const weiConversion = 1000000000000000000;
+
+        const tempBalance = weiBalance / weiConversion;
+        setBalance(tempBalance.toFixed(5));
     }
     return (
         <Paper
             elevation={3}
             style={{
                 fontSize: "1.75rem",
-                width: "20vh",
+                width: "30vh",
                 textAlign: "center",
                 margin: ".5em auto",
             }}
         >
-            {balance}$112.5
+            Current Balance: <br />
+            <span>{balance} ETH</span>
         </Paper>
     );
 }
