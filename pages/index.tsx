@@ -25,6 +25,7 @@ import { Contract } from "@ethersproject/contracts";
 import MintPreview from "./mintPreview"
 import Sandbox from "./sandbox"
 import Header from "../components/header"
+import Footer from "../components/footer"
 
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
@@ -453,6 +454,10 @@ const Home: NextPage = () => {
 
       <div style={{ marginTop: 100 }}>
         <Feedback ></Feedback>
+      </div>
+
+      <div>
+        <Footer />
       </div>
 
 

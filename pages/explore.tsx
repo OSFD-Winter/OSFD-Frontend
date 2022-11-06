@@ -19,6 +19,7 @@ import GoodsFactoryAbi from "../src/GoodsFactory.json";
 import Router from 'next/router'
 import axios from 'axios';
 import Feedback from "./feedback"
+import Footer from "../components/footer"
 
 const daoFactoryAddress = "0x1FC3e350392a8963828A997Efc657E09DFc66692";
 
@@ -255,6 +256,9 @@ function Explore() {
             <br></br>
             {link && <Button onClick={() => { window.open(link, '_blank', 'noopener,noreferrer'); }}>view at opensea</Button>}
             <Feedback ></Feedback>
+            <div>
+                <Footer />
+            </div>
         </Box>
     );
 }
