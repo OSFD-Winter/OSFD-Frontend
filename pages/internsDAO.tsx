@@ -16,7 +16,7 @@ const InternsDAO: NextPage = () => {
 
             <InternsDAOMinter></InternsDAOMinter>
 
-            <Footer></Footer>
+            <Footer />
         </Box >
     );
 };

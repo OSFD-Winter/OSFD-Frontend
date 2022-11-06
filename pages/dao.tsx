@@ -26,6 +26,7 @@ import MintPreview from "./mintPreview"
 import { Web3Storage } from 'web3.storage'
 import axios from 'axios';
 import Feedback from "./feedback"
+import Footer from "../components/footer"
 
 
 const factoryAddress = "0x1FC3e350392a8963828A997Efc657E09DFc66692";
@@ -585,6 +586,9 @@ function Dao({ addr }) {
                 {(daoAddress == "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962" || addr == "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962") && <img src={"./Timeline.png"} ></img>}
             </div>
             <Feedback ></Feedback>
+            <div>
+                <Footer />
+            </div>
         </Box >
     );
 }
