@@ -1,32 +1,35 @@
 import { Paper } from "@mui/material";
 import axios from "axios";
+import { formatEther } from "ethers/lib/utils";
 import { useEffect, useState } from "react";
 
 type displayProps = {
     safeAddress: string;
 };
 
+const API_BASE_URL = "https://api-goerli.etherscan.io/";
+
 function TreasuryDisplay({ safeAddress }: displayProps) {
-    const apiPlaceholder = "";
-    const API_URL = `https://api-goerli.etherscan.io/api?module=account&action=balance&address=${safeAddress}&tag=latest&apikey=${apiPlaceholder}`;
+    const apiPlaceholder = "5V84IP6PWKTS51SNIPDNUNURIBU74ERPBK";
     const [balance, setBalance] = useState("");
     useEffect(() => {
         getBalance();
     }, []);
     async function getBalance() {
-        const resp = await axios.get(API_URL);
+        const resp = await axios.get(
+            `${API_BASE_URL}api?module=account&action=balance&address=${safeAddress}&tag=latest&apikey=${apiPlaceholder}`
+        );
         const weiBalance = resp.data.result;
-        const weiConversion = 1000000000000000000;
 
-        const tempBalance = weiBalance / weiConversion;
-        setBalance(tempBalance.toFixed(5));
+        const tempBalance = formatEther(weiBalance);
+        setBalance(tempBalance);
     }
     return (
         <Paper
             elevation={3}
             style={{
                 fontSize: "1.75rem",
-                width: "30vh",
+                width: "30vw",
                 textAlign: "center",
                 margin: ".5em auto",
             }}
