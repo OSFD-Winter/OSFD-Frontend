@@ -36,6 +36,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Router from 'next/router'
 import Feedback from "./feedback"
+import Footer from "../components/footer"
 
 const Home: NextPage = () => {
     const router = useRouter()
@@ -393,6 +394,10 @@ const Home: NextPage = () => {
                 }
             </Box>
             <Feedback ></Feedback>
+
+            <div>
+                <Footer />
+            </div>
         </Box>
     );
 };
