@@ -18,8 +18,8 @@ const clickableStyle: CSS.Properties = {
     cursor: "pointer",
 };
 
-const API_BASE_URL = "https://api-goerli.etherscan.io";
-const API_KEY = "TB6SRX149MX582H2EBP45TDXXZUI22NRC2";
+const API_BASE_URL = process.env.API_BASE_URL;
+const API_KEY = process.env.API_KEY;
 
 function MintLogs({ address }: addressProps) {
     const [minters, setMinters] = useState([]); // [{mintAddr:String, tokenID:Sting, time:String, hash:String}, ..., {}]
