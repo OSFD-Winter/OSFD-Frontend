@@ -21,7 +21,7 @@ import axios from 'axios';
 import Feedback from "./feedback"
 import Footer from "../components/footer"
 
-const daoFactoryAddress = "0x1FC3e350392a8963828A997Efc657E09DFc66692";
+const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 
 function Explore() {
     const router = useRouter()
@@ -95,7 +95,7 @@ function Explore() {
 
             const provider = new ethers.providers.JsonRpcProvider("https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5");
 
-            const Factory = new Contract(daoFactoryAddress, DAOFactoryAbi, provider)
+            const Factory = new Contract(DAO_FACTORY_ADDRESS, DAOFactoryAbi, provider)
 
             const hexToDecimal = hex => parseInt(hex, 16);
             try {

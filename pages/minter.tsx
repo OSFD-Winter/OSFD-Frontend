@@ -38,6 +38,8 @@ import Router from 'next/router'
 import Feedback from "./feedback"
 import Footer from "../components/footer"
 
+const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
+
 const Home: NextPage = () => {
     const router = useRouter()
     const { factoryAddress } = router.query
@@ -46,7 +48,7 @@ const Home: NextPage = () => {
     const [mintRequest, setMintRequest] = useState(false);
     const [isMinting, setIsMinting] = useState(false);
 
-    const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDQ4MkNiNjBCNDBlM2U4RmU0Njk4YkY2ZDZmYThlMzNEQjE0Rjc1MWMiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjA5MTAxMTkyNjksIm5hbWUiOiJ0ZXN0In0.3EWNRJl1uCi9y_dTDn4Zj2c3-VXJ0_MPeGM4GOo9Ruo" })
+    const client = new Web3Storage({ TOKEN_CLIENT })
 
     const [zips, setZips] = useState([]);
     const [chosenZip, setChosenZip] = useState();
