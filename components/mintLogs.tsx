@@ -18,8 +18,7 @@ const clickableStyle: CSS.Properties = {
     cursor: "pointer",
 };
 
-const API_BASE_URL = process.env.API_BASE_URL;
-const API_KEY = process.env.API_KEY;
+const ETHERSCAN = process.env.ETHERSCAN;
 
 function MintLogs({ address }: addressProps) {
     const [minters, setMinters] = useState([]); // [{mintAddr:String, tokenID:Sting, time:String, hash:String}, ..., {}]
@@ -40,7 +39,7 @@ function MintLogs({ address }: addressProps) {
     async function getMinters() {
         try {
             const res = await axios.get(
-                `${API_BASE_URL}/api?module=account&action=tokennfttx&contractaddress=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${API_KEY}`
+                `https://api-goerli.etherscan.io/api?module=account&action=tokennfttx&contractaddress=${address}&startblock=0&endblock=99999999&sort=asc&apikey=${ETHERSCAN}`
             );
             let minters = res?.data.result.map(function (transaction: any) {
                 return {
