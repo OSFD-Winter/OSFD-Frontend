@@ -1,0 +1,8 @@
+.test {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  background-color:red;
+  color: white;
+  width: 100%;
+}
