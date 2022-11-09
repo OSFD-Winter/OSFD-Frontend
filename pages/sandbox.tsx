@@ -43,7 +43,7 @@ const Sandbox: NextPage = () => {
         formData.append("file", fileInput.files[0]);
 
         axios.post(
-            'http://localhost:8000/tokens/zip',
+            'https://sandbox-minter.herokuapp.com/tokens/zip',
             formData,
             { headers: { 'Content-Type': 'multipart/form-data' } }
         )
@@ -64,7 +64,7 @@ const Sandbox: NextPage = () => {
 
     useEffect(() => {
         if (zip) {
-            axios.get('http://localhost:8000/tokens/preview/' + zip)
+            axios.get('https://sandbox-minter.herokuapp.com/tokens/preview/' + zip)
                 .then(function ({ data }) {
                     console.log(data)
                     setPreview(data);
@@ -93,14 +93,14 @@ const Sandbox: NextPage = () => {
                     <br></br>
 
                     <div>
-                        First you need to start thinking with "layers". &nbsp;
+                        First you need to start thinking with &quot;layers&quot;. &nbsp;
                         <a style={{ color: "darkblue" }} href="https://edition.async.art/blog/generative-art-nfts-an-artists-guide">Here</a> is link for a good read
                     </div>
 
                     <br></br>
                     To create the zip file you need a parent folder which will contain all the subfolders for each layer
                     <br></br>
-                    In example zip our parent folder name is "Poster" and subfolders for layers are "00-bg", "01-title", "02-leftnoun" ...
+                    In example zip our parent folder name is &quot;Poster&quot; and subfolders for layers are &quot;00-bg&quot;, &quot;01-title&quot;, &quot;02-leftnoun&quot; ...
                     <br></br>
                     As you can notice subfolder names have numbers as prefix, it is for layer composing order; lowest number means backmost layer
                     <br></br>
@@ -142,7 +142,7 @@ const Sandbox: NextPage = () => {
                     {preview && <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <Button onClick={() => {
                             if (zip) {
-                                axios.get('http://localhost:8000/tokens/preview/' + zip)
+                                axios.get('https://sandbox-minter.herokuapp.com/tokens/preview/' + zip)
                                     .then(function ({ data }) {
                                         console.log(data)
                                         setPreview(data);
