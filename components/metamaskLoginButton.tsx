@@ -8,16 +8,12 @@ declare global {
     }
   }
 const divStyle: CSS.Properties = {
-    // Temp styles to make component scrollable
-    overflowX: "auto",
-    height: "100px",
-    width: "auto",
-    fontSize: "14px",
 };
 
-const clickableStyle: CSS.Properties = {
-    cursor: "pointer",
+const buttonStyle: CSS.Properties = {
 };
+
+
 
 
 function metamaskLoginButton() {
@@ -28,27 +24,11 @@ function metamaskLoginButton() {
     const [isConnected, setIsConnected] = useState(false);
     const [accountAddress, setAccountAddress] = useState("");
 
-    const connectWallet = async () => {
-        try {
-            if (!ethereum) {
-                sethaveMetamask(false);
-            }
-            const accounts = await ethereum.request({
-                method: "eth_requestAccounts",
-            });
-            setAccountAddress(accounts[0]);
-            setIsConnected(true);
-            changeNetWork();
-        } catch (error) {
-            setIsConnected(false);
-        }
-    };
-
     const changeNetWork = async () => {
         try {
             await ethereum.request({
               method: 'wallet_switchEthereumChain',
-              params: [{ chainId: "0x5"}], // Goerli Testner
+              params: [{ chainId: "0x5"}], // Goerli Testnet
             });
           } catch (err: any) {
             // This error code indicates that the chain has not been added to MetaMask.
@@ -72,6 +52,24 @@ function metamaskLoginButton() {
           }    
     }
 
+    const connectWallet = async () => {
+        try {
+            if (!ethereum) {
+                sethaveMetamask(false);
+            }
+            const accounts = await ethereum.request({
+                method: "eth_requestAccounts",
+            });
+            setAccountAddress(accounts[0]);
+            setIsConnected(true);
+            changeNetWork();
+        } catch (error) {
+            setIsConnected(false);
+        }
+    };
+
+    
+
     // See if Metamask is installed on browser
     useEffect(() => {
         const { ethereum } = window;
@@ -87,22 +85,20 @@ function metamaskLoginButton() {
     
 
     return (
-         <div className="flex h-screen w-screen justify-center bg-[#ffedd5]">
+         <div>
                 {haveMetamask ? (
-                    <div className="flex w-full h-full items-center justify-center">
+                    <div>
                         {isConnected ? (
-                             <p>Connected!</p>
+                            <div>
+                                {accountAddress.slice(0, 4)}
+                                    ...
+                                {accountAddress.slice(38, 42)}
+                            </div>
                         ) : (
-                            <div className="flex flex-col items-center">
-                                <button
-                                    className="flex bg-orange-400 hover:bg-orange-700 text-white font-bold py-2 px-5 rounded items-center"
-                                    onClick={connectWallet}
-                                >
+                            <div>
+                                <button onClick={connectWallet}>
                                     <div>Connect with Metamask</div>
-                                    <img
-                                        src="MetaMask-logo.png"
-                                        className="object-scale-down h-12 w-12 ml-3"
-                                    />
+                                    <img src="MetaMask-logo.png"/>
                                 </button>
                             </div>
                         )}
