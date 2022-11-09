@@ -64,11 +64,11 @@ function Proposals() {
       {proposals &&
         proposals.map((proposal) => (
           <div style={proposalsStyle}>
-            <h1>{proposal.body}</h1>
-            <p>{proposal.title}</p>
+            <h1>{proposal.title}</h1>
+            <p>{proposal.body}</p>
             {proposal.choices.map((choice, id) => (
               <button
-                style={proposalsStyle}
+                style={{ ...proposalsStyle, height: "40px", width: "120px" }}
                 onClick={() => console.log(choice)} //vote(id, proposal.id)}
               >
                 {choice}
