@@ -7,18 +7,11 @@ declare global {
         ethereum?: any;
     }
   }
-const divStyle: CSS.Properties = {
-};
-
-const buttonStyle: CSS.Properties = {
-};
 
 
-
-
-function metamaskLoginButton() {
-    const { ethereum }= window;
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+function MetaMaskLoginButton() {
+    const { ethereum } = window;
+    //const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     const [haveMetamask, sethaveMetamask] = useState(true);
     const [isConnected, setIsConnected] = useState(false);
@@ -85,29 +78,26 @@ function metamaskLoginButton() {
     
 
     return (
-         <div>
-                {haveMetamask ? (
-                    <div>
-                        {isConnected ? (
-                            <div>
-                                {accountAddress.slice(0, 4)}
-                                    ...
-                                {accountAddress.slice(38, 42)}
-                            </div>
-                        ) : (
-                            <div>
-                                <button onClick={connectWallet}>
-                                    <div>Connect with Metamask</div>
-                                    <img src="MetaMask-logo.png"/>
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                ) : (
-                    <p>Please Install MataMask</p>
-                )}
-        </div>
-    );
+        <div style={{display:isConnected?"None":"flex", top:10, right:10, position:"absolute", maxHeight:"60px", maxWidth:"280px", height:"100%", width:"100%", backgroundColor:"orange", borderRadius:"5px",justifyContent:"center",color:"white", padding:"8px 24px", alignItems:"center"}}>
+               {haveMetamask ? (
+                   <div>
+                       {isConnected ? (
+                           <></>
+                       ) : (
+                           <div >
+                               <button onClick={connectWallet} style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
+                                   <div>Connect with Metamask</div>
+                                   <img style={{height:"50px", marginLeft:"6px"}}
+                                   src="MetaMask-logo.png"/>
+                               </button>
+                           </div>
+                       )}
+                   </div>
+               ) : (
+                   <p>Please Install MataMask</p>
+               )}
+       </div>
+   );
 }
 
-export default metamaskLoginButton;
+export default MetaMaskLoginButton;
