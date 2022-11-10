@@ -59,15 +59,20 @@ function Proposals() {
     // console.log(proposals);
   }, []);
 
+  const generateKey = (pre) => {
+    return `${pre}_${new Date().getTime()}`;
+  };
+
   return (
     <div>
       {proposals &&
-        proposals.map((proposal) => (
-          <div style={proposalsStyle}>
+        proposals.map((proposal, id) => (
+          <div key={generateKey(id)} style={proposalsStyle}>
             <h1>{proposal.title}</h1>
             <p>{proposal.body}</p>
             {proposal.choices.map((choice, id) => (
               <button
+                key={generateKey(id)}
                 style={{ ...proposalsStyle, height: "40px", width: "120px" }}
                 onClick={() => console.log(choice)} //vote(id, proposal.id)}
               >
