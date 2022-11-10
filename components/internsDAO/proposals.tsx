@@ -1,78 +1,37 @@
 // @ts-nocheck
 import snapshot from "@snapshot-labs/snapshot.js";
 import { useState, useEffect } from "react";
+import { getProposals } from "../../api/helper";
 
 function Proposals() {
   const [proposals, setProposals] = useState([]);
   const space = "internsdao.eth";
-
-  ///-----Taking from https://docs.snapshot.org/snapshot.js-----////
-
-  // const hub = "https://testnet.snapshot.org";
-  // const client = new snapshot.Client712(hub);
-  // const vote = async (option, proposal) => {
-  //   const { account } = context;
-  //   const receipt = await client.vote(context, account, {
-  //     space: space,
-  //     proposal: proposal,
-  //     type: "single-choice",
-  //     choice: option,
-  //   });
-  // };
-
+  const source = "https://testnet.snapshot.org";
   useEffect(() => {
-    fetch("https://testnet.snapshot.org/graphql", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        query: `query Proposals {
-        proposals(
-          first: 20,
-          skip: 0,
-          where: {
-            space_in: ["${space}"],
-            state: "active"
-          },
-          orderBy: "created",
-          orderDirection: desc
-        ) {
-          id
-          title
-          body
-          choices
-          start
-          end
-          snapshot
-          state
-          author
-          space {
-            id
-            name
-          }
-        }
-      }`,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => setProposals(data.data.proposals))
-      .catch((err) => console.log(err));
-    // console.log(proposals);
+    getProposals(space, "active", `${source}/graphql`)
+      .then((proposals) => setProposals(proposals))
+      .catch((e) => console.log(e));
   }, []);
 
-  const generateKey = (pre) => {
-    return `${pre}_${new Date().getTime()}`;
-  };
+  // useEffect(async () => {
+  //   try {
+  //     const proposals = await getProposals(space, "active", `${hub}/graphql`);
+  //     setProposals(proposals);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, []);
 
   return (
     <div>
       {proposals &&
-        proposals.map((proposal, id) => (
-          <div key={generateKey(id)} style={proposalsStyle}>
+        proposals.map((proposal) => (
+          <div key={proposal.id} style={proposalsStyle}>
             <h1>{proposal.title}</h1>
             <p>{proposal.body}</p>
-            {proposal.choices.map((choice, id) => (
+            {proposal.choices.map((choice) => (
               <button
-                key={generateKey(id)}
+                key={choice}
                 style={{ ...proposalsStyle, height: "40px", width: "120px" }}
                 onClick={() => console.log(choice)} //vote(id, proposal.id)}
               >
