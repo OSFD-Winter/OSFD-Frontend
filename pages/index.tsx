@@ -18,11 +18,11 @@ import { Box } from "@mui/system";
 import type { NextPage } from "next";
 import Link from 'next/link'
 import Router from 'next/router'
-import Feedback from "./feedback"
+import Feedback from "../components/feedback"
 import GoodsAbi from "../src/Goods.json";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
-import MintPreview from "./mintPreview"
+import MintPreview from "../components/mintPreview"
 import Sandbox from "./sandbox"
 import Header from "../components/header"
 import Footer from "../components/footer"

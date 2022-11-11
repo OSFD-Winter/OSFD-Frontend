@@ -18,7 +18,7 @@ import DAOFactoryAbi from "../src/DAOFactory.json";
 import GoodsFactoryAbi from "../src/GoodsFactory.json";
 import Router from 'next/router'
 import axios from 'axios';
-import Feedback from "./feedback"
+import Feedback from "../components/feedback"
 import Footer from "../components/footer"
 
 const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;

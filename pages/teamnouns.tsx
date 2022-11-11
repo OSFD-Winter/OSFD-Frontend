@@ -20,14 +20,15 @@ import { FC, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Dao from "./dao";
 import NounsHeader from "../components/nounsDAO/nounsHeader";
+import TreasuryDisplay from "../components/treasuryDisplay";
+import Footer from "../components/footer"
 
 const Home: NextPage = () => {
     return (
-        <div>
+        <div >
             <NounsHeader />
-            <Box sx={{ height: "100%" }}>
-                <Dao addr={"0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962"}> </Dao>
-            </Box>
+            <TreasuryDisplay safeAddress={"0x432b351Db56d95F0ed37c7De3E20249200f8d3C9"}> </TreasuryDisplay>
+            <Footer />
         </div>
     );
 };

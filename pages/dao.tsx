@@ -22,13 +22,12 @@ import Router from 'next/router'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import MintPreview from "./mintPreview"
+import MintPreview from "../components/mintPreview"
 import { Web3Storage } from 'web3.storage'
 import axios from 'axios';
-import Feedback from "./feedback"
+import Feedback from "../components/feedback"
 import Footer from "../components/footer"
 import MintLogs from "../components/mintLogs";
-
 
 const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
@@ -535,8 +534,8 @@ function Dao({ addr }) {
                                             >
                                                 mint {cont.price / 1000000000000000000} eth
                                             </Button>
-                                           <MintLogs address={cont.address}></MintLogs>
-                                            
+                                            <MintLogs address={cont.address}></MintLogs>
+
                                             {DAOContract && DAOContract.owner == account &&
                                                 <Button variant="contained" onClick={
                                                     async () => {

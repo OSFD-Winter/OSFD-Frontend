@@ -35,7 +35,7 @@ import { CasinoOutlined } from "@mui/icons-material";
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Router from 'next/router'
-import Feedback from "./feedback"
+import Feedback from "../components/feedback"
 import Footer from "../components/footer"
 
 const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
