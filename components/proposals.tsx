@@ -1,11 +1,11 @@
 // @ts-nocheck
 import snapshot from "@snapshot-labs/snapshot.js";
 import { useState, useEffect } from "react";
-import { getProposals } from "../../api/helper";
+import { getProposals } from "../api/helper";
 
-function Proposals() {
+function Proposals({ space }) {
   const [proposals, setProposals] = useState([]);
-  const space = "internsdao.eth";
+
   const source = "https://testnet.snapshot.org";
   useEffect(() => {
     getProposals(space, "active", `${source}/graphql`)
