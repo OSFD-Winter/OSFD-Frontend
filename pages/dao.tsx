@@ -25,7 +25,7 @@ import Link from 'next/link'
 import MintPreview from "./mintPreview"
 import { Web3Storage } from 'web3.storage'
 import axios from 'axios';
-import Feedback from "./feedback"
+import Feedback from "../components/feedback"
 
 
 const factoryAddress = "0x1FC3e350392a8963828A997Efc657E09DFc66692";

@@ -35,7 +35,7 @@ import { CasinoOutlined } from "@mui/icons-material";
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Router from 'next/router'
-import Feedback from "./feedback"
+import Feedback from "../components/feedback"
 
 const Home: NextPage = () => {
     const router = useRouter()
