@@ -1,7 +1,7 @@
 // @ts-nocheck
 import snapshot from "@snapshot-labs/snapshot.js";
 import { useState, useEffect } from "react";
-import { getProposals } from "../api/helper";
+import { getProposals, toDateTime } from "../api/helper";
 
 function Proposals({ space }) {
   const [proposals, setProposals] = useState([]);
@@ -29,6 +29,11 @@ function Proposals({ space }) {
           <div key={proposal.id} style={proposalsStyle}>
             <h1>{proposal.title}</h1>
             <p>{proposal.body}</p>
+            {proposal.state == "active" && (
+              <p style={{ color: "red" }}>
+                Active until {toDateTime(proposal.end)}
+              </p>
+            )}
             {proposal.choices.map((choice) => (
               <button
                 key={choice}
