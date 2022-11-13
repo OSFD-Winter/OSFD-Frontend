@@ -35,7 +35,6 @@ function Referral(){
   
           <div style={{position:"relative" ,bottom: -6, width:"100%", display:"flex", justifyContent:"space-between"}}>
             <a style={{position: "relative", left:85}}><img src="group 263.png" style={{minWidth: "5.255vw", maxWidth: "15.233vw"}}></img></a>
-            
             <a style={{position:"relative", left: 230,}}><img src="noun-205.png" style={{minWidth: "5.255vw", maxWidth: "15.233vw"}}></img></a>
             <a style={{position:"relative", marginRight: 25, top: 2, left: 100}}><img src="noun-105.png" style={{minWidth: "5.255vw", maxWidth: "15.233vw"}}></img></a>
             <a><img src="noun-346.png" style={{minWidth: "5.255vw", maxWidth: "15.233vw", position:"relative", left: 150}}></img></a>
