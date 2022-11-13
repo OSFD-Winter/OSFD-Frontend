@@ -18,6 +18,7 @@ import type { NextPage } from "next";
 import Router from 'next/router'
 import { FC, useCallback, useEffect, useState } from "react";
 import axios from 'axios';
+import Footer from "../components/footer"
 
 let p1 = `
 ●	You have working knowledge of web3 technologies, specifically NFTs aka Smart Contracts
@@ -82,11 +83,8 @@ const Home: NextPage = () => {
                     <img src={"./black-logo.png"}></img>
                 </Button>
             </div>
-            <div style={{ backgroundImage: `url(Bottom.png)`, minHeight: 170, color: "white" }}>
-                <div style={{ paddingTop: 100, paddingLeft: 100 }}>
-                    <a href={""}> Terms of Service | Sales Agreements | Privacy Policy</a>
-                </div>
-
+            <div>
+                <Footer />
             </div>
 
         </Box >

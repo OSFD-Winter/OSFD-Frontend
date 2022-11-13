@@ -22,17 +22,19 @@ import Router from 'next/router'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 
-import MintPreview from "./mintPreview"
+import MintPreview from "../components/mintPreview"
 import { Web3Storage } from 'web3.storage'
 import axios from 'axios';
-import Feedback from "../components/feedback"
+import Feedback from "./feedback"
+import Footer from "../components/footer"
+import MintLogs from "../components/mintLogs";
 
-
-const factoryAddress = "0x1FC3e350392a8963828A997Efc657E09DFc66692";
+const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
+const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
 
 function Dao({ addr }) {
     const router = useRouter()
-    const client = new Web3Storage({ token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDQ4MkNiNjBCNDBlM2U4RmU0Njk4YkY2ZDZmYThlMzNEQjE0Rjc1MWMiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjA5MTAxMTkyNjksIm5hbWUiOiJ0ZXN0In0.3EWNRJl1uCi9y_dTDn4Zj2c3-VXJ0_MPeGM4GOo9Ruo" })
+    const client = new Web3Storage({ TOKEN_CLIENT })
 
     const { daoAddress } = router.query
 
@@ -210,7 +212,7 @@ function Dao({ addr }) {
 
         const signer = library.getSigner(account).connectUnchecked();
 
-        const DAOFactory = new Contract(factoryAddress, DAOFactoryAbi, signer)
+        const DAOFactory = new Contract(DAO_FACTORY_ADDRESS, DAOFactoryAbi, signer)
 
         // prepare metadata ipfs
         const daoMetadata = {
@@ -532,6 +534,7 @@ function Dao({ addr }) {
                                             >
                                                 mint {cont.price / 1000000000000000000} eth
                                             </Button>
+                                            <MintLogs address={cont.address}></MintLogs>
 
                                             {DAOContract && DAOContract.owner == account &&
                                                 <Button variant="contained" onClick={
@@ -585,6 +588,9 @@ function Dao({ addr }) {
                 {(daoAddress == "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962" || addr == "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962") && <img src={"./Timeline.png"} ></img>}
             </div>
             <Feedback ></Feedback>
+            <div>
+                <Footer />
+            </div>
         </Box >
     );
 }

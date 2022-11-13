@@ -12,7 +12,7 @@ function Feedback({ hash: any }) {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [image, setImage] = useState(null);
-  const [url, seturl] = useState("")
+  const [url, seturl] = useState("");
   let update = 1;
 
   // handle image upload
@@ -24,7 +24,7 @@ function Feedback({ hash: any }) {
     if (update === 1) {
       uploadBytes(imageRef, image).then((response) => {
         getDownloadURL(ref(storage, address)).then((url) => {
-          seturl(url)
+          seturl(url);
         });
         alert("Image Uploaded");
         update = update - 1;
@@ -142,7 +142,13 @@ function Feedback({ hash: any }) {
                 .post("https://osfd-backup-2.herokuapp.com/tokens/feedback", {
                   feedback: {
                     title: title,
-                    description: desc + " EMAIL: " + email + " IMAGE URL: " + url + " COMING FROM: *ADD PAGE HERE TO TRACK FEEDBACK*",
+                    description:
+                      desc +
+                      " EMAIL: " +
+                      email +
+                      " IMAGE URL: " +
+                      url +
+                      " COMING FROM: *ADD PAGE HERE TO TRACK FEEDBACK*",
                   },
                 })
                 .then(() => {
