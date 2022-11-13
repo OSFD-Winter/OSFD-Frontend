@@ -142,7 +142,7 @@ function Feedback({ hash: any }) {
                 .post("https://osfd-backup-2.herokuapp.com/tokens/feedback", {
                   feedback: {
                     title: title,
-                    description: desc + " EMAIL: " + email + "IMAGE URL: " + url,
+                    description: desc + " EMAIL: " + email + " IMAGE URL: " + url + " COMING FROM: *ADD PAGE HERE TO TRACK FEEDBACK*",
                   },
                 })
                 .then(() => {
