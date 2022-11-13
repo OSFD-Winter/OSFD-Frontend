@@ -32,16 +32,6 @@ function Feedback({ hash: any }) {
     }
   };
 
-  // useEffect(() => {
-  //   listAll(imageListRef).then((response) => {
-  //     response.items.forEach((item) => {
-  //       getDownloadURL(item).then((url) => {
-  //         console.log(url);
-  //       })
-  //     })
-  //   })
-  // }, [])
-
   return (
     <div style={{ width: "100%", paddingInline: "20vw" }}>
       <Paper

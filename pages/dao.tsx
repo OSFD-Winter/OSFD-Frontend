@@ -25,7 +25,7 @@ import Link from 'next/link'
 import MintPreview from "../components/mintPreview"
 import { Web3Storage } from 'web3.storage'
 import axios from 'axios';
-import Feedback from "./feedback"
+import Feedback from "../components/feedback"
 import Footer from "../components/footer"
 import MintLogs from "../components/mintLogs";
 
