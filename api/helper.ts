@@ -53,3 +53,9 @@ export const getProposals = async (
     console.log(e);
   }
 };
+
+export const toDateTime = (secs: number): string => {
+  const t = new Date(Date.UTC(1970, 0, 1)); // Epoch
+  t.setUTCSeconds(secs);
+  return t.toDateString();
+};
