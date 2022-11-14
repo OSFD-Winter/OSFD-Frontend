@@ -1,8 +1,103 @@
-.test {
+.section {
+  margin-top: 6rem;
+  margin-bottom: 10rem;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 100px;
+  margin: 0 auto;
+  width: var(--container-width-large);  
+}
+
+.about__certificate {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 2;
+  grid-row-end: 7;
+  background-color: red;
+  display: flex;
+  justify-content: left;
+}
+
+.glasses {
+  display: flex;
+  align-items: center;
+  background-color: green;
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.glasses > img {
+  display: inline;
+  width: 80px;
+  height: 80px;
+  background-color:antiquewhite;
+}
+
+.glasses > h2 {
+  display: inline;
+  background-color: aqua;
+}
+
+.text_certificate {
+  font-size: 18px;
+}
+
+.text_certificate > h1 {
+}
+
+.text_certificate > p {
+}
+
+
+.certificate {
+  background-color: yellow;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 5;
+}
+
+.certificate__img  {
+  display: flex;
+  background-color: brown;
+  justify-content: center;
+}
+
+.certificate__img > img {
+  width: 60%;
+}
+
+.button__img {
   display: flex;
   justify-content: center;
-  gap: 2px;
-  background-color:red;
-  color: white;
-  width: 100%;
+  background-color: aqua;
+}
+
+.button__img > img {
+  width: 40%;
+}
+
+/* ========== MEDIA QUERIES ( MEDIUM DEVICES ) ========== */
+
+@media screen and (max-width: 1024px) {
+  .container {
+    width: var(--container-width-medium);
+  }
+
+  .section {
+    margin-top: 6rem;
+}
+
+}
+
+
+/* ========== MEDIA QUERIES ( SMALL DEVICES ) ========== */
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: var(--container-width-small);
+  } 
 }
