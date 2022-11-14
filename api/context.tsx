@@ -41,7 +41,8 @@ export const ReducerContextProvider: React.FC = (props) => {
         ) => {
             const { type, payload } = action;
             switch (type) {
-                case "setAddress":
+                case "setWalletAddress":
+                  console.log("Setting wallet address")
                     return {
                         ...preState,
                         walletAddress: payload,

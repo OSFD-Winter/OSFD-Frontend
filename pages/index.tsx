@@ -30,7 +30,7 @@ import Footer from "../components/footer"
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
 
-import { ReducerContextProvider, useReducerConext } from "../api/context";
+import { ReducerContextProvider, useReducerContext } from "../api/context";
 
 const curated = [
   { contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1", factory: "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962" },
@@ -50,6 +50,8 @@ const Home: NextPage = () => {
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState("");
+
+  const { state, dispatch } = useReducerContext();
 
   const changeNetWork = async () => {
     try {
@@ -92,6 +94,7 @@ const Home: NextPage = () => {
               method: "eth_requestAccounts",
           });
           setAccountAddress(accounts[0]);
+          dispatch({ type: 'setWalletAddress' , payload:accounts[0]})
           changeNetWork();
       } catch (error) {
           setIsConnected(false);
