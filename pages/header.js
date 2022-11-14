@@ -1,7 +1,7 @@
-import React from 'react';
-import Logo from '../assets/osfd-big-logo.png';
-import Image from 'next/image';
-import Diamond from '../assets/diamond.png';
+import React from "react";
+import Logo from "../assets/osfd-big-logo.png";
+import Image from "next/image";
+import Diamond from "../assets/diamond.png";
 const header = () => {
     return (
         <div className="akshar__header">
