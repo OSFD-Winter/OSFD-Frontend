@@ -75,18 +75,52 @@ const Sandbox: NextPage = () => {
         }
     }, [zip]);
 
-
     return (
-        <Box sx={{ height: "100%", marginTop: 20, }}>
+        <Box sx={{ height: "100%", marginTop: 20, border: "4px solid black" }}>
             <div style={{ marginBlock: 20, fontSize: 30, display: "flex", justifyContent: "center", fontWeight: "bold", color: "#19217b" }}>
                 Builder Sandbox
             </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-                <img src={"./Sandbox.png"}></img>
+
+            <div style={{ display: "flex", justifyContent: "center", textAlign: "Left", fontSize: "1.2em", fontWeight: "500" }}>
+                <div>
+                    Builder Sandbox is designed for testing your generative art.
+                    <br></br>
+                    <div>
+                        Sandbox takes the zip file you created as input then returns randomly generated image. &nbsp;
+                        <a style={{ color: "darkblue" }} href="https://bafybeich73zpd2fa5wrmnesxgtjgkqc6swavca6yeig2uhfk4xbwgmaqta.ipfs.w3s.link/">Here</a> is an example zip file
+                    </div>
+
+                    <br></br>
+
+                    <div>
+                        First you need to start thinking with &quot;layers&quot;. &nbsp;
+                        <a style={{ color: "darkblue", textDecoration: "underline" }} href="https://edition.async.art/blog/generative-art-nfts-an-artists-guide">Here</a> is link for a good read
+                    </div>
+
+                    <br></br>
+                    To create the zip file you need a parent folder which will contain all the subfolders for each layer
+                    <br></br>
+                    In example zip our parent folder name is &quot;Poster&quot; and subfolders for layers are &quot;00-bg&quot;, &quot;01-title&quot;, &quot;02-leftnoun&quot; ...
+                    <br></br>
+                    As you can notice subfolder names have numbers as prefix, it is for layer composing order; lowest number means backmost layer
+                    <br></br>
+                    It uses alphabetical order thus using numbers optional
+                    <br></br>
+                    When you upload the zip file composer will randomly select single image from each layer and return the composed image
+                    <br></br>
+                    <br></br>
+
+                    <br></br>
+                    Sandbox <b> only </b> supports .png & .jpg files and your zip should only contains those
+                    <br></br>
+                    If you keep getting errors feel free to mail your zip and error message to
+                    <br></br>
+                    <b style={{ color: "darkblue" }}>x+1203246502370008@mail.asana.com</b>
+                    <br></br>
+                    <br></br>
+                </div>
             </div>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Button onClick={() => { window.open("https://whimsical.com/publish-2aKLEyPDbw6yZiULcquYf2", '_blank', 'noopener,noreferrer'); }} style={{ height: 35, backgroundColor: "#1b2f91", color: "white" }}>Publish Instructions </Button>
-            </Box>
+
             <Box style={{ height: 100, display: "flex", justifyContent: "center", padding: 10, alignItems: "center" }}>
                 <Input type="file" />
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -105,7 +139,7 @@ const Sandbox: NextPage = () => {
                             </div>
                         }
                     </Box>
-                    <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    {preview && <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <Button onClick={() => {
                             if (zip) {
                                 axios.get('https://sandbox-minter.herokuapp.com/tokens/preview/' + zip)
@@ -121,6 +155,7 @@ const Sandbox: NextPage = () => {
                             }
                         }} style={{ height: 35 }}>Variation </Button>
                     </Box>
+                    }
                 </Box>}
 
             <Box sx={{ display: "flex", justifyContent: "center" }}>

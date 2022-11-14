@@ -1,24 +1,24 @@
 // @ts-nocheck
 import { Box } from "@mui/material";
 
-import Banner from "../components/internsDAO/banner"
-import InternsDAOMinter from "../components/internsDAO/internsDAOMinter"
-import Proposals from "../components/internsDAO/proposals"
-import Footer from "../components/footer"
+import Banner from "../components/internsDAO/banner";
+import InternsDAOMinter from "../components/internsDAO/internsDAOMinter";
+import Proposals from "../components/proposals";
+import Footer from "../components/footer";
 import { Certificate } from "crypto";
 
 const InternsDAO: NextPage = () => {
+  const space = "internsdao.eth";
+  return (
+    <Box sx={{ height: "100%" }}>
+      <Banner></Banner>
+      <Proposals space={space}></Proposals>
 
-    return (
-        <Box sx={{ height: "100%" }}>
-            <Banner></Banner>
-            <Proposals></Proposals>
+      <InternsDAOMinter></InternsDAOMinter>
 
-            <InternsDAOMinter></InternsDAOMinter>
-
-            <Footer />
-        </Box >
-    );
+      <Footer />
+    </Box>
+  );
 };
 
 export default InternsDAO;

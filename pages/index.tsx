@@ -18,11 +18,11 @@ import { Box } from "@mui/system";
 import type { NextPage } from "next";
 import Link from 'next/link'
 import Router from 'next/router'
-import Feedback from "./feedback"
+import Feedback from "../components/feedback"
 import GoodsAbi from "../src/Goods.json";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
-import MintPreview from "./mintPreview"
+import MintPreview from "../components/mintPreview"
 import Sandbox from "./sandbox"
 import Header from "../components/header"
 import Footer from "../components/footer"
@@ -40,6 +40,75 @@ const curated = [
 const Home: NextPage = () => {
   const { active, activate, account, library } = useWeb3React();
   const [contracts, setContracts] = useState([])
+
+
+  const { ethereum } =  typeof window !== "undefined" && window;
+  const provider = typeof window !== "undefined" && new ethers.providers.Web3Provider(window.ethereum);
+
+  const [haveMetamask, sethaveMetamask] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
+  const [accountAddress, setAccountAddress] = useState("");
+
+  const changeNetWork = async () => {
+    try {
+        await ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: "0x5"}], // Goerli Testnet
+        });
+        setIsConnected(true);
+    } catch (err: any) {
+        // This error code indicates that the chain has not been added to MetaMask.
+        if (err.code === 4902) {
+          try {
+            await ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: '0x5',
+                  chainName: 'Goerli Testnet',
+                  rpcUrls: ['https://goerli.prylabs.net'],
+                },
+              ],
+            });
+            setIsConnected(true);
+          } catch (addError) {
+            // handle "add" error
+            setIsConnected(false);
+          }
+        }
+        // handle other "switch" errors
+        setIsConnected(false);
+    }    
+  }
+
+  const connectWallet = async () => {
+      try {
+          if (!ethereum) {
+              sethaveMetamask(false);
+          }
+          const accounts = await ethereum.request({
+              method: "eth_requestAccounts",
+          });
+          setAccountAddress(accounts[0]);
+          changeNetWork();
+      } catch (error) {
+          setIsConnected(false);
+      }
+  };
+
+  // See if Metamask is installed on browser
+  useEffect(() => {
+      if (window !== undefined) {
+        const { ethereum } = window;
+        const checkMetamaskAvailability = async () => {
+          if (!ethereum) {
+              sethaveMetamask(false);
+          }
+          sethaveMetamask(true);
+        };
+        checkMetamaskAvailability();
+      }  
+  }, []);
 
   useEffect(() => {
     async function getContracts() {
@@ -123,6 +192,25 @@ const Home: NextPage = () => {
     <div sx={{ height: "100%", backgroundImage: `url(bg.png)` }}>
       <img src={"./header.png"} width="100%"></img>
 
+      {/* Button to connect metamask */}
+      <div onClick={connectWallet} style={{display:isConnected?"None":"flex", position:"absolute", top:10, right:10, maxHeight:"60px", maxWidth:"280px", height:"100%", width:"100%", backgroundColor:"#306ac7", borderRadius:"5px",justifyContent:"center",color:"white", padding:"8px 24px", alignItems:"center", cursor:"pointer"}}>
+               {haveMetamask ? (
+                   <div>
+                       {isConnected ? (
+                           <></>
+                       ) : (
+                            <div style={{display:"flex", flexDirection:"row", alignItems:"center"}}>
+                                <div>Connect with Metamask</div>
+                                <img style={{height:"50px", marginLeft:"6px"}}
+                                src="MetaMask-logo.png"/>
+                            </div>
+                       )}
+                   </div>
+               ) : (
+                   <p>Please Install MataMask</p>
+               )}
+       </div>
+       
       {contracts && contracts[0] &&
         <div style={{ backgroundColor: "#dcdcdc", borderRadius: 30, marginInline: "5vw", display: "flex", marginBottom: 100 }}>
           <div style={{ textAlign: "center", width: "25vw", marginInline: 100, padding: 20 }}>
