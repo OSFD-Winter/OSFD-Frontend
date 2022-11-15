@@ -1,1 +1,1 @@
-export type ProposalState = "active" | "close";
+export type ProposalState = "active" | "closed";

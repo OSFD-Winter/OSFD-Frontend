@@ -81,7 +81,7 @@ const Sandbox: NextPage = () => {
                 Builder Sandbox
             </div>
 
-            <div style={{ display: "flex", justifyContent: "center", textAlign: "center", fontSize: "1.2em", fontWeight: "500" }}>
+            <div style={{ display: "flex", justifyContent: "center", textAlign: "Left", fontSize: "1.2em", fontWeight: "500" }}>
                 <div>
                     Builder Sandbox is designed for testing your generative art.
                     <br></br>
@@ -94,7 +94,7 @@ const Sandbox: NextPage = () => {
 
                     <div>
                         First you need to start thinking with &quot;layers&quot;. &nbsp;
-                        <a style={{ color: "darkblue" }} href="https://edition.async.art/blog/generative-art-nfts-an-artists-guide">Here</a> is link for a good read
+                        <a style={{ color: "darkblue", textDecoration: "underline" }} href="https://edition.async.art/blog/generative-art-nfts-an-artists-guide">Here</a> is link for a good read
                     </div>
 
                     <br></br>
@@ -111,7 +111,7 @@ const Sandbox: NextPage = () => {
                     <br></br>
 
                     <br></br>
-                    Sandbox <b> only </b> supports <b>.png & .jpg </b> files and your zip should only contains those
+                    Sandbox <b> only </b> supports .png & .jpg files and your zip should only contains those
                     <br></br>
                     If you keep getting errors feel free to mail your zip and error message to
                     <br></br>
