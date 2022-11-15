@@ -13,7 +13,7 @@ function Feedback({ hash: any }) {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [image, setImage] = useState(null);
-  const [url, seturl] = useState("");
+  const [url, seturl] = useState("TEMP");
   const [uploading, setUploading] = useState(false);
   let update = 1;
 
@@ -102,34 +102,42 @@ function Feedback({ hash: any }) {
           </>
         )}
         <div style={{ display: "flex", justifyContent: "left" }}>
-          <Box
-            style={{
-              height: 100,
-              display: "flex",
-              justifyContent: "center",
-              padding: 10,
-              alignItems: "center",
-            }}
-          >
-            <Input
-              type="file"
-              name="file"
-              id="input_img"
-              accept="image/*"
-              onChange={(event) => {
-                setImage(event.target.files[0]);
+          {url === "TEMP" ? (
+            <Box
+              style={{
+                height: 100,
+                display: "flex",
+                justifyContent: "center",
+                padding: 10,
+                alignItems: "center",
               }}
-            />
-            {uploading === false ? (
-              ""
-            ) : (
-              <img
-                src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
-                alt=""
-                height="30px"
+            >
+              <Input
+                type="file"
+                name="file"
+                id="input_img"
+                accept="image/*"
+                onChange={(event) => {
+                  setImage(event.target.files[0]);
+                }}
               />
-            )}
-          </Box>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <Button onClick={uploadImage} style={{ height: 35 }}>
+                  {uploading === false ? (
+                    "upload"
+                  ) : (
+                    <img
+                      src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
+                      alt=""
+                      height="30px"
+                    />
+                  )}
+                </Button>
+              </Box>
+            </Box>
+          ) : (
+            ""
+          )}
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Button
@@ -140,7 +148,6 @@ function Feedback({ hash: any }) {
             }}
             disabled={sent}
             onClick={() => {
-              uploadImage();
               axios
                 .post("https://osfd-backup-2.herokuapp.com/tokens/feedback", {
                   feedback: {
@@ -159,7 +166,6 @@ function Feedback({ hash: any }) {
                   setTitle("");
                   setDesc("");
                   setEmail("");
-                  seturl("");
                 });
             }}
           >
