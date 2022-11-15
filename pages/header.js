@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "../assets/osfd-big-logo.png";
 import Image from "next/image";
 import Diamond from "../assets/diamond.png";
-const header = () => {
+const Header = () => {
     return (
         <div className="akshar__header">
             <div className="akshar__logo">
@@ -15,4 +15,4 @@ const header = () => {
     );
 };
 
-export default header;
+export default Header;
