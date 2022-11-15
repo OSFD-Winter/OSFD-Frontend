@@ -1,10 +1,11 @@
 // @ts-nocheck
-import { storage } from "../src/firebase";
+import { storage } from "../src/firebase_images";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { Button, TextField, Paper, Box, Input } from "@mui/material";
 import { v4 } from "uuid";
+import spinnerImage from "../public/spinner.svg";
 
 function Feedback({ hash: any }) {
   const [title, setTitle] = useState("");
@@ -13,12 +14,13 @@ function Feedback({ hash: any }) {
   const [sent, setSent] = useState(false);
   const [image, setImage] = useState(null);
   const [url, seturl] = useState("");
+  const [uploading, setUploading] = useState(false);
   let update = 1;
 
   // handle image upload
   const uploadImage = () => {
     if (image == null) return;
-
+    setUploading(true);
     const address = `images/${image.name + v4()}`;
     const imageRef = ref(storage, address);
     if (update === 1) {
@@ -28,6 +30,7 @@ function Feedback({ hash: any }) {
         });
         alert("Image Uploaded");
         update = update - 1;
+        setUploading(false);
       });
     }
   };
@@ -98,16 +101,17 @@ function Feedback({ hash: any }) {
             <br></br>
           </>
         )}
-
         <div style={{ display: "flex", justifyContent: "left" }}>
-          <Button
-            variant="text"
-            style={{ height: "3vh", marginTop: "3vh" }}
-            component="label"
-            onClick={uploadImage}
+          <Box
+            style={{
+              height: 100,
+              display: "flex",
+              justifyContent: "center",
+              padding: 10,
+              alignItems: "center",
+            }}
           >
-            Upload Image
-            <input
+            <Input
               type="file"
               name="file"
               id="input_img"
@@ -116,9 +120,21 @@ function Feedback({ hash: any }) {
                 setImage(event.target.files[0]);
               }}
             />
-          </Button>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Button onClick={uploadImage} style={{ height: 35 }}>
+                {uploading === false ? (
+                  "upload"
+                ) : (
+                  <img
+                    src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
+                    alt=""
+                    height="30px"
+                  />
+                )}
+              </Button>
+            </Box>
+          </Box>
         </div>
-
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Button
             style={{
