@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React from "react";
 import Logo from "../assets/osfd-big-logo.png";
-import Image from "next/image";
 import Diamond from "../assets/diamond.png";
 const Header = () => {
     return (
