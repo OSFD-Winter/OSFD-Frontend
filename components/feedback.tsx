@@ -120,19 +120,15 @@ function Feedback({ hash: any }) {
                 setImage(event.target.files[0]);
               }}
             />
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <Button onClick={uploadImage} style={{ height: 35 }}>
-                {uploading === false ? (
-                  "upload"
-                ) : (
-                  <img
-                    src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
-                    alt=""
-                    height="30px"
-                  />
-                )}
-              </Button>
-            </Box>
+            {uploading === false ? (
+              ""
+            ) : (
+              <img
+                src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
+                alt=""
+                height="30px"
+              />
+            )}
           </Box>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -144,6 +140,7 @@ function Feedback({ hash: any }) {
             }}
             disabled={sent}
             onClick={() => {
+              uploadImage();
               axios
                 .post("https://osfd-backup-2.herokuapp.com/tokens/feedback", {
                   feedback: {
@@ -162,6 +159,7 @@ function Feedback({ hash: any }) {
                   setTitle("");
                   setDesc("");
                   setEmail("");
+                  seturl("");
                 });
             }}
           >
