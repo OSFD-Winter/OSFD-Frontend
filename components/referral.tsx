@@ -87,7 +87,7 @@ function Referral() {
             right: "0.8vw",
           }}
         >
-          Enter WAllet REFERRAL LINK
+          Enter Wallet REFFERAL LINK
         </span>
         <TextField
           variant="outlined"
@@ -150,7 +150,7 @@ function Referral() {
             left: "1.33vw",
           }}
         >
-          Your REFERRAL Link
+          Your REFFERAL Link
         </span>
         <TextField
           defaultValue={"https://www.teamnouns.xyz?ref=ref=0xC"}
@@ -231,9 +231,9 @@ function Referral() {
               // width: "127px",
               // maxheight: "108px",
               maxWidth: "calc(17px + 8.5vw)",
-              position: "relative",
+              position: "absolute",
               left: "4vw",
-              bottom: "-0.3vw",
+              bottom: "0vw",
             }}
           ></img>
         </a>
