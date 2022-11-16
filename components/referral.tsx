@@ -192,7 +192,7 @@ function Referral() {
       >
         <span
           style={{
-            fontSize: "calc(8px + 1vw)",
+            fontSize: "calc(5px + 1vw)",
             fontWeight: "bold",
             color: "white",
             marginRight: "5vw",
@@ -205,10 +205,10 @@ function Referral() {
         </span>
         <span
           style={{
-            fontSize: "calc(20px + 2vw)",
+            fontSize: "calc(14px + 2vw)",
             fontWeight: "bold",
             color: "white",
-            marginRight: 10,
+            marginRight: 15,
           }}
         >
           $671.24
