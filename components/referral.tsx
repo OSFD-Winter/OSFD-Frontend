@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
 import { FaCopy } from "react-icons/fa";
 
-function Refferal() {
+function Referral() {
   return (
     <div
       className="referralProgram"
@@ -287,5 +287,5 @@ function Refferal() {
   );
 }
 
-export default Refferal;
+export default Referral;
 
