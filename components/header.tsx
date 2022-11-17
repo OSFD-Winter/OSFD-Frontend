@@ -1,18 +1,50 @@
 // @ts-nocheck
-import { useEffect, useState } from "react";
-import axios from 'axios';
-import {
-    Button,
-    TextField,
-    Paper
-} from "@mui/material";
+import Image from "next/image";
+import osfd from "../public/osfd-big-logo.png";
+import diamond from "../public/diamond.png";
+const Header = () => {
+  return (
+    <div
+      className="akshar__header"
+      style={{
+        width: "100%",
+        maxHeight: "30vh",
+        backgroundImage: "linear-gradient(to right, #060124, #265cf0)",
+        display: "flex",
+      }}
+    >
+      <div
+        className="akshar__logo"
+        style={{
+          width: "20vw",
+          height: "inherit",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginLeft: "auto",
+          marginRight: "22vw",
+          marginTop: "0",
+          marginBottom: "0",
+        }}
+      >
+        <Image src={osfd} alt="main logo" fill />
+      </div>
+      <div
+        className="akshar__diamond"
+        style={{
+          width: "8vw",
+          height: "inherit",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginRight: "8vw",
+          opacity: "0.1",
+        }}
+      >
+        <Image src={diamond} alt="diamond logo" fill />
+      </div>
+    </div>
+  );
+};
 
-function Header({ hash }) {
-    return (
-        <div style={{ width: "100%", height: "20vh", backgroundImage: `linear-gradient(to bottom right, #0071e3, #009fe3)`, display: "flex", justifyContent: "center" }}>
-            <img src={"OSFD.svg"} style={{ height: "10vh" }}></img>
-        </div >
-    )
-}
-
-export default Header
+export default Header;
