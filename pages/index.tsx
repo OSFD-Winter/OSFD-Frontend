@@ -26,6 +26,7 @@ import MintPreview from "../components/mintPreview";
 import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Referral from "../components/referral";
 
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
@@ -961,6 +962,100 @@ const Home: NextPage = () => {
       </div>
     </div>
   );
+            </Box>
+
+            <Box
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "36%",
+                }}
+            >
+                <Paper
+                    elevation={3}
+                    style={{
+                        width: "24vh",
+                        marginInline: "10vh",
+                        textTransform: "none",
+                        textAlign: "center",
+                        padding: 10,
+                        backgroundColor: "#f8f8f8",
+                    }}
+                >
+                    <div
+                        style={{
+                            margin: 20,
+                            fontSize: 30,
+                            display: "flex",
+                            justifyContent: "center",
+                            fontWeight: "bold",
+                            color: "#19217b",
+                        }}
+                    >
+                        Are You a Founder ?
+                    </div>
+                    <Button
+                        style={{
+                            textAlign: "center",
+                            backgroundColor: "#1b2f91",
+                            color: "white",
+                        }}
+                        onClick={() => Router.push("/dao")}
+                    >
+                        Create DAO Offering
+                    </Button>
+                </Paper>
+
+                <Paper
+                    elevation={3}
+                    style={{
+                        width: "24vh",
+                        marginInline: "10vh",
+                        textTransform: "none",
+                        textAlign: "center",
+                        padding: 10,
+                        backgroundColor: "#f8f8f8",
+                    }}
+                >
+                    <div
+                        style={{
+                            margin: 20,
+                            fontSize: 30,
+                            display: "flex",
+                            justifyContent: "center",
+                            fontWeight: "bold",
+                            color: "#19217b",
+                        }}
+                    >
+                        Are You an Investor ?
+                    </div>
+                    <Button
+                        style={{
+                            textAlign: "center",
+                            backgroundColor: "#1b2f91",
+                            color: "white",
+                        }}
+                        onClick={() => Router.push("/explore")}
+                    >
+                        Discover DAO Offerings
+                    </Button>
+                </Paper>
+            </Box>
+            <Sandbox></Sandbox>
+
+            <div style={{ marginTop: 100 }}>
+                <Feedback></Feedback>
+            </div>
+            <div>
+                <Referral />
+            </div>
+
+            <div>
+                <Footer />
+            </div>
+        </div>
+    );
 };
 
 export default Home;
