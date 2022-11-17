@@ -22,13 +22,9 @@ import Dao from "./dao";
 import NounsHeader from "../components/nounsDAO/nounsHeader";
 import TreasuryDisplay from "../components/treasuryDisplay";
 import Footer from "../components/footer";
+import Referral from "../components/referral";
 
 const Home: NextPage = () => {
-  // const styles: Record<string,CSSInterpolation> = {
-  //     some:{
-  //         color:'red'
-  //     }
-  // }
   return (
     <div>
       <NounsHeader />
