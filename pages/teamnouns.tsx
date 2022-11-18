@@ -28,6 +28,7 @@ import { Contract } from "@ethersproject/contracts";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
 import GoodsAbi from "../src/Goods.json";
+import Referral from "../components/referral";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 const curated = [
   {

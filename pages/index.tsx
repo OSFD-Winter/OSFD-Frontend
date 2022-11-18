@@ -26,6 +26,7 @@ import MintPreview from "../components/mintPreview";
 import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Referral from "../components/referral";
 
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
@@ -989,6 +990,9 @@ const Home: NextPage = () => {
 
       <div style={{ marginTop: 100 }}>
         <Feedback></Feedback>
+      </div>
+      <div>
+        <Referral />
       </div>
 
       <div>
