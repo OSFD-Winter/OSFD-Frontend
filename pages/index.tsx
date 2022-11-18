@@ -26,7 +26,6 @@ import MintPreview from "../components/mintPreview";
 import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import Referral from "../components/referral";
 
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
@@ -53,11 +52,13 @@ const Home: NextPage = () => {
   const { ethereum } = typeof window !== "undefined" && window;
   const provider =
     typeof window !== "undefined" &&
-    haveMetamask &&
     new ethers.providers.Web3Provider(window.ethereum);
+
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState("");
+
+  const { state, dispatch } = useReducerContext();
 
   const changeNetWork = async () => {
     try {
@@ -89,8 +90,6 @@ const Home: NextPage = () => {
       // handle other "switch" errors
       setIsConnected(false);
     }
-    // handle other "switch" errors
-    setIsConnected(false);
   };
 
   const connectWallet = async () => {
@@ -157,12 +156,15 @@ const Home: NextPage = () => {
 
           detailedContracts.push(r);
         }
+
+        console.log(detailedContracts);
         setContracts(detailedContracts);
       } catch (error: any) {
         alert("Failed " + JSON.stringify(error));
         console.log("Failed  ", error);
       }
     }
+
     getContracts();
   }, []);
 
@@ -198,13 +200,8 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div
-      sx={{
-        height: "100%",
-        backgroundImage: `url(bg.png)`,
-      }}
-    >
-      <img src={"./header.png"} width="100%"></img>
+    <div sx={{ height: "100%", backgroundImage: `url(bg.png)` }}>
+      <Header />
 
       {/* Button to connect metamask */}
       <div
@@ -241,10 +238,7 @@ const Home: NextPage = () => {
               >
                 <div>Connect with Metamask</div>
                 <img
-                  style={{
-                    height: "50px",
-                    marginLeft: "6px",
-                  }}
+                  style={{ height: "50px", marginLeft: "6px" }}
                   src="MetaMask-logo.png"
                 />
               </div>
@@ -275,13 +269,7 @@ const Home: NextPage = () => {
           >
             <MintPreview hash={contracts[0].hash}></MintPreview>
           </div>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -376,13 +364,7 @@ const Home: NextPage = () => {
             marginBottom: 100,
           }}
         >
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -497,13 +479,7 @@ const Home: NextPage = () => {
           >
             <MintPreview hash={contracts[2].hash}></MintPreview>
           </div>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -598,13 +574,7 @@ const Home: NextPage = () => {
             marginBottom: 100,
           }}
         >
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -730,13 +700,7 @@ const Home: NextPage = () => {
           >
             <MintPreview hash={contracts[3].hash}></MintPreview>
           </div>
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -990,9 +954,6 @@ const Home: NextPage = () => {
 
       <div style={{ marginTop: 100 }}>
         <Feedback></Feedback>
-      </div>
-      <div>
-        <Referral />
       </div>
 
       <div>
