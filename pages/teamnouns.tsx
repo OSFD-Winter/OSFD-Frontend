@@ -288,7 +288,6 @@ const Home: NextPage = () => {
                 }}
               >
                 <MintPreview hash={contracts[3].hash}></MintPreview>
-                <Referral></Referral>
               </div>
             </x>
           )}
@@ -297,6 +296,7 @@ const Home: NextPage = () => {
           </a>
         </div>
       </div>
+      <Referral></Referral>
       <TreasuryDisplay
         safeAddress={"0x432b351Db56d95F0ed37c7De3E20249200f8d3C9"}
       ></TreasuryDisplay>
