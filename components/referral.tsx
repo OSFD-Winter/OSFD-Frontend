@@ -226,7 +226,7 @@ function Referral() {
       >
         <a style={{}}>
           <img
-            src="group 263.png"
+            src="leftNoun.png" alt="group 263.png"
             style={{
               // width: "127px",
               // maxheight: "108px",
