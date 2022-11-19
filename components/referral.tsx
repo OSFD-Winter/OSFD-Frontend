@@ -3,19 +3,38 @@ import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
 import { FaCopy } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import axios from "axios";
+
+const API_BASE_URL = "https://api.etherscan.io/";
 
 function Referral() {
     const [referrer, setReferrer] = useState("");
     const [referralLink, setReferralLink] = useState(
         "https://www.teamnouns.xyz?ref="
     );
+    const [currentRefferalAmount, setCurrentRefferalAmount] = useState(0);
+
     useEffect(() => {
+        getReferralRewardAmount();
         const URL = document.URL;
         if (URL.includes("ref=")) {
             const tempReferrer = document.URL.split("ref=")[1];
             setReferrer(tempReferrer);
         }
     }, []);
+    function getReferralRewardAmount() {
+        const apiPlaceholder = "5V84IP6PWKTS51SNIPDNUNURIBU74ERPBK";
+        axios
+            .get(
+                `${API_BASE_URL}api?module=stats&action=ethprice&apikey=${apiPlaceholder}`
+            )
+            .then((response) => {
+                setCurrentRefferalAmount(response.data.result.ethusd / 2);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
     return (
         <div
             className="referralProgram"
@@ -238,7 +257,7 @@ function Referral() {
                         marginRight: 15,
                     }}
                 >
-                    $671.24
+                    ${currentRefferalAmount}
                 </span>
             </div>
 
