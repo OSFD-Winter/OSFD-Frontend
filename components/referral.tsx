@@ -7,7 +7,7 @@ import axios from "axios";
 
 const API_BASE_URL = "https://api.etherscan.io/";
 
-function Referral() {
+function Referral({ address }) {
     const [referrer, setReferrer] = useState("");
     const [referralLink, setReferralLink] = useState(
         "https://www.teamnouns.xyz?ref="
@@ -57,22 +57,22 @@ function Referral() {
             <div
                 className="textImage"
                 style={{
+                    display: "flex",
+                    justifyContent: "center",
                     maxWidth: "100%",
                     color: "white",
                     minWidth: "2rem",
                     height: "auto",
                     textAlign: "center",
-                    padding: "10px",
-                    paddingTop: "50px",
+                    padding: "50px 10px 10px 10px",
                 }}
             >
                 {" "}
-                <a style={{ width: "500px" }}>
+                <a style={{ width: "13%" }}>
                     {" "}
                     <img
                         src="Group 276.png"
                         style={{
-                            width: "13%",
                             minWidth: "135px",
                             position: "relative",
                             top: "1vw",
@@ -241,7 +241,8 @@ function Referral() {
             >
                 <a style={{}}>
                     <img
-                        src="group 263.png"
+                        src="leftNoun.png"
+                        alt="group 263.png"
                         style={{
                             maxWidth: "calc(17px + 8.5vw)",
                             position: "absolute",
