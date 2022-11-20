@@ -15,7 +15,7 @@ function Referral() {
     const [currentRefferalAmount, setCurrentRefferalAmount] = useState(0);
 
     useEffect(() => {
-        // getReferralRewardAmount();
+        getReferralRewardAmount();
         const URL = document.URL;
         if (URL.includes("ref=")) {
             const tempReferrer = document.URL.split("ref=")[1];
@@ -99,21 +99,13 @@ function Referral() {
                     className="referral-row"
                     style={{
                         paddingTop: 50,
-                        // display: "flex",
-                        // justifyContent: "space-around",
                     }}
                 >
                     <span
                         style={{
                             color: "white",
-                            // width: "calc(50rem + 1vw)",
                             fontSize: "calc(8px + 1vw)",
-                            gridArea: "",
-                            // paddingRight: 10,
                             fontWeight: "bold",
-                            // position: "relative",
-                            // top: "0.2vw",
-                            // right: "0.8vw",
                         }}
                     >
                         REFERRER
@@ -127,33 +119,24 @@ function Referral() {
                         size="small"
                         placeholder="youremail@gmail.com"
                         style={{
-                            // width: "800px",
                             gridArea: "1 / 2 / 2 / 3",
                             minWidth: 100,
                             color: "white",
                             borderRadius: 5,
                             backgroundColor: "white",
                             height: 40,
-                            // position: "relative",
-                            // top: "0.2vw",
                         }}
                     ></TextField>
-                    <Button
+                    {/* <Button
                         variant="outlined"
                         size="medium"
-                        // disabled
+                        disabled
                         style={{
                             gridArea: "1 / 3 / 3 / 4",
                             // visibility: "hidden",
                             backgroundColor: "white",
-                            // marginLeft: "3vw",
                             minWidth: "45px",
-                            // position: "relative",
-                            // top: 1,
-                            // right: "1vw",
-                            // width: "13vw",
                             fontSize: "calc(10px + 0.3vw)",
-                            height: "calc(31px + 0.7vw)",
                             borderRadius: 9,
                             color: "#0F155A",
                         }}
@@ -161,24 +144,20 @@ function Referral() {
                     >
                         {" "}
                         SEND
-                    </Button>
+                    </Button> */}
                 </div>
                 <div
                     className="referral-row"
                     style={{
-                        // display: "flex",
                         paddingTop: 20,
-                        // justifyContent: "space-around",
                     }}
                 >
                     <span
                         style={{
                             color: "white",
                             gridArea: "1 / 1 / 2 / 2",
-                            // width: "calc(50rem + 1vw)",
                             fontSize: "calc(8px + 1vw)",
                             fontWeight: "bold",
-                            position: "relative",
                         }}
                     >
                         Your REFFERAL Link
@@ -204,14 +183,12 @@ function Referral() {
                             ),
                         }}
                         style={{
-                            width: "527.5px",
                             minWidth: 90,
                             maxWidth: "550px",
                             color: "white",
                             position: "relative",
                             borderRadius: 5,
                             height: 40,
-                            // backgroundColor: "white",
                         }}
                         sx={{ backgroundColor: "white" }}
                     ></TextField>
@@ -266,8 +243,6 @@ function Referral() {
                     <img
                         src="group 263.png"
                         style={{
-                            // width: "127px",
-                            // maxheight: "108px",
                             maxWidth: "calc(17px + 8.5vw)",
                             position: "absolute",
                             left: "4vw",
