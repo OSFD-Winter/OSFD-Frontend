@@ -8,9 +8,9 @@
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write \"**/*.{js,ts,tsx}\"",
+    "lint:write": "next lint --cache --fix",
     "prepare": "husky install",
-    "pre-commit": "next lint",
-    "lint:write": "next lint --cache --fix"
+    "pre-commit": "npm run lint"
   },
   "husky": {
     "hooks": {
