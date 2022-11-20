@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body,
 #__next {
@@ -77,5 +81,4 @@ a {
     align-content: center;
     margin: 0 auto;
     width: 60%;
-
 }
