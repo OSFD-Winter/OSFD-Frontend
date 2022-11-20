@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useReducerContext } from "../api/context";
 
-const API_BASE_URL = "https://api.etherscan.io/";
+const API_BASE_URL = "https://api.coinbase.com/v2/prices/";
 
 function Referral() {
     const [referrer, setReferrer] = useState("");
@@ -33,13 +33,11 @@ function Referral() {
         }
     }, [state]);
     function getReferralRewardAmount() {
-        const apiPlaceholder = "5V84IP6PWKTS51SNIPDNUNURIBU74ERPBK";
         axios
-            .get(
-                `${API_BASE_URL}api?module=stats&action=ethprice&apikey=${apiPlaceholder}`
-            )
+            .get(`${API_BASE_URL}ETH-USD/buy`)
             .then((response) => {
-                setCurrentRefferalAmount(response.data.result.ethusd / 2);
+                const price: number = response.data.data.amount;
+                setCurrentRefferalAmount(price / 2);
             })
             .catch((error) => {
                 console.error(error);
