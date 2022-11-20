@@ -52,7 +52,6 @@ function Referral() {
                 backgroundImage:
                     "radial-gradient(circle at 44.6% 35.17%, #9f25a6 0, #9018a1 25%, #80059c 50%, #6f0097 75%, #5e0092 100%)",
                 height: 750,
-
                 borderRadius: 50,
                 width: "cal(85vw + 10vw)",
                 position: "relative",
