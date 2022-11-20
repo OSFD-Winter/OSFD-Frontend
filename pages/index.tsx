@@ -204,829 +204,760 @@ const Home: NextPage = () => {
             console.log("Failed to mint: ", error);
         }
     }
+    try {
+      const mintInitResult = await contract.mintGoods(1, {
+        value: cont.price.toString(),
+      });
 
-    return (
-        <div sx={{ height: "100%", backgroundImage: `url(bg.png)` }}>
-            <Header />
+      console.log(mintInitResult);
 
-            {/* Button to connect metamask */}
-            <div
-                onClick={connectWallet}
+      //alert("Successfully initiated mint!");
+
+      const receipt = await mintInitResult.wait();
+
+      console.log(receipt);
+
+      const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
+
+      console.log((await contract.baseURI()) + mintedTokenId);
+    } catch (error: any) {
+      alert("Failed to mint: " + JSON.stringify(error));
+      console.log("Failed to mint: ", error);
+    }
+  return (
+    <div
+      sx={{
+        height: "100%",
+        backgroundImage: `url(bg.png)`,
+      }}
+    >
+      <Header></Header>
+
+      {/* Button to connect metamask */}
+      <div
+        onClick={connectWallet}
+        style={{
+          display: isConnected ? "None" : "flex",
+          position: "absolute",
+          top: 10,
+          right: 10,
+          maxHeight: "60px",
+          maxWidth: "280px",
+          height: "100%",
+          width: "100%",
+          backgroundColor: "#306ac7",
+          borderRadius: "5px",
+          justifyContent: "center",
+          color: "white",
+          padding: "8px 24px",
+          alignItems: "center",
+          cursor: "pointer",
+        }}
+      >
+        {haveMetamask ? (
+          <div>
+            {isConnected ? (
+              <></>
+            ) : (
+              <div
                 style={{
-                    display: isConnected ? "None" : "flex",
-                    position: "absolute",
-                    top: 10,
-                    right: 10,
-                    maxHeight: "60px",
-                    maxWidth: "280px",
-                    height: "100%",
-                    width: "100%",
-                    backgroundColor: "#306ac7",
-                    borderRadius: "5px",
-                    justifyContent: "center",
-                    color: "white",
-                    padding: "8px 24px",
-                    alignItems: "center",
-                    cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
-            >
-                {haveMetamask ? (
-                    <div>
-                        {isConnected ? (
-                            <></>
-                        ) : (
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <div>Connect with Metamask</div>
-                                <img
-                                    style={{
-                                        height: "50px",
-                                        marginLeft: "6px",
-                                    }}
-                                    src="MetaMask-logo.png"
-                                />
-                            </div>
-                        )}
-                    </div>
-                ) : (
-                    <p>Please Install MataMask</p>
-                )}
-            </div>
-
-            {contracts && contracts[0] && (
-                <div
-                    style={{
-                        backgroundColor: "#dcdcdc",
-                        borderRadius: 30,
-                        marginInline: "5vw",
-                        display: "flex",
-                        marginBottom: 100,
-                    }}
-                >
-                    <div
-                        style={{
-                            textAlign: "center",
-                            width: "25vw",
-                            marginInline: 100,
-                            padding: 20,
-                        }}
-                    >
-                        <MintPreview hash={contracts[0].hash}></MintPreview>
-                    </div>
-                    <div
-                        style={{
-                            width: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <div style={{ width: "100%" }}>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: "1.5em",
-                                    color: "#01052a",
-                                }}
-                            >
-                                <h1>Join Team Nouns</h1>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    color: "#474747",
-                                }}
-                            >
-                                Lorem ipsum dolor sit amet, consetetur.
-                            </div>
-
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                }}
-                            >
-                                <Button
-                                    onClick={() =>
-                                        Router.push(
-                                            `/dao?daoAddress=${curated[0].factory}`
-                                        )
-                                    }
-                                    style={{
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                        paddingInline: 40,
-                                    }}
-                                >
-                                    VISIT PROJECT
-                                </Button>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                    color: "#556cd6",
-                                }}
-                            >
-                                supply:{" "}
-                                {contracts[0].supply - contracts[0].minted}/
-                                {contracts[0].supply}
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    style={{
-                                        textAlign: "center",
-                                        paddingInline: 40,
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                    }}
-                                    onClick={async () => {
-                                        mint(contracts[0]);
-                                    }}
-                                >
-                                    mint{" "}
-                                    {contracts[0].price / 1000000000000000000}{" "}
-                                    eth
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {contracts && contracts[1] && (
-                <div
-                    style={{
-                        backgroundColor: "#FC9CF9",
-                        borderRadius: 30,
-                        marginInline: "5vw",
-                        display: "flex",
-                        marginBottom: 100,
-                    }}
-                >
-                    <div
-                        style={{
-                            width: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <div style={{ width: "100%" }}>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: "1.5em",
-                                    color: "#01052a",
-                                }}
-                            >
-                                <h1>Mayan ST (MST)</h1>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    color: "#474747",
-                                }}
-                            >
-                                Lorem ipsum dolor sit amet, consetetur.
-                            </div>
-
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 40,
-                                }}
-                            >
-                                <Button
-                                    onClick={() =>
-                                        Router.push(
-                                            `/dao?daoAddress=${curated[1].factory}`
-                                        )
-                                    }
-                                    style={{
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                        paddingInline: 40,
-                                    }}
-                                >
-                                    VISIT PROJECT
-                                </Button>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                    color: "#556cd6",
-                                }}
-                            >
-                                supply:{" "}
-                                {contracts[1].supply - contracts[1].minted}/
-                                {contracts[1].supply}
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    style={{
-                                        textAlign: "center",
-                                        paddingInline: 40,
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                    }}
-                                    onClick={async () => {
-                                        mint(contracts[1]);
-                                    }}
-                                >
-                                    mint{" "}
-                                    {contracts[1].price / 1000000000000000000}{" "}
-                                    eth
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        style={{
-                            textAlign: "center",
-                            width: "25vw",
-                            marginInline: 100,
-                            padding: 20,
-                        }}
-                    >
-                        <MintPreview hash={contracts[1].hash}></MintPreview>
-                    </div>
-                </div>
-            )}
-
-            {contracts && contracts[2] && (
-                <div
-                    style={{
-                        backgroundColor: "#dbecc0",
-                        borderRadius: 30,
-                        marginInline: "5vw",
-                        display: "flex",
-                        marginBottom: 100,
-                    }}
-                >
-                    <div
-                        style={{
-                            textAlign: "center",
-                            width: "25vw",
-                            marginInline: 100,
-                            padding: 20,
-                        }}
-                    >
-                        <MintPreview hash={contracts[2].hash}></MintPreview>
-                    </div>
-                    <div
-                        style={{
-                            width: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <div style={{ width: "100%" }}>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: "1.5em",
-                                    color: "#01052a",
-                                }}
-                            >
-                                <h1>Vote Stamp (TNV)</h1>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    color: "#474747",
-                                }}
-                            >
-                                Lorem ipsum dolor sit amet, consetetur.
-                            </div>
-
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                }}
-                            >
-                                <Button
-                                    onClick={() =>
-                                        Router.push(
-                                            `/dao?daoAddress=${curated[2].factory}`
-                                        )
-                                    }
-                                    style={{
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                        paddingInline: 40,
-                                    }}
-                                >
-                                    VISIT PROJECT
-                                </Button>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                    color: "#556cd6",
-                                }}
-                            >
-                                supply:{" "}
-                                {contracts[2].supply - contracts[2].minted}/
-                                {contracts[2].supply}
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    style={{
-                                        textAlign: "center",
-                                        paddingInline: 40,
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                    }}
-                                    onClick={async () => {
-                                        mint(contracts[2]);
-                                    }}
-                                >
-                                    mint{" "}
-                                    {contracts[2].price / 1000000000000000000}{" "}
-                                    eth
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {contracts && contracts[3] && (
-                <div
-                    style={{
-                        backgroundColor: "#fff6e8",
-                        borderRadius: 30,
-                        marginInline: "5vw",
-                        display: "flex",
-                        marginBottom: 100,
-                    }}
-                >
-                    <div
-                        style={{
-                            width: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <div style={{ width: "100%" }}>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: "1.5em",
-                                    color: "#01052a",
-                                }}
-                            >
-                                <h1>Team Nouns DAO</h1>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: "1.2em",
-                                    color: "#01052a",
-                                }}
-                            >
-                                <h1>Certificates (TNDC)</h1>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    color: "#474747",
-                                }}
-                            >
-                                Lorem ipsum dolor sit amet, consetetur.
-                            </div>
-
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 40,
-                                }}
-                            >
-                                <Button
-                                    onClick={() =>
-                                        Router.push(
-                                            `/dao?daoAddress=${curated[3].factory}`
-                                        )
-                                    }
-                                    style={{
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                        paddingInline: 40,
-                                    }}
-                                >
-                                    VISIT PROJECT
-                                </Button>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                    color: "#556cd6",
-                                }}
-                            >
-                                supply:{" "}
-                                {contracts[3].supply - contracts[3].minted}/
-                                {contracts[3].supply}
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    style={{
-                                        textAlign: "center",
-                                        paddingInline: 40,
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                    }}
-                                    onClick={async () => {
-                                        mint(contracts[3]);
-                                    }}
-                                >
-                                    mint{" "}
-                                    {contracts[3].price / 1000000000000000000}{" "}
-                                    eth
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        style={{
-                            textAlign: "center",
-                            width: "50vw",
-                            marginInline: 100,
-                            padding: 20,
-                        }}
-                    >
-                        <MintPreview hash={contracts[3].hash}></MintPreview>
-                    </div>
-                </div>
-            )}
-
-            {contracts && contracts[3] && (
-                <div
-                    style={{
-                        backgroundColor: "#BFF5F1",
-                        borderRadius: 30,
-                        marginInline: "5vw",
-                        display: "flex",
-                        marginBottom: 100,
-                    }}
-                >
-                    <div
-                        style={{
-                            textAlign: "center",
-                            width: "50vw",
-                            marginInline: 100,
-                            padding: 20,
-                        }}
-                    >
-                        <MintPreview hash={contracts[3].hash}></MintPreview>
-                    </div>
-                    <div
-                        style={{
-                            width: "100%",
-                            display: "flex",
-                            alignItems: "center",
-                        }}
-                    >
-                        <div style={{ width: "100%" }}>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: "1.5em",
-                                    color: "#01052a",
-                                }}
-                            >
-                                <h1>Wyoming Structured</h1>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: "1.2em",
-                                    color: "#01052a",
-                                }}
-                            >
-                                <h1>DAO OFFERING</h1>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    color: "#474747",
-                                }}
-                            >
-                                Lorem ipsum dolor sit amet, consetetur.
-                            </div>
-
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                }}
-                            >
-                                <Button
-                                    onClick={() =>
-                                        Router.push(
-                                            `/dao?daoAddress=${curated[3].factory}`
-                                        )
-                                    }
-                                    style={{
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                        paddingInline: 40,
-                                    }}
-                                >
-                                    VISIT PROJECT
-                                </Button>
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                    color: "#556cd6",
-                                }}
-                            >
-                                supply:{" "}
-                                {contracts[3].supply - contracts[3].minted}/
-                                {contracts[3].supply}
-                            </div>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    marginTop: 20,
-                                }}
-                            >
-                                <Button
-                                    variant="contained"
-                                    style={{
-                                        textAlign: "center",
-                                        paddingInline: 40,
-                                        backgroundColor: "#1b2f91",
-                                        color: "white",
-                                    }}
-                                    onClick={async () => {
-                                        mint(contracts[3]);
-                                    }}
-                                >
-                                    mint{" "}
-                                    {contracts[3].price / 1000000000000000000}{" "}
-                                    eth
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            <Box
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}
-            >
-                {/*contracts &&
-          contracts.map(
-            (cont, index) =>
-              <Box
-                key={cont.address}
-                style={{ border: "2px black solid", marginInline: 40, marginBottom: 40, width: "15vw", padding: 5 }}
               >
-                <Box style={{ textAlign: "center", fontSize: "1.5em" }} >
-                  {cont.name}  {"(" + cont.symbol + ")"}
-                </Box>
+                <div>Connect with Metamask</div>
+                <img
+                  style={{
+                    height: "50px",
+                    marginLeft: "6px",
+                  }}
+                  src='MetaMask-logo.png'
+                />
+              </div>
+            )}
+          </div>
+        ) : (
+          <p>Please Install MataMask</p>
+        )}
+      </div>
 
-
-                <Box style={{ textAlign: "center" }} >
-                  {//<img src={ } style={{ width: "100%" }}></img>
-                  }
-                  <MintPreview hash={cont.hash} ></MintPreview>
-
-
-                  supply: {cont.supply - cont.minted}/{cont.supply}
-                  <br></br>
-                  <Button
-
-                    variant="contained"
-                    style={{ textAlign: "center", marginInline: 6 }}
-                    onClick={async () => {
-                      if (curated[index].factory) {
-                        Router.push(`/dao?daoAddress=${curated[index].factory}`)
-                        return
-                      }
-
-                      if (!library) {
-                        activate(injected);
-                        return
-                      }
-
-                      const signer = library.getSigner(account).connectUnchecked();
-                      const contract = new Contract(cont.address, GoodsAbi, signer);
-
-                      try {
-                        const mintInitResult = await contract.mintGoods(1, {
-                          value: (cont.price).toString(),
-                        });
-
-                        console.log(mintInitResult);
-
-                        //alert("Successfully initiated mint!");
-
-                        const receipt = await mintInitResult.wait();
-
-                        console.log(receipt);
-
-                        const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
-
-                        console.log(await contract.baseURI() + mintedTokenId);
-
-                      } catch (error: any) {
-                        alert("Failed to mint: " + JSON.stringify(error));
-                        console.log("Failed to mint: ", error);
-                      }
-                    }}
-                  >
-                    {curated[index].factory ? "visit" : <>mint {cont.price / 1000000000000000000} eth</>}
-                  </Button>
-                </Box>
-              </Box>
-          )
-                  */}
-            </Box>
-
-            <Box
+      {contracts && contracts[0] && (
+        <div
+          style={{
+            backgroundColor: "#dcdcdc",
+            borderRadius: 30,
+            marginInline: "5vw",
+            display: "flex",
+            marginTop: 100,
+            marginBottom: 100,
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              width: "25vw",
+              marginInline: 100,
+              padding: 20,
+            }}
+          >
+            <MintPreview hash={contracts[0].hash}></MintPreview>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ width: "100%" }}>
+              <div
                 style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "36%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.5em",
+                  color: "#01052a",
                 }}
-            >
-                <Paper
-                    elevation={3}
-                    style={{
-                        width: "24vh",
-                        marginInline: "10vh",
-                        textTransform: "none",
-                        textAlign: "center",
-                        padding: 10,
-                        backgroundColor: "#f8f8f8",
-                    }}
-                >
-                    <div
-                        style={{
-                            margin: 20,
-                            fontSize: 30,
-                            display: "flex",
-                            justifyContent: "center",
-                            fontWeight: "bold",
-                            color: "#19217b",
-                        }}
-                    >
-                        Are You a Founder ?
-                    </div>
-                    <Button
-                        style={{
-                            textAlign: "center",
-                            backgroundColor: "#1b2f91",
-                            color: "white",
-                        }}
-                        onClick={() => Router.push("/dao")}
-                    >
-                        Create DAO Offering
-                    </Button>
-                </Paper>
+              >
+                <h1>Join Team Nouns</h1>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#474747",
+                }}
+              >
+                Lorem ipsum dolor sit amet, consetetur.
+              </div>
 
-                <Paper
-                    elevation={3}
-                    style={{
-                        width: "24vh",
-                        marginInline: "10vh",
-                        textTransform: "none",
-                        textAlign: "center",
-                        padding: 10,
-                        backgroundColor: "#f8f8f8",
-                    }}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Button
+                  onClick={() =>
+                    Router.push(`/dao?daoAddress=${curated[0].factory}`)
+                  }
+                  style={{
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                    paddingInline: 40,
+                  }}
                 >
-                    <div
-                        style={{
-                            margin: 20,
-                            fontSize: 30,
-                            display: "flex",
-                            justifyContent: "center",
-                            fontWeight: "bold",
-                            color: "#19217b",
-                        }}
-                    >
-                        Are You an Investor ?
-                    </div>
-                    <Button
-                        style={{
-                            textAlign: "center",
-                            backgroundColor: "#1b2f91",
-                            color: "white",
-                        }}
-                        onClick={() => Router.push("/explore")}
-                    >
-                        Discover DAO Offerings
-                    </Button>
-                </Paper>
-            </Box>
-            <Sandbox></Sandbox>
-
-            <div style={{ marginTop: 100 }}>
-                <Feedback></Feedback>
+                  VISIT PROJECT
+                </Button>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                  color: "#556cd6",
+                }}
+              >
+                supply: {contracts[0].supply - contracts[0].minted}/
+                {contracts[0].supply}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Button
+                  variant='contained'
+                  style={{
+                    textAlign: "center",
+                    paddingInline: 40,
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                  }}
+                  onClick={async () => {
+                    mint(contracts[0]);
+                  }}
+                >
+                  mint {contracts[0].price / 1000000000000000000} eth
+                </Button>
+              </div>
             </div>
-            <div>
-                <Referral />
-            </div>
-            <div>
-                <Footer />
-            </div>
+          </div>
         </div>
-    );
+      )}
+
+      {contracts && contracts[1] && (
+        <div
+          style={{
+            backgroundColor: "#FC9CF9",
+            borderRadius: 30,
+            marginInline: "5vw",
+            display: "flex",
+            marginBottom: 100,
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ width: "100%" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.5em",
+                  color: "#01052a",
+                }}
+              >
+                <h1>Mayan ST (MST)</h1>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#474747",
+                }}
+              >
+                Lorem ipsum dolor sit amet, consetetur.
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 40,
+                }}
+              >
+                <Button
+                  onClick={() =>
+                    Router.push(`/dao?daoAddress=${curated[1].factory}`)
+                  }
+                  style={{
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                    paddingInline: 40,
+                  }}
+                >
+                  VISIT PROJECT
+                </Button>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                  color: "#556cd6",
+                }}
+              >
+                supply: {contracts[1].supply - contracts[1].minted}/
+                {contracts[1].supply}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Button
+                  variant='contained'
+                  style={{
+                    textAlign: "center",
+                    paddingInline: 40,
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                  }}
+                  onClick={async () => {
+                    mint(contracts[1]);
+                  }}
+                >
+                  mint {contracts[1].price / 1000000000000000000} eth
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div
+            style={{
+              textAlign: "center",
+              width: "25vw",
+              marginInline: 100,
+              padding: 20,
+            }}
+          >
+            <MintPreview hash={contracts[1].hash}></MintPreview>
+          </div>
+        </div>
+      )}
+
+      {contracts && contracts[2] && (
+        <div
+          style={{
+            backgroundColor: "#dbecc0",
+            borderRadius: 30,
+            marginInline: "5vw",
+            display: "flex",
+            marginBottom: 100,
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              width: "25vw",
+              marginInline: 100,
+              padding: 20,
+            }}
+          >
+            <MintPreview hash={contracts[2].hash}></MintPreview>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ width: "100%" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.5em",
+                  color: "#01052a",
+                }}
+              >
+                <h1>Vote Stamp (TNV)</h1>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#474747",
+                }}
+              >
+                Lorem ipsum dolor sit amet, consetetur.
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Button
+                  onClick={() =>
+                    Router.push(`/dao?daoAddress=${curated[2].factory}`)
+                  }
+                  style={{
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                    paddingInline: 40,
+                  }}
+                >
+                  VISIT PROJECT
+                </Button>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                  color: "#556cd6",
+                }}
+              >
+                supply: {contracts[2].supply - contracts[2].minted}/
+                {contracts[2].supply}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Button
+                  variant='contained'
+                  style={{
+                    textAlign: "center",
+                    paddingInline: 40,
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                  }}
+                  onClick={async () => {
+                    mint(contracts[2]);
+                  }}
+                >
+                  mint {contracts[2].price / 1000000000000000000} eth
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {contracts && contracts[3] && (
+        <div
+          style={{
+            backgroundColor: "#fff6e8",
+            borderRadius: 30,
+            marginInline: "5vw",
+            display: "flex",
+            marginBottom: 100,
+          }}
+        >
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ width: "100%" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.5em",
+                  color: "#01052a",
+                }}
+              >
+                <h1>Team Nouns DAO</h1>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.2em",
+                  color: "#01052a",
+                }}
+              >
+                <h1>Certificates (TNDC)</h1>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#474747",
+                }}
+              >
+                Lorem ipsum dolor sit amet, consetetur.
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 40,
+                }}
+              >
+                <Button
+                  onClick={() =>
+                    Router.push(`/dao?daoAddress=${curated[3].factory}`)
+                  }
+                  style={{
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                    paddingInline: 40,
+                  }}
+                >
+                  VISIT PROJECT
+                </Button>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                  color: "#556cd6",
+                }}
+              >
+                supply: {contracts[3].supply - contracts[3].minted}/
+                {contracts[3].supply}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Button
+                  variant='contained'
+                  style={{
+                    textAlign: "center",
+                    paddingInline: 40,
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                  }}
+                  onClick={async () => {
+                    mint(contracts[3]);
+                  }}
+                >
+                  mint {contracts[3].price / 1000000000000000000} eth
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div
+            style={{
+              textAlign: "center",
+              width: "50vw",
+              marginInline: 100,
+              padding: 20,
+            }}
+          >
+            <MintPreview hash={contracts[3].hash}></MintPreview>
+          </div>
+        </div>
+      )}
+
+      {contracts && contracts[3] && (
+        <div
+          style={{
+            backgroundColor: "#BFF5F1",
+            borderRadius: 30,
+            marginInline: "5vw",
+            display: "flex",
+            marginBottom: 100,
+          }}
+        >
+          <div
+            style={{
+              textAlign: "center",
+              width: "50vw",
+              marginInline: 100,
+              padding: 20,
+            }}
+          >
+            <MintPreview hash={contracts[3].hash}></MintPreview>
+          </div>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <div style={{ width: "100%" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.5em",
+                  color: "#01052a",
+                }}
+              >
+                <h1>Wyoming Structured</h1>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "1.2em",
+                  color: "#01052a",
+                }}
+              >
+                <h1>DAO OFFERING</h1>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#474747",
+                }}
+              >
+                Lorem ipsum dolor sit amet, consetetur.
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Button
+                  onClick={() =>
+                    Router.push(`/dao?daoAddress=${curated[3].factory}`)
+                  }
+                  style={{
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                    paddingInline: 40,
+                  }}
+                >
+                  VISIT PROJECT
+                </Button>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                  color: "#556cd6",
+                }}
+              >
+                supply: {contracts[3].supply - contracts[3].minted}/
+                {contracts[3].supply}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Button
+                  variant='contained'
+                  style={{
+                    textAlign: "center",
+                    paddingInline: 40,
+                    backgroundColor: "#1b2f91",
+                    color: "white",
+                  }}
+                  onClick={async () => {
+                    mint(contracts[3]);
+                  }}
+                >
+                  mint {contracts[3].price / 1000000000000000000} eth
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+      </Box>
+
+      <Box
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "36%",
+        }}
+      >
+        <Paper
+          elevation={3}
+          style={{
+            width: "24vh",
+            marginInline: "10vh",
+            textTransform: "none",
+            textAlign: "center",
+            padding: 10,
+            backgroundColor: "#f8f8f8",
+          }}
+        >
+          <div
+            style={{
+              margin: 20,
+              fontSize: 30,
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              color: "#19217b",
+            }}
+          >
+            Are You a Founder ?
+          </div>
+          <Button
+            style={{
+              textAlign: "center",
+              backgroundColor: "#1b2f91",
+              color: "white",
+            }}
+            onClick={() => Router.push("/dao")}
+          >
+            Create DAO Offering
+          </Button>
+        </Paper>
+
+        <Paper
+          elevation={3}
+          style={{
+            width: "24vh",
+            marginInline: "10vh",
+            textTransform: "none",
+            textAlign: "center",
+            padding: 10,
+            backgroundColor: "#f8f8f8",
+          }}
+        >
+          <div
+            style={{
+              margin: 20,
+              fontSize: 30,
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              color: "#19217b",
+            }}
+          >
+            Are You an Investor ?
+          </div>
+          <Button
+            style={{
+              textAlign: "center",
+              backgroundColor: "#1b2f91",
+              color: "white",
+            }}
+            onClick={() => Router.push("/explore")}
+          >
+            Discover DAO Offerings
+          </Button>
+        </Paper>
+      </Box>
+      <Sandbox></Sandbox>
+
+      <div style={{ marginTop: 100 }}>
+        <Feedback></Feedback>
+      </div>
+
+      <div>
+        <Footer />
+      </div>
+    </div>
+  );
 };
 
 export default Home;
