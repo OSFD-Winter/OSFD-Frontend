@@ -32,8 +32,6 @@ import { injected } from "../src/web3ReactInjector";
 
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
-// import 1 from "../img/1.png"
-
 const curated = [
   {
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
@@ -51,10 +49,11 @@ const Home: NextPage = () => {
   const { active, activate, account, library } = useWeb3React();
   const [contracts, setContracts] = useState([]);
 
-  // const { ethereum } = typeof window !== "undefined" && window;
-  // const provider =
-  //   typeof window !== "undefined" &&
-  //   new ethers.providers.Web3Provider(window.ethereum);
+const { ethereum } = typeof window !== "undefined" && window;
+  const provider =
+    typeof window !== "undefined" &&
+    haveMetamask &&
+    new ethers.providers.Web3Provider(window.ethereum);
 
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
