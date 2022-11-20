@@ -4,24 +4,34 @@ import InputAdornment from "@mui/material/InputAdornment";
 import { FaCopy } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useReducerContext } from "../api/context";
 
 const API_BASE_URL = "https://api.etherscan.io/";
 
-function Referral({ address }) {
+function Referral() {
     const [referrer, setReferrer] = useState("");
     const [referralLink, setReferralLink] = useState(
         "https://www.teamnouns.xyz?ref="
     );
     const [currentRefferalAmount, setCurrentRefferalAmount] = useState(0);
+    const { state } = useReducerContext();
+    const [walletAddress, setWalletAddress] = useState("");
 
     useEffect(() => {
         getReferralRewardAmount();
+        console.log(state);
         const URL = document.URL;
         if (URL.includes("ref=")) {
+            // Fill referrer input if URL is referral link
             const tempReferrer = document.URL.split("ref=")[1];
             setReferrer(tempReferrer);
         }
-    }, []);
+        const tempAddress = state.walletAddress;
+        if (tempAddress !== "") {
+            setWalletAddress(tempAddress);
+            setReferralLink("https://www.teamnouns.xyz?ref=" + tempAddress);
+        }
+    }, [state]);
     function getReferralRewardAmount() {
         const apiPlaceholder = "5V84IP6PWKTS51SNIPDNUNURIBU74ERPBK";
         axios
