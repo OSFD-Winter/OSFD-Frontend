@@ -55,7 +55,7 @@ const Home: NextPage = () => {
     typeof window   !== "undefined" &&
     haveMetamask &&
     new ethers.providers.Web3Provider(window.ethereum);
-  const [haveMetamask, sethaveMetamask] = useState(true);
+    const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState("");
 
