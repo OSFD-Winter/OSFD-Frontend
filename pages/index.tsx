@@ -48,7 +48,44 @@ const curated = [
 
 const Home: NextPage = () => {
   const { active, activate, account, library } = useWeb3React();
-  const [contracts, setContracts] = useState([]);
+  const [contracts, setContracts] = useState([
+    {
+      address: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
+      hash: "bafkreiffv5b3tyd2l4j5rti4snixwvghbxsqlnyn6aoxgzrnxbv7pqejhu",
+      minted: 36,
+      name: "Join Team Nouns",
+      price: 1000000000000000,
+      supply: 100,
+      symbol: "JTN",
+    },
+    {
+      address: "0x4DC9c815F265f491942ED1379758b8a87b2A34D5",
+      hash: "bafybeih7wv5h37tef3olkg7lra24ccgcltmtczekbycjytvribcf55vzhm",
+      minted: 27,
+      name: "Mayan ST",
+      price: 10000000000000000,
+      supply: 1000,
+      symbol: "MST",
+    },
+    {
+      address: "0xdE7e28AfbD62219E97c3BfC5C792576a2ff7c497",
+      name: "Vote Stamp",
+      symbol: "TNV",
+      price: 10000000000000,
+      supply: 1000000, minted: 21, hash: "bafkreigpnzgdynfdnvlspgcoi6b5mtc5wf4af6tqtkir5az7wzi4yt3rgq"
+    },
+    {
+      address: "0x54e305897419eE6941d8941c60724175B2ebAA0c",
+      name: "Team Nouns DAO Certificates",
+      symbol: "TNDC",
+      price: 1000000000000000000,
+      supply: 1000, minted: 2,
+      hash: "bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"
+    }
+
+
+
+  ]);
 
   const { ethereum } = typeof window !== "undefined" && window;
   const provider =
@@ -274,6 +311,7 @@ const Home: NextPage = () => {
             }}
           >
             <MintPreview hash={contracts[0].hash}></MintPreview>
+
           </div>
           <div
             style={{
