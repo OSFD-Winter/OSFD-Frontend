@@ -6,7 +6,7 @@ import { FaCopy } from "react-icons/fa";
 function Referral() {
   return (
     <div
-      className="referralProgram"
+      className='referralProgram'
       style={{
         backgroundImage:
           "radial-gradient(circle at 44.6% 35.17%, #9f25a6 0, #9018a1 25%, #80059c 50%, #6f0097 75%, #5e0092 100%)",
@@ -20,11 +20,11 @@ function Referral() {
         boxSizing: "border-box",
         maxWidth: "85%",
         marginLeft: "7.5%",
-        marginBottom: 100
+        marginBottom: 100,
       }}
     >
       <div
-        className="textImage"
+        className='textImage'
         style={{
           maxWidth: "100%",
           color: "white",
@@ -39,7 +39,7 @@ function Referral() {
         <a style={{ width: "500px" }}>
           {" "}
           <img
-            src="Group 276.png"
+            src='Group 276.png'
             style={{
               width: "13%",
               minWidth: "135px",
@@ -63,7 +63,7 @@ function Referral() {
       </div>
 
       <div
-        className="Refferal Wallet link"
+        className='Refferal Wallet link'
         style={{
           paddingTop: 50,
           textAlign: "center",
@@ -90,9 +90,9 @@ function Referral() {
           Enter Wallet REFFERAL LINK
         </span>
         <TextField
-          variant="outlined"
-          size="small"
-          placeholder="youremail@gmail.com"
+          variant='outlined'
+          size='small'
+          placeholder='youremail@gmail.com'
           style={{
             width: "800px",
             minWidth: 100,
@@ -107,8 +107,8 @@ function Referral() {
         ></TextField>
 
         <Button
-          variant="outlined"
-          size="medium"
+          variant='outlined'
+          size='medium'
           style={{
             backgroundColor: "white",
             marginLeft: "3vw",
@@ -154,14 +154,13 @@ function Referral() {
         </span>
         <TextField
           defaultValue={"https://www.teamnouns.xyz?ref=ref=0xC"}
-          
-          variant="outlined"
-          size="small"
+          variant='outlined'
+          size='small'
           InputProps={{
             readOnly: true,
             endAdornment: (
-              <InputAdornment position="end">
-                <FaCopy color="#0F155A" />
+              <InputAdornment position='end'>
+                <FaCopy color='#0F155A' />
               </InputAdornment>
             ),
           }}
@@ -173,7 +172,7 @@ function Referral() {
             position: "relative",
             left: "0.22vw",
             borderRadius: 5,
-            height: 40
+            height: 40,
 
             // backgroundColor: "white",
           }}
@@ -216,7 +215,7 @@ function Referral() {
       </div>
 
       <div
-        className="Images"
+        className='Images'
         style={{
           position: "absolute",
           bottom: 0,
@@ -226,7 +225,7 @@ function Referral() {
       >
         <a style={{}}>
           <img
-            src="group 263.png"
+            src='group 263.png'
             style={{
               // width: "127px",
               // maxheight: "108px",
@@ -240,7 +239,7 @@ function Referral() {
 
         <a style={{}}>
           <img
-            src="noun-205.png"
+            src='noun-205.png'
             style={{
               maxWidth: "calc(25px + 8.5vw)",
               position: "absolute",
@@ -251,7 +250,7 @@ function Referral() {
         </a>
         <a style={{}}>
           <img
-            src="noun-105.png"
+            src='noun-105.png'
             style={{
               maxWidth: "calc(17px + 8.5vw)",
               position: "absolute",
@@ -262,7 +261,7 @@ function Referral() {
         </a>
         <a>
           <img
-            src="noun-346.png"
+            src='noun-346.png'
             style={{
               maxWidth: "calc(20px + 9vw)",
               position: "absolute",
@@ -273,12 +272,12 @@ function Referral() {
         </a>
         <a style={{}}>
           <img
-            src="noun-227.png"
+            src='noun-227.png'
             style={{
               maxWidth: "calc(19px + 7vw)",
               position: "absolute",
               right: "5vw",
-              bottom: 0
+              bottom: 0,
             }}
           ></img>
         </a>
@@ -288,4 +287,3 @@ function Referral() {
 }
 
 export default Referral;
-

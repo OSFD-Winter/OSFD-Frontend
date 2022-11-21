@@ -26,6 +26,7 @@ import MintPreview from "../components/mintPreview";
 import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import Referral from "../components/referral";
 
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
@@ -47,18 +48,53 @@ const curated = [
 
 const Home: NextPage = () => {
   const { active, activate, account, library } = useWeb3React();
-  const [contracts, setContracts] = useState([]);
+  const [contracts, setContracts] = useState([
+    {
+      address: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
+      hash: "bafkreiffv5b3tyd2l4j5rti4snixwvghbxsqlnyn6aoxgzrnxbv7pqejhu",
+      minted: 36,
+      name: "Join Team Nouns",
+      price: 1000000000000000,
+      supply: 100,
+      symbol: "JTN",
+    },
+    {
+      address: "0x4DC9c815F265f491942ED1379758b8a87b2A34D5",
+      hash: "bafybeih7wv5h37tef3olkg7lra24ccgcltmtczekbycjytvribcf55vzhm",
+      minted: 27,
+      name: "Mayan ST",
+      price: 10000000000000000,
+      supply: 1000,
+      symbol: "MST",
+    },
+    {
+      address: "0xdE7e28AfbD62219E97c3BfC5C792576a2ff7c497",
+      name: "Vote Stamp",
+      symbol: "TNV",
+      price: 10000000000000,
+      supply: 1000000, minted: 21, hash: "bafkreigpnzgdynfdnvlspgcoi6b5mtc5wf4af6tqtkir5az7wzi4yt3rgq"
+    },
+    {
+      address: "0x54e305897419eE6941d8941c60724175B2ebAA0c",
+      name: "Team Nouns DAO Certificates",
+      symbol: "TNDC",
+      price: 1000000000000000000,
+      supply: 1000, minted: 2,
+      hash: "bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"
+    }
+
+
+
+  ]);
 
   const { ethereum } = typeof window !== "undefined" && window;
   const provider =
     typeof window !== "undefined" &&
+    haveMetamask &&
     new ethers.providers.Web3Provider(window.ethereum);
-
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState("");
-
-  const { state, dispatch } = useReducerContext();
 
   const changeNetWork = async () => {
     try {
@@ -90,6 +126,8 @@ const Home: NextPage = () => {
       // handle other "switch" errors
       setIsConnected(false);
     }
+    // handle other "switch" errors
+    setIsConnected(false);
   };
 
   const connectWallet = async () => {
@@ -156,15 +194,12 @@ const Home: NextPage = () => {
 
           detailedContracts.push(r);
         }
-
-        console.log(detailedContracts);
         setContracts(detailedContracts);
       } catch (error: any) {
         alert("Failed " + JSON.stringify(error));
         console.log("Failed  ", error);
       }
     }
-
     getContracts();
   }, []);
 
@@ -200,8 +235,13 @@ const Home: NextPage = () => {
   }
 
   return (
-    <div sx={{ height: "100%", backgroundImage: `url(bg.png)` }}>
-      <Header />
+    <div
+      sx={{
+        height: "100%",
+        backgroundImage: `url(bg.png)`,
+      }}
+    >
+      <Header></Header>
 
       {/* Button to connect metamask */}
       <div
@@ -238,8 +278,11 @@ const Home: NextPage = () => {
               >
                 <div>Connect with Metamask</div>
                 <img
-                  style={{ height: "50px", marginLeft: "6px" }}
-                  src="MetaMask-logo.png"
+                  style={{
+                    height: "50px",
+                    marginLeft: "6px",
+                  }}
+                  src='MetaMask-logo.png'
                 />
               </div>
             )}
@@ -256,6 +299,7 @@ const Home: NextPage = () => {
             borderRadius: 30,
             marginInline: "5vw",
             display: "flex",
+            marginTop: 100,
             marginBottom: 100,
           }}
         >
@@ -268,8 +312,15 @@ const Home: NextPage = () => {
             }}
           >
             <MintPreview hash={contracts[0].hash}></MintPreview>
+
           </div>
-          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -335,7 +386,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant="contained"
+                  variant='contained'
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -364,7 +415,13 @@ const Home: NextPage = () => {
             marginBottom: 100,
           }}
         >
-          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -430,7 +487,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant="contained"
+                  variant='contained'
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -479,7 +536,13 @@ const Home: NextPage = () => {
           >
             <MintPreview hash={contracts[2].hash}></MintPreview>
           </div>
-          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -545,7 +608,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant="contained"
+                  variant='contained'
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -574,7 +637,13 @@ const Home: NextPage = () => {
             marginBottom: 100,
           }}
         >
-          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -651,7 +720,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant="contained"
+                  variant='contained'
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -700,7 +769,13 @@ const Home: NextPage = () => {
           >
             <MintPreview hash={contracts[3].hash}></MintPreview>
           </div>
-          <div style={{ width: "100%", display: "flex", alignItems: "center" }}>
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
             <div style={{ width: "100%" }}>
               <div
                 style={{
@@ -777,7 +852,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant="contained"
+                  variant='contained'
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -803,73 +878,6 @@ const Home: NextPage = () => {
           justifyContent: "center",
         }}
       >
-        {/*contracts &&
-          contracts.map(
-            (cont, index) =>
-              <Box
-                key={cont.address}
-                style={{ border: "2px black solid", marginInline: 40, marginBottom: 40, width: "15vw", padding: 5 }}
-              >
-                <Box style={{ textAlign: "center", fontSize: "1.5em" }} >
-                  {cont.name}  {"(" + cont.symbol + ")"}
-                </Box>
-
-
-                <Box style={{ textAlign: "center" }} >
-                  {//<img src={ } style={{ width: "100%" }}></img>
-                  }
-                  <MintPreview hash={cont.hash} ></MintPreview>
-
-
-                  supply: {cont.supply - cont.minted}/{cont.supply}
-                  <br></br>
-                  <Button
-
-                    variant="contained"
-                    style={{ textAlign: "center", marginInline: 6 }}
-                    onClick={async () => {
-                      if (curated[index].factory) {
-                        Router.push(`/dao?daoAddress=${curated[index].factory}`)
-                        return
-                      }
-
-                      if (!library) {
-                        activate(injected);
-                        return
-                      }
-
-                      const signer = library.getSigner(account).connectUnchecked();
-                      const contract = new Contract(cont.address, GoodsAbi, signer);
-
-                      try {
-                        const mintInitResult = await contract.mintGoods(1, {
-                          value: (cont.price).toString(),
-                        });
-
-                        console.log(mintInitResult);
-
-                        //alert("Successfully initiated mint!");
-
-                        const receipt = await mintInitResult.wait();
-
-                        console.log(receipt);
-
-                        const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
-
-                        console.log(await contract.baseURI() + mintedTokenId);
-
-                      } catch (error: any) {
-                        alert("Failed to mint: " + JSON.stringify(error));
-                        console.log("Failed to mint: ", error);
-                      }
-                    }}
-                  >
-                    {curated[index].factory ? "visit" : <>mint {cont.price / 1000000000000000000} eth</>}
-                  </Button>
-                </Box>
-              </Box>
-          )
-                  */}
       </Box>
 
       <Box
