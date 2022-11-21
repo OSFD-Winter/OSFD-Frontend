@@ -20,8 +20,8 @@ import Link from "next/link";
 import Router from "next/router";
 import Feedback from "../components/feedback";
 import GoodsAbi from "../src/Goods.json";
-import { ethers } from "ethers";
-import { Contract } from "@ethersproject/contracts";
+         import { ethers } from "ethers";
+     import { Contract } from "@ethersproject/contracts";
 import MintPreview from "../components/mintPreview";
 import Sandbox from "./sandbox";
 import Header from "../components/header";
@@ -47,12 +47,12 @@ const curated = [
 ];
 
 const Home: NextPage = () => {
-  const { active, activate, account, library } = useWeb3React();
+      const { active, activate, account, library } = useWeb3React();
   const [contracts, setContracts] = useState([]);
 
-  const { ethereum } = typeof window !== "undefined" && window;
+  const { ethereum } =    typeof window !== "undefined" && window;
   const provider =
-    typeof window !== "undefined" &&
+    typeof window   !== "undefined" &&
     haveMetamask &&
     new ethers.providers.Web3Provider(window.ethereum);
   const [haveMetamask, sethaveMetamask] = useState(true);
