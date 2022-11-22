@@ -11,13 +11,17 @@ import {
     Typography,
     Input,
     TextField,
-    Paper
+    Paper,
+    FileInput
 } from "@mui/material";
 import { Box } from "@mui/system";
 import type { NextPage } from "next";
 
 import { FC, useCallback, useEffect, useState } from "react";
-import axios from 'axios';
+import axios from 'axios'
+
+/* eslint-disable @next/next/no-img-element */
+
 
 
 const Sandbox: NextPage = () => {
@@ -62,6 +66,22 @@ const Sandbox: NextPage = () => {
                 })
     }
 
+    async function getFile(){
+        
+        // query read input
+        var upload = document.getElementById('upload_file')
+        // get textbox dom
+        var doc = document.getElementById('doc');
+        // filename
+        var fileName = (upload.files[0] ? upload.files[0].name : " " );
+        // fileaddress
+        var filePath = upload.value;
+        // load name into textbox
+        doc.value = fileName;
+        console.log(fileName);
+        console.log(filePath);
+    }
+
     useEffect(() => {
         if (zip) {
             axios.get('https://sandbox-osfd.herokuapp.com/tokens/preview/' + zip)
@@ -78,7 +98,7 @@ const Sandbox: NextPage = () => {
     return (
         <Box sx={{ height: "100%", marginTop: 20, border: "4px solid black" }}>
             <div style={{ marginBlock: 20, fontSize: 30, display: "flex", justifyContent: "center", fontWeight: "bold", color: "#19217b" }}>
-                Builder Sandbox
+                Builder Sandbox Instruction
             </div>
 
             <div style={{ display: "flex", justifyContent: "center", textAlign: "Left", fontSize: "1.2em", fontWeight: "500" }}>
@@ -87,7 +107,11 @@ const Sandbox: NextPage = () => {
                     <br></br>
                     <div>
                         Sandbox takes the zip file you created as input then returns randomly generated image. &nbsp;
-                        <a style={{ color: "darkblue" }} href="https://bafybeich73zpd2fa5wrmnesxgtjgkqc6swavca6yeig2uhfk4xbwgmaqta.ipfs.w3s.link/">Here</a> is an example zip file
+                        
+                    </div>
+                    <div>
+                        <a style={{ color: "darkblue" }} href="https://bafybeich73zpd2fa5wrmnesxgtjgkqc6swavca6yeig2uhfk4xbwgmaqta.ipfs.w3s.link/">Here</a> 
+                            is an example zip file
                     </div>
 
                     <br></br>
@@ -102,29 +126,41 @@ const Sandbox: NextPage = () => {
                     <br></br>
                     In example zip our parent folder name is &quot;Poster&quot; and subfolders for layers are &quot;00-bg&quot;, &quot;01-title&quot;, &quot;02-leftnoun&quot; ...
                     <br></br>
-                    As you can notice subfolder names have numbers as prefix, it is for layer composing order; lowest number means backmost layer
+                    <div style={{display: "flex", justifyContent: "center",marginBlock:"20px"}}>
+                        <img classname="Folder Structure" src="./Sandbox Components/Folder Structure.svg" />
+                    
+                    </div>
+                    As you can notice subfolder names have numbers as prefix, it is for layer composing order; lowest number
                     <br></br>
-                    It uses alphabetical order thus using numbers optional
+                    means backmost layerlt uses alphabetical order thus using numbers optional. When you upload the zip file
                     <br></br>
-                    When you upload the zip file composer will randomly select single image from each layer and return the composed image
+                    composer will randomly select single image from each layer and return the composed image Sandbox only
                     <br></br>
+                    supports <b>.png & .jpg</b> files and your zip should only contains those.
                     <br></br>
 
                     <br></br>
-                    Sandbox <b> only </b> supports .png & .jpg files and your zip should only contains those
-                    <br></br>
                     If you keep getting errors feel free to mail your zip and error message to
                     <br></br>
-                    <b style={{ color: "darkblue" }}>x+1203246502370008@mail.asana.com</b>
+                     <b style={{ color: "darkblue" }}>tox+1203246502370008@mail.asana.com</b>
                     <br></br>
                     <br></br>
                 </div>
             </div>
 
-            <Box style={{ height: 100, display: "flex", justifyContent: "center", padding: 10, alignItems: "center" }}>
-                <Input type="file" />
+            <Box style={{ height: 100, display: "flex", justifyContent: "center", padding: 10, alignItems: "center", color:"grey"}}>
+                <Button component="label" onsubmit="return checksubmit()">
+                    <img src="./Sandbox Components/Choose File Button.svg"/>
+                    <Input type="file" id="upload_file" style={{opacity: 0, marginLeft:-60, width:75, }} onchange={getFile()}/>
+                    <input type="text" style={{height:50, display:"flex", fontSize:25}} id="doc"></input>
+                </Button>
+
+           
                 <Box sx={{ display: "flex", justifyContent: "center" }}>
-                    <Button onClick={upload} style={{ height: 35 }}>{uploading ? <img src={"./spinner.svg"} height="100%"></img> : "upload"} </Button>
+                <Button onClick={upload} style={{ height: 35 }}>
+                        {uploading ? <CircularProgress /> : <img src="./Sandbox Components/Upload Button.svg"/>} 
+                    
+                    </Button>  
                 </Box>
             </Box>
 
