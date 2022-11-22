@@ -4,12 +4,14 @@ import axios from "axios";
 import { Button, IconButton, TextField } from "@mui/material";
 import { CasinoOutlined } from "@mui/icons-material";
 
+import { SERVER } from "../utils/constants"
+
 function MintPreview({ hash }) {
   const [image, setImage] = useState("./spinner.svg");
 
   useEffect(() => {
     axios
-      .get(`https://osfd-backup-2.herokuapp.com/tokens/tokenPreview/${hash}`)
+      .get(`${SERVER}/tokens/tokenPreview/${hash}`)
       .then(({ data, status }) => {
         setImage(data.image);
       })
@@ -29,7 +31,7 @@ function MintPreview({ hash }) {
           setImage("./spinner.svg");
           axios
             .get(
-              `https://osfd-backup-2.herokuapp.com/tokens/tokenPreview/${hash}`
+              `${SERVER}/tokens/tokenPreview/${hash}`
             )
             .then(({ data, status }) => {
               setImage(data.image);
