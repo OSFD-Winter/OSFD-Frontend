@@ -9,7 +9,6 @@ function Footer() {
         position: "relative",
         height: "150px",
         color: "white",
-        width: "100vw",
       }}
     >
       <div
@@ -43,7 +42,7 @@ function Footer() {
           }}
         >
           {" "}
-          <img src='./osfd-small-logo.png' alt='osfd'></img>{" "}
+          <img src="./osfd-small-logo.png" alt="osfd"></img>{" "}
         </div>
 
         <div

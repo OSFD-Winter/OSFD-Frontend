@@ -198,34 +198,27 @@ const Home: NextPage = () => {
     <div>
       <NounsHeader />
       <div
-        className="container"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "20px",
-        }}
+        className="teamnouns-container flex justify-center items-center p-[20px] space-x-10 "
+        // style={{
+        //   display: "flex",
+        //   justifyContent: "center",
+        //   alignItems: "center",
+        //   padding: "20px",
+        // }}
+        //Using Tailwind instead
       >
-        <div
-          className="left-container"
-          style={{
-            maxWidth: "500px",
-            display: "flex",
-            flexDirection: "column",
-            fontFamily: "Poppins",
-            color: "#00008B",
-          }}
-        >
-          <span style={{ display: "flex", alignItems: "center" }}>
+        <div className="left-container text-[#00008B] flex flex-col font-[Poppins] max-w-[300px]">
+          <span className="flex items-center ">
             <img
               src={"./nounslogo.png"}
               alt="nouns-logo"
-              width="50px"
-              style={{ paddingRight: "5px" }}
+              className="pr-[5px] w-[50px]"
             />
-            <h2>TEAM NOUNS DAO MEMBERSHIP</h2>
+            <p className=" text-[1.5rem] font-extrabold">
+              TEAM NOUNS DAO MEMBERSHIP
+            </p>
           </span>
-          <span>
+          <span className="space-y-5 pt-5">
             <p style={{ fontSize: "1.2em" }}>
               <strong>750 Seats, 1 ETH</strong> Participation
             </p>
@@ -234,7 +227,7 @@ const Home: NextPage = () => {
               Treasury
             </p>
           </span>
-          <span>
+          <span className="space-y-5 pt-5">
             <p style={{ fontSize: "1.2em" }}>
               Capital to fund development of core technologies:
             </p>
@@ -243,56 +236,23 @@ const Home: NextPage = () => {
               Stamps, Scenes Art and Community Spaces
             </p>
           </span>
-          <h2>
+          <h2 className="pt-5">
             Current Available:
-            <x
-              style={{
-                padding: "0px 10px 0px 10px",
-                backgroundColor: "#00008B",
-                color: "white",
-                borderRadius: "0.5rem",
-                fontWeight: "bold",
-                marginLeft: "10px",
-              }}
-            >
+            <x className=" text-white text-lg font-bold ml-[10px] px-[15px] py-[5px] bg-[#00008B] rounded">
               750
             </x>
           </h2>
         </div>
-        <div
-          className="right-container"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className="right-container flex flex-col justify-center items-center">
           {contracts && contracts[3] && (
-            <x
-              style={{
-                padding: "0px 10px 0px 10px",
-                color: "white",
-                borderRadius: "0.5rem",
-                fontWeight: "bold",
-                marginLeft: "15px",
-                marginTop: "5px",
-              }}
-            >
-              <div
-                style={{
-                  textAlign: "center",
-                  width: "25vw",
-                  marginInline: 100,
-                  padding: 20,
-                }}
-              >
+            <x className="text-white rounded font-bold ml-[15px] mt-[5px]">
+              <div className=" text-center w-[20vw] p-15">
                 <MintPreview hash={contracts[3].hash}></MintPreview>
               </div>
             </x>
           )}
-          <a href="" style={{}}>
-            <img src="./joinEth.png" width="150px" />
+          <a href="">
+            <img src="./joinEth.png" className="w-[150px]" />
           </a>
         </div>
       </div>
