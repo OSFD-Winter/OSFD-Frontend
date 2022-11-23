@@ -47,9 +47,6 @@ const curated = [
 ];
 
 const Home: NextPage = () => {
-      const { active, activate, account, library } = useWeb3React();
-  const [contracts, setContracts] = useState([]);
-
   const { ethereum } =    typeof window !== "undefined" && window;
   const provider =
     typeof window   !== "undefined" &&
@@ -204,7 +201,7 @@ const Home: NextPage = () => {
         backgroundImage: `url(bg.png)`,
       }}
     >
-      <img src={"./header.png"} width='100%'></img>
+      <Header></Header>
 
       {/* Button to connect metamask */}
       <div
@@ -262,6 +259,7 @@ const Home: NextPage = () => {
             borderRadius: 30,
             marginInline: "5vw",
             display: "flex",
+            marginTop: 100,
             marginBottom: 100,
           }}
         >
@@ -274,6 +272,7 @@ const Home: NextPage = () => {
             }}
           >
             <MintPreview hash={contracts[0].hash}></MintPreview>
+
           </div>
           <div
             style={{
@@ -839,73 +838,6 @@ const Home: NextPage = () => {
           justifyContent: "center",
         }}
       >
-        {/*contracts &&
-          contracts.map(
-            (cont, index) =>
-              <Box
-                key={cont.address}
-                style={{ border: "2px black solid", marginInline: 40, marginBottom: 40, width: "15vw", padding: 5 }}
-              >
-                <Box style={{ textAlign: "center", fontSize: "1.5em" }} >
-                  {cont.name}  {"(" + cont.symbol + ")"}
-                </Box>
-
-
-                <Box style={{ textAlign: "center" }} >
-                  {//<img src={ } style={{ width: "100%" }}></img>
-                  }
-                  <MintPreview hash={cont.hash} ></MintPreview>
-
-
-                  supply: {cont.supply - cont.minted}/{cont.supply}
-                  <br></br>
-                  <Button
-
-                    variant="contained"
-                    style={{ textAlign: "center", marginInline: 6 }}
-                    onClick={async () => {
-                      if (curated[index].factory) {
-                        Router.push(`/dao?daoAddress=${curated[index].factory}`)
-                        return
-                      }
-
-                      if (!library) {
-                        activate(injected);
-                        return
-                      }
-
-                      const signer = library.getSigner(account).connectUnchecked();
-                      const contract = new Contract(cont.address, GoodsAbi, signer);
-
-                      try {
-                        const mintInitResult = await contract.mintGoods(1, {
-                          value: (cont.price).toString(),
-                        });
-
-                        console.log(mintInitResult);
-
-                        //alert("Successfully initiated mint!");
-
-                        const receipt = await mintInitResult.wait();
-
-                        console.log(receipt);
-
-                        const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
-
-                        console.log(await contract.baseURI() + mintedTokenId);
-
-                      } catch (error: any) {
-                        alert("Failed to mint: " + JSON.stringify(error));
-                        console.log("Failed to mint: ", error);
-                      }
-                    }}
-                  >
-                    {curated[index].factory ? "visit" : <>mint {cont.price / 1000000000000000000} eth</>}
-                  </Button>
-                </Box>
-              </Box>
-          )
-                  */}
       </Box>
 
       <Box
@@ -990,9 +922,6 @@ const Home: NextPage = () => {
 
       <div style={{ marginTop: 100 }}>
         <Feedback></Feedback>
-      </div>
-      <div>
-        <Referral />
       </div>
 
       <div>
