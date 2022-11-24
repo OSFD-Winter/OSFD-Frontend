@@ -1,9 +1,6 @@
 import type { ProposalState } from "./interfaces";
 
-export const getVotes = (
-  space: string,
-  proposalsState: ProposalState
-): string => {
+export const getVotes = (space: string, proposalsState: ProposalState): string => {
   return `query Proposals {
     proposals(
       first: 20,

@@ -7,7 +7,7 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "pre-commit": "yarn lint --fix && git add -A ."
+    "pre-commit": "prettier --write . && git add -A ."
   },
   "husky": {
     "hooks": {

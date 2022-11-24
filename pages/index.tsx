@@ -22,7 +22,7 @@ import Feedback from "../components/feedback";
 import GoodsAbi from "../src/Goods.json";
 import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
-           import MintPreview from "../components/mintPreview";
+import MintPreview from "../components/mintPreview";
 import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
