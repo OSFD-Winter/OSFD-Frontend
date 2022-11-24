@@ -19,6 +19,8 @@ import type { NextPage } from "next";
 import { FC, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
+import { SANDBOX } from "../utils/constants";
+
 const Sandbox: NextPage = () => {
   const [uploading, setUploading] = useState(false);
   const [zip, setZip] = useState("");
@@ -41,7 +43,7 @@ const Sandbox: NextPage = () => {
     formData.append("file", fileInput.files[0]);
 
     axios
-      .post("https://sandbox-osfd.herokuapp.com/tokens/zip", formData, {
+      .post(`${SANDBOX}/tokens/zip`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(({ data }) => {
@@ -61,7 +63,7 @@ const Sandbox: NextPage = () => {
   useEffect(() => {
     if (zip) {
       axios
-        .get("https://sandbox-osfd.herokuapp.com/tokens/preview/" + zip)
+        .get(`${SANDBOX}/tokens/preview/` + zip)
         .then(function ({ data }) {
           console.log(data);
           setPreview(data);
@@ -182,7 +184,7 @@ const Sandbox: NextPage = () => {
                 onClick={() => {
                   if (zip) {
                     axios
-                      .get("https://sandbox-osfd.herokuapp.com/tokens/preview/" + zip)
+                      .get(`${SANDBOX}/tokens/preview/` + zip)
                       .then(function ({ data }) {
                         console.log(data);
                         setPreview(data);

@@ -7,6 +7,8 @@ import { Button, TextField, Paper, Box, Input } from "@mui/material";
 import { v4 } from "uuid";
 import spinnerImage from "../public/spinner.svg";
 
+import { SERVER } from "../utils/constants";
+
 function Feedback({ hash: any }) {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -149,7 +151,7 @@ function Feedback({ hash: any }) {
             disabled={sent}
             onClick={() => {
               axios
-                .post("https://osfd-backup-2.herokuapp.com/tokens/feedback", {
+                .post(`${SERVER}/tokens/feedback`, {
                   feedback: {
                     title: title,
                     description:

@@ -38,6 +38,8 @@ import Router from "next/router";
 import Feedback from "../components/feedback";
 import Footer from "../components/footer";
 
+import { SERVER } from "../utils/constants";
+
 const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
 
 const Home: NextPage = () => {
@@ -107,7 +109,7 @@ const Home: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    axios.get("https://osfd-backup-2.herokuapp.com/tokens/zips").then(({ data }) => setZips(data));
+    axios.get(`${SERVER}/tokens/zips`).then(({ data }) => setZips(data));
   }, []);
 
   useEffect(() => {
@@ -118,7 +120,7 @@ const Home: NextPage = () => {
       setPreview({ name: "generating ...", image: "./spinner.svg" });
 
       axios
-        .get(`https://osfd-backup-2.herokuapp.com/tokens/tokenPreview/${chosenZip.hash}`)
+        .get(`${SERVER}/tokens/tokenPreview/${chosenZip.hash}`)
         .then(({ data, status }) => {
           setPreview(data);
           console.log(status);
@@ -160,19 +162,17 @@ const Home: NextPage = () => {
     const files = await res.files(); // Promise<Web3File[]>
     for (const file of files) {
       console.log(`${file.cid} ${file.name} ${file.size}`);
-      axios
-        .post("https://osfd-backup-2.herokuapp.com/tokens/zip", { hash: file.cid, name: file.name })
-        .then(() => {
-          //console.log(data)
+      axios.post(`${SERVER}/tokens/zip`, { hash: file.cid, name: file.name }).then(() => {
+        //console.log(data)
 
-          let zip = {
-            hash: file.cid,
-            name: file.name,
-          };
-          setZips(zips.concat([zip]));
-          setChosenZip(zip);
-          setUploading(false);
-        });
+        let zip = {
+          hash: file.cid,
+          name: file.name,
+        };
+        setZips(zips.concat([zip]));
+        setChosenZip(zip);
+        setUploading(false);
+      });
     }
   }
 
@@ -186,7 +186,7 @@ const Home: NextPage = () => {
       let res = await Factory.CreateNewGoods(
         name,
         symbol,
-        `https://osfd-backup-2.herokuapp.com/tokens/token/${chosenZip.hash}&`,
+        `${SERVER}/tokens/token/${chosenZip.hash}&`,
         description,
         supply,
         ethToGwei(price),
@@ -296,7 +296,7 @@ const Home: NextPage = () => {
               onClick={() => {
                 setPreview({ name: "generating ...", image: "./spinner.svg" });
                 axios
-                  .get(`https://osfd-backup-2.herokuapp.com/tokens/tokenPreview/${chosenZip.hash}`)
+                  .get(`${SERVER}/tokens/tokenPreview/${chosenZip.hash}`)
                   .then(({ data, status }) => {
                     setPreview(data);
                     console.log(status);

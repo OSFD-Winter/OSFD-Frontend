@@ -25,6 +25,8 @@ import Feedback from "../components/feedback";
 import Footer from "../components/footer";
 import MintLogs from "../components/mintLogs";
 
+import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
+
 const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
 
@@ -53,9 +55,7 @@ function Dao({ addr }) {
   useEffect(() => {
     if (step === 7 && DAOContract) {
       async function getContracts() {
-        const provider = new ethers.providers.JsonRpcProvider(
-          "https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5"
-        );
+        const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
 
         const Factory = new Contract(DAOContract.address, GoodsFactoryAbi, provider);
 
@@ -115,9 +115,7 @@ function Dao({ addr }) {
 
   useEffect(() => {
     async function getContracts() {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5"
-      );
+      const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
 
       const hexToDecimal = (hex) => parseInt(hex, 16);
 
