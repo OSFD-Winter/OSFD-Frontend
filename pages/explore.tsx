@@ -19,6 +19,8 @@ import axios from "axios";
 import Feedback from "../components/feedback";
 import Footer from "../components/footer";
 
+import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
+
 const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 
 function Explore() {
@@ -82,9 +84,7 @@ function Explore() {
   }
 
   async function getContractDetails() {
-    const provider = new ethers.providers.JsonRpcProvider(
-      "https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5"
-    );
+    const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
     const Factory = new Contract(DAO_FACTORY_ADDRESS, DAOFactoryAbi, provider);
 
     const hexToDecimal = (hex) => parseInt(hex, 16);

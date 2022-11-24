@@ -33,6 +33,8 @@ import { injected } from "../src/web3ReactInjector";
 
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
+import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
+
 const curated = [
   {
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
@@ -162,9 +164,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     async function getContracts() {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5"
-      );
+      const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
       const hexToDecimal = (hex) => parseInt(hex, 16);
       try {
         let detailedContracts = [];
