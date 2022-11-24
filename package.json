@@ -5,12 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext ts --ext tsx --ext js",
-    "type-check": "tsc --pretty --noEmit",
-    "format": "prettier --write \"**/*.{js,ts,tsx}\"",
-    "lint:write": "next lint --cache --fix",
+    "lint": "next lint",
     "prepare": "husky install",
-    "pre-commit": "npm run lint"
+    "pre-commit": "yarn lint --fix && git add -A ."
   },
   "husky": {
     "hooks": {
