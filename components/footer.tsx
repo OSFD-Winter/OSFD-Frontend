@@ -4,8 +4,7 @@ function Footer() {
   return (
     <footer
       style={{
-        backgroundImage:
-          "linear-gradient(to right, #01010A, #010529, #171e74, #2673FF)",
+        backgroundImage: "linear-gradient(to right, #01010A, #010529, #171e74, #2673FF)",
         position: "relative",
         height: "150px",
         color: "white",
@@ -29,8 +28,7 @@ function Footer() {
             fontSize: 17,
           }}
         >
-          <a href={"/terms"}> Terms of Service </a> | Sales Agreements | Privacy
-          Policy
+          <a href={"/terms"}> Terms of Service </a> | Sales Agreements | Privacy Policy
         </div>
         <div
           style={{
@@ -43,7 +41,7 @@ function Footer() {
           }}
         >
           {" "}
-          <img src='./osfd-small-logo.png' alt='osfd'></img>{" "}
+          <img src="./osfd-small-logo.png" alt="osfd"></img>{" "}
         </div>
 
         <div

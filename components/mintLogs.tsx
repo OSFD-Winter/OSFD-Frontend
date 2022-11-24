@@ -70,19 +70,13 @@ function MintLogs({ address }: addressProps) {
           return (
             <div key={minter.tokenID}>
               <p>
-                <span
-                  style={clickableStyle}
-                  onClick={() => handleAddressClick(minter.minterAddr)}
-                >
+                <span style={clickableStyle} onClick={() => handleAddressClick(minter.minterAddr)}>
                   {minter.minterAddr.slice(0, 6)}
                   ...
                   {minter.minterAddr.slice(38, 42)}
                 </span>
                 <span>&nbsp;minted&nbsp;</span>
-                <span
-                  style={clickableStyle}
-                  onClick={() => handleIDClick(minter.hash)}
-                >
+                <span style={clickableStyle} onClick={() => handleIDClick(minter.hash)}>
                   {minter.tokenID}!
                 </span>
               </p>

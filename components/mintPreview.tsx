@@ -28,9 +28,7 @@ function MintPreview({ hash }) {
         onClick={() => {
           setImage("./spinner.svg");
           axios
-            .get(
-              `https://osfd-backup-2.herokuapp.com/tokens/tokenPreview/${hash}`
-            )
+            .get(`https://osfd-backup-2.herokuapp.com/tokens/tokenPreview/${hash}`)
             .then(({ data, status }) => {
               setImage(data.image);
             })

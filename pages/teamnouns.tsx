@@ -61,17 +61,14 @@ const Home: NextPage = () => {
               <strong>750 Seats, 1 ETH</strong> Participation
             </p>
             <p style={{ fontSize: "0.7em" }}>
-              Wyoming DAO LLC Formation Snapshot Voting Structures Gnosis Safe
-              Treasury
+              Wyoming DAO LLC Formation Snapshot Voting Structures Gnosis Safe Treasury
             </p>
           </span>
           <span>
-            <p style={{ fontSize: "1.2em" }}>
-              Capital to fund development of core technologies:
-            </p>
+            <p style={{ fontSize: "1.2em" }}>Capital to fund development of core technologies:</p>
             <p style={{ fontSize: "0.7em" }}>
-              Messaging on Blockchains, Postcards, Generative Nouns NFTs,
-              Stamps, Scenes Art and Community Spaces
+              Messaging on Blockchains, Postcards, Generative Nouns NFTs, Stamps, Scenes Art and
+              Community Spaces
             </p>
           </span>
           <h2>
@@ -120,9 +117,7 @@ const Home: NextPage = () => {
           </x>
         </div>
       </div>
-      <TreasuryDisplay
-        safeAddress={"0x432b351Db56d95F0ed37c7De3E20249200f8d3C9"}
-      ></TreasuryDisplay>
+      <TreasuryDisplay safeAddress={"0x432b351Db56d95F0ed37c7De3E20249200f8d3C9"}></TreasuryDisplay>
       <Footer />
     </div>
   );
