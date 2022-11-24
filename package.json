@@ -7,12 +7,12 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
-    "pre-commit": "npm run lint --fix && git add -A ."
+    "pre-commit": "yarn lint --fix && git add -A ."
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm run type-check"
+      "pre-push": "yarn run type-check"
     }
   },
   "dependencies": {
