@@ -14,13 +14,13 @@ import {
   TextField,
   Paper,
 } from "@mui/material";
-  import { Box } from "@mui/system";
-    import type { NextPage } from "next";
+import { Box } from "@mui/system";
+import type { NextPage } from "next";
 import Link from "next/link";
 import Router from "next/router";
 import Feedback from "../components/feedback";
 import GoodsAbi from "../src/Goods.json";
-import { ethers } from "ethers";
+        import { ethers } from "ethers";
 import { Contract } from "@ethersproject/contracts";
 import MintPreview from "../components/mintPreview";
 import Sandbox from "./sandbox";
@@ -29,7 +29,7 @@ import Footer from "../components/footer";
 import Referral from "../components/referral";
 
 import { useWeb3React } from "@web3-react/core";
-import { injected } from "../src/web3ReactInjector";
+            import { injected } from "../src/web3ReactInjector";
 
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
@@ -38,10 +38,10 @@ const curated = [
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
     factory: "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962",
   },
-    {
-        contract: "0x4DC9c815F265f491942ED1379758b8a87b2A34D5",
-        factory: "0x4E02C328CA3Ff8A69be6c5ED23fE504AD61EdEb9",
-    },
+  {
+    contract: "0x4DC9c815F265f491942ED1379758b8a87b2A34D5",
+    factory: "0x4E02C328CA3Ff8A69be6c5ED23fE504AD61EdEb9",
+  },
   { contract: "0xdE7e28AfbD62219E97c3BfC5C792576a2ff7c497" },
   { contract: "0x54e305897419eE6941d8941c60724175B2ebAA0c" },
 ];
