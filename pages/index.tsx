@@ -1,18 +1,18 @@
 // @ts-nocheck
 import { useEffect, useState, useCallback } from "react";
 import {
-    Button,
-    Card,
-    CardActionArea,
-    CircularProgress,
-    IconButton,
-    Tab,
-    Tabs,
-    Tooltip,
-    Typography,
-    Input,
-    TextField,
-    Paper,
+  Button,
+  Card,
+  CardActionArea,
+  CircularProgress,
+  IconButton,
+  Tab,
+  Tabs,
+  Tooltip,
+  Typography,
+  Input,
+  TextField,
+  Paper,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import type { NextPage } from "next";
@@ -32,6 +32,8 @@ import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
 
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+
+import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
 
 const curated = [
   {
@@ -72,193 +74,186 @@ const Home: NextPage = () => {
       name: "Vote Stamp",
       symbol: "TNV",
       price: 10000000000000,
-      supply: 1000000, minted: 21, hash: "bafkreigpnzgdynfdnvlspgcoi6b5mtc5wf4af6tqtkir5az7wzi4yt3rgq"
+      supply: 1000000,
+      minted: 21,
+      hash: "bafkreigpnzgdynfdnvlspgcoi6b5mtc5wf4af6tqtkir5az7wzi4yt3rgq",
     },
     {
       address: "0x54e305897419eE6941d8941c60724175B2ebAA0c",
       name: "Team Nouns DAO Certificates",
       symbol: "TNDC",
       price: 1000000000000000000,
-      supply: 1000, minted: 2,
-      hash: "bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"
-    }
-
+      supply: 1000,
+      minted: 2,
+      hash: "bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi",
+    },
   ]);
 
-    const { ethereum } = typeof window !== "undefined" && window;
-    const provider =
-        typeof window !== "undefined" &&
-        haveMetamask &&
-        new ethers.providers.Web3Provider(window.ethereum);
+  const { ethereum } = typeof window !== "undefined" && window;
+  const provider =
+    typeof window !== "undefined" &&
+    haveMetamask &&
+    new ethers.providers.Web3Provider(window.ethereum);
 
-    const [haveMetamask, sethaveMetamask] = useState(true);
-    const [isConnected, setIsConnected] = useState(false);
-    const [accountAddress, setAccountAddress] = useState("");
+  const [haveMetamask, sethaveMetamask] = useState(true);
+  const [isConnected, setIsConnected] = useState(false);
+  const [accountAddress, setAccountAddress] = useState("");
 
-    const { state, dispatch } = useReducerContext();
+  const { state, dispatch } = useReducerContext();
 
-    const changeNetWork = async () => {
+  const changeNetWork = async () => {
+    try {
+      await ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0x5" }], // Goerli Testnet
+      });
+      setIsConnected(true);
+    } catch (err: any) {
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (err.code === 4902) {
         try {
-            await ethereum.request({
-                method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0x5" }], // Goerli Testnet
-            });
-            setIsConnected(true);
-        } catch (err: any) {
-            // This error code indicates that the chain has not been added to MetaMask.
-            if (err.code === 4902) {
-                try {
-                    await ethereum.request({
-                        method: "wallet_addEthereumChain",
-                        params: [
-                            {
-                                chainId: "0x5",
-                                chainName: "Goerli Testnet",
-                                rpcUrls: ["https://goerli.prylabs.net"],
-                            },
-                        ],
-                    });
-                    setIsConnected(true);
-                } catch (addError) {
-                    // handle "add" error
-                    setIsConnected(false);
-                }
-            }
-            // handle other "switch" errors
-            setIsConnected(false);
+          await ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: "0x5",
+                chainName: "Goerli Testnet",
+                rpcUrls: ["https://goerli.prylabs.net"],
+              },
+            ],
+          });
+          setIsConnected(true);
+        } catch (addError) {
+          // handle "add" error
+          setIsConnected(false);
         }
-    };
-
-    const connectWallet = async () => {
-        try {
-            if (!ethereum) {
-                sethaveMetamask(false);
-            }
-            const accounts = await ethereum.request({
-                method: "eth_requestAccounts",
-            });
-            setAccountAddress(accounts[0]);
-            dispatch({ type: "setWalletAddress", payload: accounts[0] });
-            changeNetWork();
-        } catch (error) {
-            setIsConnected(false);
-        }
-    };
-
-    // See if Metamask is installed on browser
-    useEffect(() => {
-        if (window !== undefined) {
-            const { ethereum } = window;
-            const checkMetamaskAvailability = async () => {
-                if (!ethereum) {
-                    sethaveMetamask(false);
-                }
-                sethaveMetamask(true);
-            };
-            checkMetamaskAvailability();
-        }
-    }, []);
-
-    useEffect(() => {
-        async function getContracts() {
-            const provider = new ethers.providers.JsonRpcProvider(
-                "https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5"
-            );
-            const hexToDecimal = (hex) => parseInt(hex, 16);
-            try {
-                let detailedContracts = [];
-                for (let i = 0; i < curated.length; i++) {
-                    const temp = new Contract(
-                        curated[i].contract,
-                        GoodsAbi,
-                        provider
-                    );
-                    let tempName = await temp.name();
-                    let tempSymbol = await temp.symbol();
-                    let tempPrice = await temp.goodsPrice();
-                    let tempSupply = await temp.MAX_GOODS();
-                    let tempMinted = await temp.totalSupply();
-                    //let tempPreview = await temp.previewImage()
-                    let base = await temp.baseURI();
-                    let tempHash = base.slice(-60, -1);
-
-                    console.log(typeof tempPrice);
-                    console.log(tempPrice);
-
-                    let r = {
-                        address: curated[i].contract,
-                        name: tempName,
-                        symbol: tempSymbol,
-                        price: hexToDecimal(tempPrice._hex),
-                        supply: hexToDecimal(tempSupply._hex),
-                        minted: hexToDecimal(tempMinted._hex),
-                        hash: tempHash,
-                    };
-
-                    detailedContracts.push(r);
-                }
-
-                console.log(detailedContracts);
-                setContracts(detailedContracts);
-            } catch (error: any) {
-                alert("Failed " + JSON.stringify(error));
-                console.log("Failed  ", error);
-            }
-        }
-
-        getContracts();
-    }, []);
-
-    async function mint(cont) {
-        if (!library) {
-            activate(injected);
-            return;
-        }
-
-        const signer = library.getSigner(account).connectUnchecked();
-        const contract = new Contract(cont.address, GoodsAbi, signer);
-
-        try {
-            const mintInitResult = await contract.mintGoods(1, {
-                value: cont.price.toString(),
-            });
-
-            console.log(mintInitResult);
-
-            //alert("Successfully initiated mint!");
-
-            const receipt = await mintInitResult.wait();
-
-            console.log(receipt);
-
-            const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
-
-            console.log((await contract.baseURI()) + mintedTokenId);
-        } catch (error: any) {
-            alert("Failed to mint: " + JSON.stringify(error));
-            console.log("Failed to mint: ", error);
-        }
-        try {
-            const mintInitResult = await contract.mintGoods(1, {
-              value: cont.price.toString(),
-            });
-      
-            console.log(mintInitResult);
-      
-            //alert("Successfully initiated mint!");
-      
-            const receipt = await mintInitResult.wait();
-      
-            console.log(receipt);
-      
-            const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
-      
-            console.log((await contract.baseURI()) + mintedTokenId);
-          } catch (error: any) {
-            alert("Failed to mint: " + JSON.stringify(error));
-            console.log("Failed to mint: ", error);
-          }
+      }
+      // handle other "switch" errors
+      setIsConnected(false);
     }
+  };
+
+  const connectWallet = async () => {
+    try {
+      if (!ethereum) {
+        sethaveMetamask(false);
+      }
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      setAccountAddress(accounts[0]);
+      dispatch({ type: "setWalletAddress", payload: accounts[0] });
+      changeNetWork();
+    } catch (error) {
+      setIsConnected(false);
+    }
+  };
+
+  // See if Metamask is installed on browser
+  useEffect(() => {
+    if (window !== undefined) {
+      const { ethereum } = window;
+      const checkMetamaskAvailability = async () => {
+        if (!ethereum) {
+          sethaveMetamask(false);
+        }
+        sethaveMetamask(true);
+      };
+      checkMetamaskAvailability();
+    }
+  }, []);
+
+  useEffect(() => {
+    async function getContracts() {
+      const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
+      const hexToDecimal = (hex) => parseInt(hex, 16);
+      try {
+        let detailedContracts = [];
+        for (let i = 0; i < curated.length; i++) {
+          const temp = new Contract(curated[i].contract, GoodsAbi, provider);
+          let tempName = await temp.name();
+          let tempSymbol = await temp.symbol();
+          let tempPrice = await temp.goodsPrice();
+          let tempSupply = await temp.MAX_GOODS();
+          let tempMinted = await temp.totalSupply();
+          //let tempPreview = await temp.previewImage()
+          let base = await temp.baseURI();
+          let tempHash = base.slice(-60, -1);
+
+          console.log(typeof tempPrice);
+          console.log(tempPrice);
+
+          let r = {
+            address: curated[i].contract,
+            name: tempName,
+            symbol: tempSymbol,
+            price: hexToDecimal(tempPrice._hex),
+            supply: hexToDecimal(tempSupply._hex),
+            minted: hexToDecimal(tempMinted._hex),
+            hash: tempHash,
+          };
+
+          detailedContracts.push(r);
+        }
+        setContracts(detailedContracts);
+      } catch (error: any) {
+        alert("Failed " + JSON.stringify(error));
+        console.log("Failed  ", error);
+      }
+    }
+    getContracts();
+  }, []);
+
+  async function mint(cont) {
+    if (!library) {
+      activate(injected);
+      return;
+    }
+
+    const signer = library.getSigner(account).connectUnchecked();
+    const contract = new Contract(cont.address, GoodsAbi, signer);
+
+    try {
+      const mintInitResult = await contract.mintGoods(1, {
+        value: cont.price.toString(),
+      });
+
+      console.log(mintInitResult);
+
+      //alert("Successfully initiated mint!");
+
+      const receipt = await mintInitResult.wait();
+
+      console.log(receipt);
+
+      const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
+
+      console.log((await contract.baseURI()) + mintedTokenId);
+    } catch (error: any) {
+      alert("Failed to mint: " + JSON.stringify(error));
+      console.log("Failed to mint: ", error);
+    }
+    try {
+      const mintInitResult = await contract.mintGoods(1, {
+        value: cont.price.toString(),
+      });
+
+      console.log(mintInitResult);
+
+      //alert("Successfully initiated mint!");
+
+      const receipt = await mintInitResult.wait();
+
+      console.log(receipt);
+
+      const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
+
+      console.log((await contract.baseURI()) + mintedTokenId);
+    } catch (error: any) {
+      alert("Failed to mint: " + JSON.stringify(error));
+      console.log("Failed to mint: ", error);
+    }
+  }
   return (
     <div
       sx={{
@@ -307,7 +302,7 @@ const Home: NextPage = () => {
                     height: "50px",
                     marginLeft: "6px",
                   }}
-                  src='MetaMask-logo.png'
+                  src="MetaMask-logo.png"
                 />
               </div>
             )}
@@ -337,7 +332,6 @@ const Home: NextPage = () => {
             }}
           >
             <MintPreview hash={contracts[0].hash}></MintPreview>
-
           </div>
           <div
             style={{
@@ -378,9 +372,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[0].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[0].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -399,8 +391,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[0].supply - contracts[0].minted}/
-                {contracts[0].supply}
+                supply: {contracts[0].supply - contracts[0].minted}/{contracts[0].supply}
               </div>
               <div
                 style={{
@@ -411,7 +402,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -479,9 +470,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[1].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[1].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -500,8 +489,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[1].supply - contracts[1].minted}/
-                {contracts[1].supply}
+                supply: {contracts[1].supply - contracts[1].minted}/{contracts[1].supply}
               </div>
               <div
                 style={{
@@ -512,7 +500,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -600,9 +588,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[2].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[2].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -621,8 +607,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[2].supply - contracts[2].minted}/
-                {contracts[2].supply}
+                supply: {contracts[2].supply - contracts[2].minted}/{contracts[2].supply}
               </div>
               <div
                 style={{
@@ -633,7 +618,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -712,9 +697,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[3].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[3].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -733,8 +716,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[3].supply - contracts[3].minted}/
-                {contracts[3].supply}
+                supply: {contracts[3].supply - contracts[3].minted}/{contracts[3].supply}
               </div>
               <div
                 style={{
@@ -745,7 +727,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -844,9 +826,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[3].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[3].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -865,8 +845,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[3].supply - contracts[3].minted}/
-                {contracts[3].supply}
+                supply: {contracts[3].supply - contracts[3].minted}/{contracts[3].supply}
               </div>
               <div
                 style={{
@@ -877,7 +856,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -902,8 +881,7 @@ const Home: NextPage = () => {
           alignItems: "center",
           justifyContent: "center",
         }}
-      >
-      </Box>
+      ></Box>
 
       <Box
         style={{
