@@ -11,13 +11,12 @@ const API_BASE_URL = "https://api.coinbase.com/v2/prices/";
 function Referral() {
   const [referrer, setReferrer] = useState("");
   const [referralLink, setReferralLink] = useState("https://www.teamnouns.xyz?ref=");
-  const [currentRefferalAmount, setCurrentRefferalAmount] = useState(0);
+  const [currentReferralAmount, setCurrentReferralAmount] = useState(0);
   const { state } = useReducerContext();
   const [walletAddress, setWalletAddress] = useState("");
 
   useEffect(() => {
     getReferralRewardAmount();
-    console.log(state);
     const URL = document.URL;
     if (URL.includes("ref=")) {
       // Fill referrer input if URL is referral link
@@ -28,14 +27,17 @@ function Referral() {
     if (tempAddress !== "") {
       setWalletAddress(tempAddress);
       setReferralLink("https://www.teamnouns.xyz?ref=" + tempAddress);
+    } else {
+      setReferralLink("Connect Your Wallet");
     }
   }, [state]);
+
   function getReferralRewardAmount() {
     axios
       .get(`${API_BASE_URL}ETH-USD/buy`)
       .then((response) => {
         const price: number = response.data.data.amount;
-        setCurrentRefferalAmount(price / 2);
+        setCurrentReferralAmount(price / 2);
       })
       .catch((error) => {
         console.error(error);
@@ -122,7 +124,7 @@ function Referral() {
             }}
             variant="outlined"
             size="small"
-            placeholder="youremail@gmail.com"
+            placeholder="Enter wallet address ex. 0x4ba..."
             style={{
               gridArea: "1 / 2 / 2 / 3",
               minWidth: 100,
@@ -165,9 +167,10 @@ function Referral() {
               fontWeight: "bold",
             }}
           >
-            Your REFFERAL Link
+            Your REFERRAL Link
           </span>
           <TextField
+            aria-readonly
             value={referralLink}
             variant="outlined"
             size="small"
@@ -228,7 +231,7 @@ function Referral() {
             marginRight: 15,
           }}
         >
-          ${currentRefferalAmount}
+          ${currentReferralAmount}
         </span>
       </div>
 
