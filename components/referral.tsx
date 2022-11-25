@@ -2,8 +2,47 @@ import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import InputAdornment from "@mui/material/InputAdornment";
 import { FaCopy } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useReducerContext } from "../api/context";
+
+const API_BASE_URL = "https://api.coinbase.com/v2/prices/";
 
 function Referral() {
+  const [referrer, setReferrer] = useState("");
+  const [referralLink, setReferralLink] = useState("https://www.teamnouns.xyz?ref=");
+  const [currentReferralAmount, setCurrentReferralAmount] = useState(0);
+  const { state } = useReducerContext();
+  const [walletAddress, setWalletAddress] = useState("");
+
+  useEffect(() => {
+    getReferralRewardAmount();
+    const URL = document.URL;
+    if (URL.includes("ref=")) {
+      // Fill referrer input if URL is referral link
+      const tempReferrer = document.URL.split("ref=")[1];
+      setReferrer(tempReferrer);
+    }
+    const tempAddress = state.walletAddress;
+    if (tempAddress !== "") {
+      setWalletAddress(tempAddress);
+      setReferralLink("https://www.teamnouns.xyz?ref=" + tempAddress);
+    } else {
+      setReferralLink("Connect Your Wallet");
+    }
+  }, [state]);
+
+  function getReferralRewardAmount() {
+    axios
+      .get(`${API_BASE_URL}ETH-USD/buy`)
+      .then((response) => {
+        const price: number = response.data.data.amount;
+        setCurrentReferralAmount(price / 2);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
   return (
     <div
       className="referralProgram"
@@ -11,7 +50,6 @@ function Referral() {
         backgroundImage:
           "radial-gradient(circle at 44.6% 35.17%, #9f25a6 0, #9018a1 25%, #80059c 50%, #6f0097 75%, #5e0092 100%)",
         height: 750,
-
         borderRadius: 50,
         width: "cal(85vw + 10vw)",
         position: "relative",
@@ -26,26 +64,27 @@ function Referral() {
       <div
         className="textImage"
         style={{
+          display: "flex",
+          justifyContent: "center",
           maxWidth: "100%",
           color: "white",
           minWidth: "2rem",
           height: "auto",
           textAlign: "center",
-          padding: "10px",
-          paddingTop: "50px",
+          padding: "50px 10px 10px 10px",
         }}
       >
         {" "}
-        <a style={{ width: "500px" }}>
+        <a style={{ width: "13%" }}>
           {" "}
           <img
             src="Group 276.png"
             style={{
-              width: "13%",
               minWidth: "135px",
               position: "relative",
               top: "1vw",
             }}
+            alt=""
           ></img>{" "}
         </a>
         <span
@@ -62,122 +101,104 @@ function Referral() {
         </span>
       </div>
 
-      <div
-        className="Refferal Wallet link"
-        style={{
-          paddingTop: 50,
-          textAlign: "center",
-          display: "flex",
-          width: "60%",
-          marginLeft: "17.7%",
-          justifyContent: "space-around",
-          // position: "relative",
-          // left: "4vw",
-        }}
-      >
-        <span
+      <div>
+        <div
+          className="grid grid-cols-referral-row w-3/5 mx-auto content-center justify-center"
           style={{
-            color: "white",
-            width: "calc(50rem + 1vw)",
-            fontSize: "calc(8px + 1vw)",
-            paddingRight: 10,
-            fontWeight: "bold",
-            position: "relative",
-            top: "0.2vw",
-            right: "0.8vw",
+            paddingTop: 50,
           }}
         >
-          Enter Wallet REFFERAL LINK
-        </span>
-        <TextField
-          variant="outlined"
-          size="small"
-          placeholder="youremail@gmail.com"
+          <span
+            style={{
+              color: "white",
+              fontSize: "calc(8px + 1vw)",
+              fontWeight: "bold",
+            }}
+          >
+            REFERRER
+          </span>
+          <TextField
+            value={referrer}
+            onChange={(e) => {
+              setReferrer(e.target.value);
+            }}
+            variant="outlined"
+            size="small"
+            placeholder="Enter wallet address ex. 0x4ba..."
+            style={{
+              gridArea: "1 / 2 / 2 / 3",
+              minWidth: 100,
+              color: "white",
+              borderRadius: 5,
+              backgroundColor: "white",
+              height: 40,
+            }}
+          ></TextField>
+          {/* <Button
+                        variant="outlined"
+                        size="medium"
+                        disabled
+                        style={{
+                            gridArea: "1 / 3 / 3 / 4",
+                            // visibility: "hidden",
+                            backgroundColor: "white",
+                            minWidth: "45px",
+                            fontSize: "calc(10px + 0.3vw)",
+                            borderRadius: 9,
+                            color: "#0F155A",
+                        }}
+                        sx={{ fontSize: "16 + 1vw", fontWeight: "bold" }}
+                    >
+                        {" "}
+                        SEND
+                    </Button> */}
+        </div>
+        <div
+          className="grid grid-cols-referral-row w-3/5 mx-auto content-center justify-center "
           style={{
-            width: "800px",
-            minWidth: 100,
-            color: "white",
-            borderRadius: 5,
-            backgroundColor: "white",
-            height: 40,
-            position: "relative",
-            top: "0.2vw",
-            // backgroundColor: "white",
-          }}
-        ></TextField>
-
-        <Button
-          variant="outlined"
-          size="medium"
-          style={{
-            backgroundColor: "white",
-            marginLeft: "3vw",
-            minWidth: "45px",
-            position: "relative",
-            top: 1,
-            right: "1vw",
-            width: "13vw",
-            fontSize: "calc(10px + 0.3vw)",
-            height: "calc(31px + 0.7vw)",
-            borderRadius: 9,
-            color: "#0F155A",
-          }}
-          sx={{ fontSize: "16 + 1vw", fontWeight: "bold" }}
-        >
-          {" "}
-          SEND
-        </Button>
-      </div>
-
-      <div
-        style={{
-          textAlign: "center",
-          display: "flex",
-          width: "60%",
-          marginLeft: "5.44%",
-          paddingTop: 20,
-          justifyContent: "space-around",
-        }}
-      >
-        <span
-          style={{
-            color: "white",
-            width: "calc(50rem + 1vw)",
-            fontSize: "calc(8px + 1vw)",
-            fontWeight: "bold",
-            position: "relative",
-            top: "0.2vw",
-            left: "1.33vw",
+            paddingTop: 20,
           }}
         >
-          Your REFFERAL Link
-        </span>
-        <TextField
-          defaultValue={"https://www.teamnouns.xyz?ref=ref=0xC"}
-          variant="outlined"
-          size="small"
-          InputProps={{
-            readOnly: true,
-            endAdornment: (
-              <InputAdornment position="end">
-                <FaCopy color="#0F155A" />
-              </InputAdornment>
-            ),
-          }}
-          style={{
-            width: "527.5px",
-            minWidth: 90,
-            maxWidth: "550px",
-            color: "white",
-            position: "relative",
-            left: "0.22vw",
-            borderRadius: 5,
-            height: 40,
-
-            // backgroundColor: "white",
-          }}
-          sx={{ backgroundColor: "white" }}
-        ></TextField>
+          <span
+            style={{
+              color: "white",
+              gridArea: "1 / 1 / 2 / 2",
+              fontSize: "calc(8px + 1vw)",
+              fontWeight: "bold",
+            }}
+          >
+            Your REFERRAL Link
+          </span>
+          <TextField
+            aria-readonly
+            value={referralLink}
+            variant="outlined"
+            size="small"
+            InputProps={{
+              readOnly: true,
+              endAdornment: (
+                <InputAdornment position="end">
+                  <FaCopy
+                    onClick={() => {
+                      navigator.clipboard.writeText(referralLink);
+                    }}
+                    style={{ cursor: "pointer" }}
+                    color="#0F155A"
+                  />
+                </InputAdornment>
+              ),
+            }}
+            style={{
+              minWidth: 90,
+              maxWidth: "550px",
+              color: "white",
+              position: "relative",
+              borderRadius: 5,
+              height: 40,
+            }}
+            sx={{ backgroundColor: "white" }}
+          ></TextField>
+        </div>
       </div>
       <div
         style={{
@@ -210,7 +231,7 @@ function Referral() {
             marginRight: 15,
           }}
         >
-          $671.24
+          ${currentReferralAmount}
         </span>
       </div>
 
@@ -225,10 +246,9 @@ function Referral() {
       >
         <a style={{}}>
           <img
-            src="group 263.png"
+            src="leftNoun.png"
+            alt="group 263.png"
             style={{
-              // width: "127px",
-              // maxheight: "108px",
               maxWidth: "calc(17px + 8.5vw)",
               position: "absolute",
               left: "4vw",

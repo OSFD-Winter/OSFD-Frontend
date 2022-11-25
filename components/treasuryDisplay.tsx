@@ -17,7 +17,7 @@ function TreasuryDisplay({ safeAddress }: displayProps) {
   }, []);
   async function getBalance() {
     const resp = await axios.get(
-      `${API_BASE_URL}api?module=account&action=balance&address=${safeAddress}&tag=latest&apikey=${apiPlaceholder}`
+      `${API_BASE_URL}/api?module=account&action=balance&address=${safeAddress}&tag=latest&apikey=${apiPlaceholder}`
     );
     const weiBalance = resp.data.result;
 
