@@ -7,8 +7,7 @@ type displayProps = {
   safeAddress: string;
 };
 
-//const API_BASE_URL = "https://api-goerli.etherscan.io/";
-const API_BASE_URL = "https://api.etherscan.io/";
+import { API_BASE_URL } from "../utils/constants";
 
 function TreasuryDisplay({ safeAddress }: displayProps) {
   const apiPlaceholder = "5V84IP6PWKTS51SNIPDNUNURIBU74ERPBK";
@@ -18,7 +17,7 @@ function TreasuryDisplay({ safeAddress }: displayProps) {
   }, []);
   async function getBalance() {
     const resp = await axios.get(
-      `${API_BASE_URL}api?module=account&action=balance&address=${safeAddress}&tag=latest&apikey=${apiPlaceholder}`
+      `${API_BASE_URL}/api?module=account&action=balance&address=${safeAddress}&tag=latest&apikey=${apiPlaceholder}`
     );
     const weiBalance = resp.data.result;
 

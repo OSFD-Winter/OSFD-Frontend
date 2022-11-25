@@ -1,12 +1,7 @@
 // @ts-nocheck
 
-
 function InternsDAOMinter() {
-    return (
-        <div>
-            minter
-        </div >
-    )
+  return <div>minter</div>;
 }
 
-export default InternsDAOMinter
+export default InternsDAOMinter;
