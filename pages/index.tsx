@@ -33,6 +33,8 @@ import { injected } from "../src/web3ReactInjector";
 
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
+import Navbar from "../components/navbar";
+
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
 
 const curated = [
@@ -235,6 +237,8 @@ const Home: NextPage = () => {
   }
 
   return (
+    <div>
+      <Navbar />
     <div
       sx={{
         height: "100%",
@@ -951,6 +955,7 @@ const Home: NextPage = () => {
         <Footer />
       </div>
     </div>
+        </div>
   );
 };
 
