@@ -94,12 +94,9 @@ const Home: NextPage = () => {
     typeof window !== "undefined" &&
     haveMetamask &&
     new ethers.providers.Web3Provider(window.ethereum);
-
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const [accountAddress, setAccountAddress] = useState("");
-
-  const { state, dispatch } = useReducerContext();
 
   const changeNetWork = async () => {
     try {
@@ -213,26 +210,6 @@ const Home: NextPage = () => {
     const signer = library.getSigner(account).connectUnchecked();
     const contract = new Contract(cont.address, GoodsAbi, signer);
 
-    try {
-      const mintInitResult = await contract.mintGoods(1, {
-        value: cont.price.toString(),
-      });
-
-      console.log(mintInitResult);
-
-      //alert("Successfully initiated mint!");
-
-      const receipt = await mintInitResult.wait();
-
-      console.log(receipt);
-
-      const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
-
-      console.log((await contract.baseURI()) + mintedTokenId);
-    } catch (error: any) {
-      alert("Failed to mint: " + JSON.stringify(error));
-      console.log("Failed to mint: ", error);
-    }
     try {
       const mintInitResult = await contract.mintGoods(1, {
         value: cont.price.toString(),
