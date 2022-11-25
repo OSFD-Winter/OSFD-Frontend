@@ -127,7 +127,7 @@ const Sandbox: NextPage = () => {
                     In example zip our parent folder name is &quot;Poster&quot; and subfolders for layers are &quot;00-bg&quot;, &quot;01-title&quot;, &quot;02-leftnoun&quot; ...
                     <br></br>
                     <div style={{display: "flex", justifyContent: "center",marginBlock:"20px"}}>
-                        <img classname="Folder Structure" src="./Sandbox Components/Folder Structure.svg" />
+                        <img className="Folder Structure" src="./Sandbox Components/Folder Structure.svg" />
                     
                     </div>
                     As you can notice subfolder names have numbers as prefix, it is for layer composing order; lowest number
