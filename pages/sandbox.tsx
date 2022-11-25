@@ -29,6 +29,7 @@ const Sandbox: NextPage = () => {
     const [zip, setZip] = useState("");
     const [preview, setPreview] = useState("");
     const [message, setMessage] = useState("");
+    
 
     async function upload() {
         if (uploading) {
@@ -68,21 +69,23 @@ const Sandbox: NextPage = () => {
 
     async function getFile(){
         
-        if (typeof document !== "undefined") {
-            document.getElementById('upload_file');
+        if (typeof document == "undefined") {
+            document.getElementById("upload_file");
         }
-        // query read input
-        var upload = document.getElementById('upload_file')
-        // get textbox dom
-        var doc = document.getElementById('doc');
-        // filename
-        var fileName = (upload.files[0] ? upload.files[0].name : " " );
-        // fileaddress
-        var filePath = upload.value;
-        // load name into textbox
-        doc.value = fileName;
-        console.log(fileName);
-        console.log(filePath);
+        else {
+            // query read input
+            const upload = document.getElementById("upload_file") 
+            // get textbox dom
+            var doc = document.getElementById('doc');
+            // filename
+            var fileName = (upload.files[0] ? upload.files[0].name : " " );
+            // fileaddress
+            var filePath = upload.value;
+            // load name into textbox
+            doc.value = fileName;
+            console.log(fileName);
+            console.log(filePath);
+            }
     }
 
     useEffect(() => {
