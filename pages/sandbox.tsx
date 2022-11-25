@@ -76,7 +76,7 @@ const Sandbox: NextPage = () => {
             // query read input
             //const upload = document.getElementById("upload_file")
             var upload = document.querySelector('input[type="file"]');
-            // get textbox dom
+            // get textbox dom.
             var doc = document.getElementById('doc');
             // filename
             var fileName = (upload.files[0] ? upload.files[0].name : " " );
