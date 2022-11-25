@@ -74,7 +74,8 @@ const Sandbox: NextPage = () => {
         }
         else {
             // query read input
-            const upload = document.getElementById("upload_file") 
+            //const upload = document.getElementById("upload_file")
+            var upload = document.querySelector('input[type="file"]');
             // get textbox dom
             var doc = document.getElementById('doc');
             // filename
