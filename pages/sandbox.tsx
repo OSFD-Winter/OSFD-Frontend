@@ -69,24 +69,20 @@ const Sandbox: NextPage = () => {
 
     async function getFile(){
         
-        if (typeof document == "undefined") {
-            document.getElementById("upload_file");
-        }
-        else {
-            // query read input
-            //const upload = document.getElementById("upload_file")
-            var upload = document.querySelector('input[type="file"]');
-            // get textbox dom.
-            var doc = document.getElementById('doc');
-            // filename
-            var fileName = (upload.files[0] ? upload.files[0].name : " " );
-            // fileaddress
-            var filePath = upload.value;
-            // load name into textbox
-            doc.value = fileName;
-            console.log(fileName);
-            console.log(filePath);
-            }
+        // query read input
+        //const upload = document.getElementById("upload_file")
+        var upload = document.querySelector('input[type="file"]');
+        // get textbox dom.
+        var doc = document.getElementById('doc');
+        // filename
+        var fileName = (upload.files[0] ? upload.files[0].name : " " );
+        // fileaddress
+        var filePath = upload.value;
+        // load name into textbox
+        doc.value = fileName;
+        console.log(fileName);
+        console.log(filePath);
+        
     }
 
     useEffect(() => {
