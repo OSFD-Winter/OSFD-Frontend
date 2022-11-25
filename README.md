@@ -7,7 +7,6 @@ npm i
 npm run dev
 <br>
 
-
 ## how to contribute / git basics
 
 Send Taner your github username to be added to the repo, you'll receive an invite through email.
@@ -37,5 +36,3 @@ When ready for code review, push to github and make a merge request. Then messag
 Make sure to pull to merge the latest code before pushing to avoid merge conflicts
 
 `git pull origin main` while on your branch
-
-

@@ -30,9 +30,7 @@ function Proposals({ space }) {
             <h1>{proposal.title}</h1>
             <p>{proposal.body}</p>
             {proposal.state == "active" && (
-              <p style={{ color: "red" }}>
-                Active until {toDateTime(proposal.end)}
-              </p>
+              <p style={{ color: "red" }}>Active until {toDateTime(proposal.end)}</p>
             )}
             {proposal.choices.map((choice) => (
               <button
