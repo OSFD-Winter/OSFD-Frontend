@@ -68,6 +68,9 @@ const Sandbox: NextPage = () => {
 
     async function getFile(){
         
+        if (typeof document !== "undefined") {
+            document.getElementById('upload_file');
+        }
         // query read input
         var upload = document.getElementById('upload_file')
         // get textbox dom
