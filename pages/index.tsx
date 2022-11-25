@@ -124,6 +124,8 @@ const Home: NextPage = () => {
           // handle "add" error
           setIsConnected(false);
         }
+        // handle other "switch" errors
+        setIsConnected(false);
       }
       // handle other "switch" errors
       setIsConnected(false);
@@ -231,6 +233,7 @@ const Home: NextPage = () => {
       console.log("Failed to mint: ", error);
     }
   }
+  
   return (
     <div
       sx={{
