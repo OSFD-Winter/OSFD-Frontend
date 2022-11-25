@@ -73,12 +73,3 @@ a {
   margin: 0;
   line-height: 1em;
 }
-
-.referral-row {
-  display: grid;
-  grid-template-columns: 30% 50% 13%;
-  justify-content: space-between;
-  align-content: center;
-  margin: 0 auto;
-  width: 60%;
-}

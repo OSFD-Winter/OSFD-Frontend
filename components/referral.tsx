@@ -103,7 +103,7 @@ function Referral() {
 
       <div>
         <div
-          className="referral-row"
+          className="grid grid-cols-referral-row w-3/5 mx-auto content-center justify-center"
           style={{
             paddingTop: 50,
           }}
@@ -154,7 +154,7 @@ function Referral() {
                     </Button> */}
         </div>
         <div
-          className="referral-row"
+          className="grid grid-cols-referral-row w-3/5 mx-auto content-center justify-center "
           style={{
             paddingTop: 20,
           }}

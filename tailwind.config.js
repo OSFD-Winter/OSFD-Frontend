@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        "referral-row": "30% 50% 13%",
+      },
+    },
   },
   plugins: [],
 };
