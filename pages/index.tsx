@@ -33,7 +33,7 @@ import { injected } from "../src/web3ReactInjector";
 
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar.tsx";
 const curated = [
   {
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",

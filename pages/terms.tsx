@@ -19,7 +19,7 @@ import Router from "next/router";
 import { FC, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "../components/footer";
-import Navbar from "../components/navbar";
+import Navbar from "../components/navbar.tsx";
 
 let p1 = `
 ●	You have working knowledge of web3 technologies, specifically NFTs aka Smart Contracts
