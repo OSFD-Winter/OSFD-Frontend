@@ -8,6 +8,7 @@ import createEmotionCache from "../src/createEmotionCache";
 import { Web3ReactProvider } from "@web3-react/core";
 import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+import '../styles/navbarcss.css'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 

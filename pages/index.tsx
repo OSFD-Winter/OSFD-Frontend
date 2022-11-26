@@ -33,8 +33,7 @@ import { injected } from "../src/web3ReactInjector";
 
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
-import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
-
+import Navbar from "../components/navbar";
 const curated = [
   {
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
@@ -164,7 +163,9 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     async function getContracts() {
-      const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
+      const provider = new ethers.providers.JsonRpcProvider(
+        "https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5"
+      );
       const hexToDecimal = (hex) => parseInt(hex, 16);
       try {
         let detailedContracts = [];
@@ -235,6 +236,8 @@ const Home: NextPage = () => {
   }
 
   return (
+    <div>
+      <Navbar />
     <div
       sx={{
         height: "100%",
@@ -262,6 +265,7 @@ const Home: NextPage = () => {
           padding: "8px 24px",
           alignItems: "center",
           cursor: "pointer",
+          zIndex: '2'
         }}
       >
         {haveMetamask ? (
@@ -943,13 +947,14 @@ const Home: NextPage = () => {
       </Box>
       <Sandbox></Sandbox>
 
-      <div style={{ marginTop: 100 }}>
+      <div id="feedback" style={{ marginTop: 100 }}>
         <Feedback></Feedback>
       </div>
 
       <div>
         <Footer />
       </div>
+    </div>
     </div>
   );
 };
