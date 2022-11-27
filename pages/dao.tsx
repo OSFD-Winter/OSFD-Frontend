@@ -28,6 +28,8 @@ import axios from 'axios';
 import Feedback from "../components/feedback"
 import Footer from "../components/footer"
 import MintLogs from "../components/mintLogs";
+import { ToastContainer, toast } from 'react-toastify';
+//import 'react-toastify/dist/ReactToastify.css';
 
 const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
@@ -105,7 +107,7 @@ function Dao({ addr }) {
                     setContracts(detailedContracts)
 
                 } catch (error: any) {
-                    alert("Failed " + JSON.stringify(error));
+                    toast("Failed " + JSON.stringify(error));
                     console.log("Failed  ", error);
                 }
 
@@ -164,7 +166,7 @@ function Dao({ addr }) {
                 }
 
             } catch (error: any) {
-                alert("Failed " + JSON.stringify(error));
+                toast("Failed " + JSON.stringify(error));
                 console.log("Failed  ", error);
             }
 
@@ -208,7 +210,7 @@ function Dao({ addr }) {
     };
 
     const deploy = useCallback(async () => {
-        if (!library) return alert("Wallet connection failed, please try again");
+        if (!library) return toast("Wallet connection failed, please try again");  
 
         const signer = library.getSigner(account).connectUnchecked();
 
@@ -238,7 +240,7 @@ function Dao({ addr }) {
             console.log(receipt)
             setStep(7);
         } catch (error: any) {
-            alert("Failed to deploy: " + JSON.stringify(error));
+            toast("Failed to deploy: " + JSON.stringify(error));
             console.log("Failed to deploy: ", error);
         }
     }, [library, account, name, about, roadmap, banner, website]);
@@ -498,8 +500,10 @@ function Dao({ addr }) {
                                                 variant="contained"
                                                 style={{ textAlign: "center", marginInline: 6 }}
                                                 onClick={async () => {
-                                                    if (!library) return alert("Wallet connection failed, please try again");
+                                                    if (!library) return toast("Wallet connection failed, please try again", {toastId: 'error'});
 
+                                                    //alert("Wallet connection failed, please try again");
+                                                    
                                                     const signer = library.getSigner(account).connectUnchecked();
                                                     const contract = new Contract(cont.address, GoodsAbi, signer);
 
@@ -527,19 +531,20 @@ function Dao({ addr }) {
 
 
                                                     } catch (error: any) {
-                                                        alert("Failed to mint: " + JSON.stringify(error));
+                                                        toast("Failed to mint: " + JSON.stringify(error));
                                                         console.log("Failed to mint: ", error);
                                                     }
                                                 }}
                                             >
                                                 mint {cont.price / 1000000000000000000} eth
                                             </Button>
+                                            
                                             <MintLogs address={cont.address}></MintLogs>
 
                                             {DAOContract && DAOContract.owner == account &&
                                                 <Button variant="contained" onClick={
                                                     async () => {
-                                                        if (!library) return alert("Wallet connection failed, please try again");
+                                                        if (!library) return toast("Wallet connection failed, please try again"); //alert("Wallet connection failed, please try again");
 
                                                         const signer = library.getSigner(account).connectUnchecked();
                                                         const contract = new Contract(cont.address, GoodsAbi, signer);
@@ -554,7 +559,7 @@ function Dao({ addr }) {
 
 
                                                         } catch (error: any) {
-                                                            alert("Failed to mint: " + JSON.stringify(error));
+                                                            toast("Failed to mint: " + JSON.stringify(error));
                                                             console.log("Failed to mint: ", error);
                                                         }
                                                     }
@@ -590,6 +595,7 @@ function Dao({ addr }) {
             <Feedback ></Feedback>
             <div>
                 <Footer />
+                <ToastContainer autoClose={2000} closeOnClick />
             </div>
         </Box >
     );

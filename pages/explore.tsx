@@ -18,6 +18,7 @@ import Router from "next/router";
 import axios from "axios";
 import Feedback from "../components/feedback";
 import Footer from "../components/footer";
+import { ToastContainer, toast } from 'react-toastify';
 
 const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 
@@ -77,7 +78,7 @@ function Explore() {
             console.log(detailedContracts);
             setContracts(detailedContracts);
         } catch (error: any) {
-            alert("Failed " + JSON.stringify(error));
+            toast("Failed " + JSON.stringify(error));
             console.log("Failed  ", error);
         }
     }
@@ -140,7 +141,7 @@ function Explore() {
             console.log(detailedContracts);
             setDAOs(detailedContracts);
         } catch (error: any) {
-            alert("Failed " + JSON.stringify(error));
+            toast("Failed " + JSON.stringify(error));
             console.log("Failed  ", error);
         }
     }
@@ -198,7 +199,7 @@ function Explore() {
                                     }}
                                     onClick={async () => {
                                         if (!library)
-                                            return alert(
+                                            return toast(
                                                 "Wallet connection failed, please try again"
                                             );
 
@@ -237,7 +238,7 @@ function Explore() {
                                                 `https://testnets.opensea.io/assets/rinkeby/${receipt.logs[0].address}/${mintedTokenId}`
                                             );
                                         } catch (error: any) {
-                                            alert(
+                                            toast(
                                                 "Failed to mint: " +
                                                     JSON.stringify(error)
                                             );
@@ -317,6 +318,7 @@ function Explore() {
             <Feedback></Feedback>
             <div>
                 <Footer />
+                <ToastContainer autoClose={2000} closeOnClick />
             </div>
         </Box>
     );

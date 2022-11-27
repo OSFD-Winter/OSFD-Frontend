@@ -14,6 +14,8 @@ import {
   TextField,
   Paper,
 } from "@mui/material";
+import { ToastContainer, toast } from 'react-toastify';  
+import 'react-toastify/dist/ReactToastify.css';
 import { Box } from "@mui/system";
 import type { NextPage } from "next";
 import Link from "next/link";
@@ -196,7 +198,7 @@ const Home: NextPage = () => {
         }
         setContracts(detailedContracts);
       } catch (error: any) {
-        alert("Failed " + JSON.stringify(error));
+        toast("Failed " + JSON.stringify(error));
         console.log("Failed  ", error);
       }
     }
@@ -229,7 +231,7 @@ const Home: NextPage = () => {
 
       console.log((await contract.baseURI()) + mintedTokenId);
     } catch (error: any) {
-      alert("Failed to mint: " + JSON.stringify(error));
+      toast("Failed to mint: " + JSON.stringify(error));
       console.log("Failed to mint: ", error);
     }
   }
@@ -962,6 +964,7 @@ const Home: NextPage = () => {
 
       <div style={{ marginTop: 100 }}>
         <Feedback></Feedback>
+        <ToastContainer limit={1}/>
       </div>
 
       <div>

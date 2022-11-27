@@ -37,6 +37,7 @@ import { useRouter } from 'next/router'
 import Router from 'next/router'
 import Feedback from "../components/feedback"
 import Footer from "../components/footer"
+import { ToastContainer, toast } from 'react-toastify';
 
 const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
 
@@ -183,7 +184,7 @@ const Home: NextPage = () => {
     }
 
     const mint = useCallback(async () => {
-        if (!library) return alert("Wallet connection failed, please try again");
+        if (!library) return toast("Wallet connection failed, please try again");
 
         const signer = library.getSigner(account).connectUnchecked();
 
@@ -205,7 +206,7 @@ const Home: NextPage = () => {
             Router.push(`/dao`)
 
         } catch (error: any) {
-            alert("Failed to deploy: " + JSON.stringify(error));
+            toast("Failed to deploy: " + JSON.stringify(error));
             console.log("Failed to deploy: ", error);
         }
     }, [library, account, chosenZip, description, name, symbol, supply, safe, price, tokenGated, accessToken]);
