@@ -3,12 +3,13 @@ import snapshot from "@snapshot-labs/snapshot.js";
 import { useState, useEffect } from "react";
 import { getProposals, toDateTime } from "../api/helper";
 
+import { SOURCE } from "../utils/constants";
+
 function Proposals({ space }) {
   const [proposals, setProposals] = useState([]);
 
-  const source = "https://testnet.snapshot.org";
   useEffect(() => {
-    getProposals(space, "active", `${source}/graphql`)
+    getProposals(space, "active", `${SOURCE}/graphql`)
       .then((proposals) => setProposals(proposals))
       .catch((e) => console.log(e));
   }, []);

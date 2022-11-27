@@ -3,21 +3,20 @@ import axios from "axios";
 import { formatEther } from "ethers/lib/utils";
 import { useEffect, useState } from "react";
 
+import { API_BASE_URL, API_PLACE_HOLDER } from "../utils/constants";
+
 type displayProps = {
   safeAddress: string;
 };
 
-import { API_BASE_URL } from "../utils/constants";
-
 function TreasuryDisplay({ safeAddress }: displayProps) {
-  const apiPlaceholder = "5V84IP6PWKTS51SNIPDNUNURIBU74ERPBK";
   const [balance, setBalance] = useState("");
   useEffect(() => {
     getBalance();
   }, []);
   async function getBalance() {
     const resp = await axios.get(
-      `${API_BASE_URL}/api?module=account&action=balance&address=${safeAddress}&tag=latest&apikey=${apiPlaceholder}`
+      `${API_BASE_URL}/api?module=account&action=balance&address=${safeAddress}&tag=latest&apikey=${API_PLACE_HOLDER}`
     );
     const weiBalance = resp.data.result;
 
@@ -29,13 +28,18 @@ function TreasuryDisplay({ safeAddress }: displayProps) {
       elevation={3}
       style={{
         fontSize: "1.75rem",
+        fontWeight: "bold",
         width: "30vw",
         textAlign: "center",
+        color: "white",
         margin: ".5em auto",
+        borderRadius: "1rem",
+        padding: "30px",
+        background: "#0b0051",
       }}
     >
-      Current Balance: <br />
-      <span>{balance} ETH</span>
+      Current Balance:
+      <span> {balance} ETH</span>
     </Paper>
   );
 }
