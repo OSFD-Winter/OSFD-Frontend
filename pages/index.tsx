@@ -948,7 +948,7 @@ const Home: NextPage = () => {
       </div>
 
       <div>
-        <Footer />
+        <Footer gradient={"linear-gradient(to right, #01010A, #010529, #171e74, #2673FF)"} />
       </div>
     </div>
   );
