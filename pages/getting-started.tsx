@@ -81,7 +81,12 @@ function GettingStarted() {
   const Checkbox = ({ label, value, onChange }) => {
     return (
       <label>
-        <input class="w-6 h-6 rounded ml-4" type="checkbox" checked={value} onChange={onChange} />
+        <input
+          className="w-6 h-6 rounded ml-4"
+          type="checkbox"
+          checked={value}
+          onChange={onChange}
+        />
         {label}
       </label>
     );
