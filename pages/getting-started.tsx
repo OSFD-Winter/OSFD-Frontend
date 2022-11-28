@@ -191,9 +191,9 @@ function GettingStarted() {
               <Checkbox value={checked2} onChange={handleChange2} />
             </p>
             <p className="text-xl break-words my-2">
-              In order to test all OSFD's features and functionality, you will need to obtain test
-              Ether used in the Goerli network. To get Goerli test ETH, you will first switch to the
-              Goeril network.
+              In order to test all OSFD&apos;s features and functionality, you will need to obtain
+              test Ether used in the Goerli network. To get Goerli test ETH, you will first switch
+              to the Goeril network.
             </p>
             <p className="text-lg break-words my-2">
               To switch to the Goeril network, simply open your Metamask wallet and select the
