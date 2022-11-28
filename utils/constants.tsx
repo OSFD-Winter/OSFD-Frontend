@@ -1,4 +1,4 @@
-export const SERVER = "https://osfd-backup-2.herokuapp.com";
+export const SERVER = "https://osfd-backend.onrender.com";
 export const SANDBOX = "https://sandbox-osfd.herokuapp.com";
 export const ETHERSCAN_MAINNET = "https://etherscan.io";
 export const ETH_GOERLI_ALCHEMY =
