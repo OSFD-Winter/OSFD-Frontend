@@ -36,7 +36,7 @@ function MintPreview({ hash }: IHash) {
   }
   return (
     <div>
-      <Image src={image} width="0" height="0" sizes="20vw" className="w-full h-auto" alt="" />
+      <img className="w-full" src={image} alt="" />
       <Button
         onClick={() => {
           setImage("/spinner.svg");
