@@ -33,6 +33,8 @@ import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
+import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
+
 const curated = [
   {
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
@@ -72,19 +74,19 @@ const Home: NextPage = () => {
       name: "Vote Stamp",
       symbol: "TNV",
       price: 10000000000000,
-      supply: 1000000, minted: 21, hash: "bafkreigpnzgdynfdnvlspgcoi6b5mtc5wf4af6tqtkir5az7wzi4yt3rgq"
+      supply: 1000000,
+      minted: 21,
+      hash: "bafkreigpnzgdynfdnvlspgcoi6b5mtc5wf4af6tqtkir5az7wzi4yt3rgq",
     },
     {
       address: "0x54e305897419eE6941d8941c60724175B2ebAA0c",
       name: "Team Nouns DAO Certificates",
       symbol: "TNDC",
       price: 1000000000000000000,
-      supply: 1000, minted: 2,
-      hash: "bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"
-    }
-
-
-
+      supply: 1000,
+      minted: 2,
+      hash: "bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi",
+    },
   ]);
 
   const { ethereum } = typeof window !== "undefined" && window;
@@ -162,9 +164,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     async function getContracts() {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5"
-      );
+      const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
       const hexToDecimal = (hex) => parseInt(hex, 16);
       try {
         let detailedContracts = [];
@@ -282,7 +282,7 @@ const Home: NextPage = () => {
                     height: "50px",
                     marginLeft: "6px",
                   }}
-                  src='MetaMask-logo.png'
+                  src="MetaMask-logo.png"
                 />
               </div>
             )}
@@ -312,7 +312,6 @@ const Home: NextPage = () => {
             }}
           >
             <MintPreview hash={contracts[0].hash}></MintPreview>
-
           </div>
           <div
             style={{
@@ -353,9 +352,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[0].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[0].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -374,8 +371,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[0].supply - contracts[0].minted}/
-                {contracts[0].supply}
+                supply: {contracts[0].supply - contracts[0].minted}/{contracts[0].supply}
               </div>
               <div
                 style={{
@@ -386,7 +382,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -454,9 +450,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[1].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[1].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -475,8 +469,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[1].supply - contracts[1].minted}/
-                {contracts[1].supply}
+                supply: {contracts[1].supply - contracts[1].minted}/{contracts[1].supply}
               </div>
               <div
                 style={{
@@ -487,7 +480,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -575,9 +568,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[2].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[2].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -596,8 +587,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[2].supply - contracts[2].minted}/
-                {contracts[2].supply}
+                supply: {contracts[2].supply - contracts[2].minted}/{contracts[2].supply}
               </div>
               <div
                 style={{
@@ -608,7 +598,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -687,9 +677,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[3].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[3].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -708,8 +696,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[3].supply - contracts[3].minted}/
-                {contracts[3].supply}
+                supply: {contracts[3].supply - contracts[3].minted}/{contracts[3].supply}
               </div>
               <div
                 style={{
@@ -720,7 +707,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -819,9 +806,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[3].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[3].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -840,8 +825,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[3].supply - contracts[3].minted}/
-                {contracts[3].supply}
+                supply: {contracts[3].supply - contracts[3].minted}/{contracts[3].supply}
               </div>
               <div
                 style={{
@@ -852,7 +836,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -877,8 +861,7 @@ const Home: NextPage = () => {
           alignItems: "center",
           justifyContent: "center",
         }}
-      >
-      </Box>
+      ></Box>
 
       <Box
         style={{
