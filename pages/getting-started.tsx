@@ -154,8 +154,8 @@ function GettingStarted() {
   };
 
   return (
-    <div className="flex bg-blue-50 h-screen w-screen overflow-y-scroll">
-      <div className="h-screen flex flex-col overflow-y-scroll">
+    <div className="flex bg-blue-50 h-screen w-full overflow-y-scroll">
+      <div className="h-screen w-full flex flex-col overflow-y-scroll">
         {/*<Header />*/}
         <div className="h-fit bg-blue-1000 p-5">
           <img src="osfd-small-logo.png" className="object-scale-down h-10 ml-24" />
