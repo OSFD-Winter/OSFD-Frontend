@@ -1,6 +1,8 @@
 // @ts-nocheck
 import Image from "next/image";
+import Link from "next/link";
 import osfd from "../public/osfd-small-logo.png";
+
 const Footer = ({ gradient }) => {
   return (
     <footer className={gradient}>
@@ -11,8 +13,10 @@ const Footer = ({ gradient }) => {
             <a className="cursor-pointer">Sales Agreements | </a>
             <a className="cursor-pointer">Privacy Policy</a>
           </div>
-          <div className="m-auto">
-            <Image src={osfd} alt="osfd" />{" "}
+          <div className="m-auto cursor-pointer">
+            <Link href="/">
+              <Image src={osfd} alt="osfd" />
+            </Link>
           </div>
           <div className="m-auto">
             <span>© 2022 OSFD All rights reserved.</span>
