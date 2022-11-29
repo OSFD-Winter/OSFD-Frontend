@@ -1,17 +1,29 @@
-// @ts-nocheck
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Button, IconButton, TextField } from "@mui/material";
 import { CasinoOutlined } from "@mui/icons-material";
 
 import { SERVER } from "../utils/constants";
+import Image from "next/image";
 
-function MintPreview({ hash }) {
-  const [image, setImage] = useState("./spinner.svg");
+interface IHash {
+  hash: string;
+}
+
+interface IPreview {
+  name: string;
+  image: string;
+}
+
+function MintPreview({ hash }: IHash) {
+  const [image, setImage] = useState("/spinner.svg");
 
   useEffect(() => {
+    getImage();
+  }, [hash]);
+  function getImage() {
     axios
-      .get(`${SERVER}/tokens/tokenPreview/${hash}`)
+      .get<IPreview>(`${SERVER}/tokens/tokenPreview/${hash}`)
       .then(({ data, status }) => {
         setImage(data.image);
       })
@@ -21,25 +33,14 @@ function MintPreview({ hash }) {
           console.log("error.response");
         }
       });
-  }, [hash]);
-
+  }
   return (
     <div>
-      <img src={image} style={{ width: "100%" }}></img>
+      <img className="w-full" src={image} alt="" />
       <Button
         onClick={() => {
-          setImage("./spinner.svg");
-          axios
-            .get(`${SERVER}/tokens/tokenPreview/${hash}`)
-            .then(({ data, status }) => {
-              setImage(data.image);
-            })
-            .catch((error) => {
-              if (error.response) {
-                console.log(error.response);
-                console.log("error.response");
-              }
-            });
+          setImage("/spinner.svg");
+          getImage();
         }}
         style={{
           width: "fit-content",

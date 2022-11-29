@@ -8,6 +8,9 @@ module.exports = {
         "22vw": "22vw",
         "8vw": "8vw",
       },
+      gridTemplateColumns: {
+        "referral-row": "30% 50% 13%",
+      },
     },
     colors: {
       // ...
