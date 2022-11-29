@@ -161,7 +161,7 @@ function GettingStarted() {
           <img src="osfd-small-logo.png" className="object-scale-down h-10 ml-24" />
         </div>
         <div className="text-white font-bold mt-8 mx-32 my-5">
-          <div className="container flex flex-col">
+          <div className="flex flex-col">
             <p className="text-7xl my-7 break-words">Getting Started with OSFD</p>
             <p className="text-2xl break-words">
               This page will be a guidance for you to begin your journey with OSFD.
@@ -169,7 +169,7 @@ function GettingStarted() {
           </div>
         </div>
         <div ref={ref1} className="text-white font-bold mt-8 mx-32 my-5">
-          <div className="container flex flex-col">
+          <div className="flex flex-col">
             <p className="text-4xl my-5 break-words">
               Install & sync with metamask
               <Checkbox value={checked1} onChange={handleChange1} />
@@ -185,7 +185,7 @@ function GettingStarted() {
           </div>
         </div>
         <div ref={ref2} className="text-white font-bold mt-8 mx-32 my-5">
-          <div className="container flex flex-col">
+          <div className="flex flex-col">
             <p className="text-4xl my-5 break-words">
               Switch network to Goeril testnet
               <Checkbox value={checked2} onChange={handleChange2} />
@@ -202,7 +202,7 @@ function GettingStarted() {
           </div>
         </div>
         <div ref={ref3} className="text-white font-bold mt-8 mx-32 my-5">
-          <div className="container flex flex-col">
+          <div className="flex flex-col">
             <p className="text-4xl my-5 break-words">
               Get testnet eth from faucet
               <Checkbox value={checked3} onChange={handleChange3} />
@@ -218,7 +218,7 @@ function GettingStarted() {
           </div>
         </div>
         <div ref={ref4} className="text-white font-bold mt-8 mx-32 my-5">
-          <div className="container flex flex-col">
+          <div className="flex flex-col">
             <p className="text-4xl my-5 break-words">
               Mint NFT from team nouns dao
               <Checkbox value={checked4} onChange={handleChange4} />
@@ -231,7 +231,7 @@ function GettingStarted() {
           </div>
         </div>
         <div ref={ref5} className="text-white font-bold mt-8 mx-32 my-5">
-          <div className="container flex flex-col">
+          <div className="flex flex-col">
             <p className="text-4xl my-5 break-words">
               Create a new dao
               <Checkbox value={checked5} onChange={handleChange5} />
@@ -255,7 +255,7 @@ function GettingStarted() {
           </div>
         </div>
         <div ref={ref6} className="text-white font-bold mt-8 mx-32 my-5">
-          <div className="container flex flex-col">
+          <div className="flex flex-col">
             <p className="text-4xl my-5 break-words">
               Create a collection using sandbox
               <Checkbox value={checked6} onChange={handleChange6} />
