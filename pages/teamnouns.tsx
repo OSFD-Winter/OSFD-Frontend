@@ -45,7 +45,17 @@ const curated = [
 
 const Home: NextPage = () => {
   const { active, activate, account, library } = useWeb3React();
-  const [contracts, setContracts] = useState([]);
+  const contracts = [
+    {
+      address: "0x54e305897419eE6941d8941c60724175B2ebAA0c",
+      name: "Team Nouns DAO Certificates",
+      symbol: "TNDC",
+      price: 1000000000000000000,
+      supply: 1000,
+      minted: 2,
+      hash: "bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi",
+    },
+  ];
 
   const { ethereum } = typeof window !== "undefined" && window;
   const provider =
@@ -106,63 +116,6 @@ const Home: NextPage = () => {
     }
   };
 
-  // See if Metamask is installed on browser
-  useEffect(() => {
-    if (window !== undefined) {
-      const { ethereum } = window;
-      const checkMetamaskAvailability = async () => {
-        if (!ethereum) {
-          sethaveMetamask(false);
-        }
-        sethaveMetamask(true);
-      };
-      checkMetamaskAvailability();
-    }
-  }, []);
-
-  useEffect(() => {
-    async function getContracts() {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5"
-      );
-      const hexToDecimal = (hex) => parseInt(hex, 16);
-      try {
-        let detailedContracts = [];
-        for (let i = 0; i < curated.length; i++) {
-          const temp = new Contract(curated[i].contract, GoodsAbi, provider);
-          let tempName = await temp.name();
-          let tempSymbol = await temp.symbol();
-          let tempPrice = await temp.goodsPrice();
-          let tempSupply = await temp.MAX_GOODS();
-          let tempMinted = await temp.totalSupply();
-          //let tempPreview = await temp.previewImage()
-          let base = await temp.baseURI();
-          let tempHash = base.slice(-60, -1);
-
-          console.log(typeof tempPrice);
-          console.log(tempPrice);
-
-          let r = {
-            address: curated[i].contract,
-            name: tempName,
-            symbol: tempSymbol,
-            price: hexToDecimal(tempPrice._hex),
-            supply: hexToDecimal(tempSupply._hex),
-            minted: hexToDecimal(tempMinted._hex),
-            hash: tempHash,
-          };
-
-          detailedContracts.push(r);
-        }
-        setContracts(detailedContracts);
-      } catch (error: any) {
-        alert("Failed " + JSON.stringify(error));
-        console.log("Failed  ", error);
-      }
-    }
-    getContracts();
-  }, []);
-
   async function mint(cont) {
     if (!library) {
       activate(injected);
@@ -197,16 +150,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <NounsHeader />
-      <div
-        className="teamnouns-container flex justify-center items-center p-[20px] space-x-10 "
-        // style={{
-        //   display: "flex",
-        //   justifyContent: "center",
-        //   alignItems: "center",
-        //   padding: "20px",
-        // }}
-        //Using Tailwind instead
-      >
+      <div className="teamnouns-container flex justify-center items-center p-[20px] space-x-10 ">
         <div className="left-container text-[#00008B] flex flex-col font-[Poppins] max-w-[300px]">
           <span className="flex items-center ">
             <img src={"./nounslogo.png"} alt="nouns-logo" className="pr-[5px] w-[50px]" />
@@ -235,10 +179,12 @@ const Home: NextPage = () => {
           </h2>
         </div>
         <div className="right-container flex flex-col justify-center items-center">
-          {contracts && contracts[3] && (
+          {contracts && (
             <x className="text-white rounded font-bold ml-[15px] mt-[5px]">
               <div className=" text-center w-[20vw] p-15">
-                <MintPreview hash={contracts[3].hash}></MintPreview>
+                <MintPreview
+                  hash={`bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi`}
+                ></MintPreview>
               </div>
             </x>
           )}
