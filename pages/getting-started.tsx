@@ -278,7 +278,9 @@ function GettingStarted() {
             </p>
           </div>
         </div>
-        <Footer />
+        <div className="mt-auto">
+          <Footer />
+        </div>
       </div>
     </div>
   );
