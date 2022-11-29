@@ -209,31 +209,22 @@ const Home: NextPage = () => {
       >
         <div className="left-container text-[#00008B] flex flex-col font-[Poppins] max-w-[300px]">
           <span className="flex items-center ">
-            <img
-              src={"./nounslogo.png"}
-              alt="nouns-logo"
-              className="pr-[5px] w-[50px]"
-            />
-            <p className=" text-[1.5rem] font-extrabold">
-              TEAM NOUNS DAO MEMBERSHIP
-            </p>
+            <img src={"./nounslogo.png"} alt="nouns-logo" className="pr-[5px] w-[50px]" />
+            <p className=" text-[1.5rem] font-extrabold">TEAM NOUNS DAO MEMBERSHIP</p>
           </span>
           <span className="space-y-5 pt-5">
             <p style={{ fontSize: "1.2em" }}>
               <strong>750 Seats, 1 ETH</strong> Participation
             </p>
             <p style={{ fontSize: "0.7em" }}>
-              Wyoming DAO LLC Formation Snapshot Voting Structures Gnosis Safe
-              Treasury
+              Wyoming DAO LLC Formation Snapshot Voting Structures Gnosis Safe Treasury
             </p>
           </span>
-          <span className="space-y-5 pt-5">
-            <p style={{ fontSize: "1.2em" }}>
-              Capital to fund development of core technologies:
-            </p>
+          <span>
+            <p style={{ fontSize: "1.2em" }}>Capital to fund development of core technologies:</p>
             <p style={{ fontSize: "0.7em" }}>
-              Messaging on Blockchains, Postcards, Generative Nouns NFTs,
-              Stamps, Scenes Art and Community Spaces
+              Messaging on Blockchains, Postcards, Generative Nouns NFTs, Stamps, Scenes Art and
+              Community Spaces
             </p>
           </span>
           <h2 className="pt-5">
@@ -256,10 +247,8 @@ const Home: NextPage = () => {
           </a>
         </div>
       </div>
-      <Referral></Referral>
-      <TreasuryDisplay
-        safeAddress={"0x432b351Db56d95F0ed37c7De3E20249200f8d3C9"}
-      ></TreasuryDisplay>
+      <TreasuryDisplay safeAddress={"0x432b351Db56d95F0ed37c7De3E20249200f8d3C9"}></TreasuryDisplay>
+      <Referral />
       <Footer />
     </div>
   );
