@@ -2,6 +2,7 @@ import React, { createContext, useCallback, Dispatch, useReducer, useContext } f
 
 interface IState {
   walletAddress: string;
+  walletBalance: string;
 }
 
 interface IContext {
@@ -15,6 +16,7 @@ interface IContext {
 // Initial state
 const initValue: IState = {
   walletAddress: "",
+  walletBalance: "",
 };
 
 // Create Context
@@ -40,6 +42,12 @@ export const ReducerContextProvider: React.FC = (props) => {
           return {
             ...preState,
             walletAddress: payload,
+          };
+        case "setWalletBalance":
+          console.log("Setting wallet balance");
+          return {
+            ...preState,
+            walletBalance: payload,
           };
 
         default:

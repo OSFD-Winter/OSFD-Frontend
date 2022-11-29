@@ -96,7 +96,7 @@ const Home: NextPage = () => {
     new ethers.providers.Web3Provider(window.ethereum);
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
-  const [accountAddress, setAccountAddress] = useState("");
+  const { state, dispatch } = useReducerContext();
 
   const changeNetWork = async () => {
     try {
@@ -140,10 +140,16 @@ const Home: NextPage = () => {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      setAccountAddress(accounts[0]);
       dispatch({ type: "setWalletAddress", payload: accounts[0] });
       changeNetWork();
+      let balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
+        accounts[0]
+      );
+      let bal = ethers.utils.formatEther(balance);
+      dispatch({ type: "setWalletBalance", payload: bal });
+      //console.log(state);
     } catch (error) {
+      //console.log(error);
       setIsConnected(false);
     }
   };
