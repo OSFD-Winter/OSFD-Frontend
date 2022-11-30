@@ -19,6 +19,8 @@ import type { NextPage } from "next";
 
 import { FC, useCallback, useEffect, useState } from "react";
 import axios from 'axios'
+import { SANDBOX } from "../utils/constants";
+
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -47,10 +49,8 @@ const Sandbox: NextPage = () => {
 
         formData.append("file", fileInput.files[0]);
 
-        axios.post(
-            'https://sandbox-osfd.herokuapp.com/tokens/zip',
-            formData,
-            { headers: { 'Content-Type': 'multipart/form-data' } }
+        axios.post(`${SANDBOX}/tokens/zip`, formData, {
+             headers: { 'Content-Type': 'multipart/form-data' } }
         )
             .then(({ data }) => {
                 console.log(data.zipName)
@@ -87,7 +87,7 @@ const Sandbox: NextPage = () => {
 
     useEffect(() => {
         if (zip) {
-            axios.get('https://sandbox-osfd.herokuapp.com/tokens/preview/' + zip)
+            axios.get(`${SANDBOX}/tokens/preview/` + zip)
                 .then(function ({ data }) {
                     console.log(data)
                     setPreview(data);
@@ -181,7 +181,7 @@ const Sandbox: NextPage = () => {
                     {preview && <Box sx={{ display: "flex", justifyContent: "center" }}>
                         <Button onClick={() => {
                             if (zip) {
-                                axios.get('https://sandbox-osfd.herokuapp.com/tokens/preview/' + zip)
+                                axios.get(`${SANDBOX}/tokens/preview/` + zip)
                                     .then(function ({ data }) {
                                         console.log(data)
                                         setPreview(data);
