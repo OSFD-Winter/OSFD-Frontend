@@ -29,7 +29,7 @@ const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
 
 function CreateDAO() {
-  const { addr } = undefined || Dao;
+  const { addr } = Dao;
 
   const router = useRouter();
   const client = new Web3Storage({ TOKEN_CLIENT });
@@ -51,67 +51,6 @@ function CreateDAO() {
   const [DAOContract, setDAOContract] = useState();
   const [contracts, setContracts] = useState([]);
   const [link, setLink] = useState();
-
-  useEffect(() => {
-    if (step === 7 && DAOContract) {
-      async function getContracts() {
-        const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
-
-        const Factory = new Contract(DAOContract.address, GoodsFactoryAbi, provider);
-
-        const hexToDecimal = (hex) => parseInt(hex, 16);
-        try {
-          let resContracts = await Factory.getGoodsArray();
-
-          let detailedContracts = [];
-          for (let i = 0; i < resContracts.length; i++) {
-            const temp = new Contract(resContracts[i], GoodsAbi, provider);
-            let tempName = await temp.name();
-            let tempSymbol = await temp.symbol();
-            let tempPrice = await temp.goodsPrice();
-            let tempSupply = await temp.MAX_GOODS();
-            let tempMinted = await temp.totalSupply();
-            let balance = await provider.getBalance(resContracts[i]);
-
-            //let tempPreview = await temp.previewImage()
-            let base = await temp.baseURI();
-            let tempHash = base.slice(-60, -1);
-
-            console.log(typeof tempPrice);
-            console.log(tempPrice);
-            //console.log(tempPreview)
-            //console.log(base)
-
-            let r = {
-              address: resContracts[i],
-              name: tempName,
-              symbol: tempSymbol,
-              price: hexToDecimal(tempPrice._hex),
-              supply: hexToDecimal(tempSupply._hex),
-              minted: hexToDecimal(tempMinted._hex),
-              hash: tempHash,
-              balance: hexToDecimal(balance._hex),
-              //preview: tempPreview
-            };
-
-            detailedContracts.push(r);
-          }
-
-          console.log(detailedContracts);
-          setContracts(detailedContracts);
-        } catch (error: any) {
-          alert("Failed " + JSON.stringify(error));
-          console.log("Failed  ", error);
-        }
-      }
-
-      if (active) {
-        getContracts();
-      } else {
-        activate(injected).then(() => getContracts());
-      }
-    }
-  }, [library, step, DAOContract]);
 
   useEffect(() => {
     async function getContracts() {
