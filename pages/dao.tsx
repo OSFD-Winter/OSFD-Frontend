@@ -10,6 +10,9 @@ import Router from "next/router";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+import MintPreview from "../components/mintPreview";
+import MintLogs from "../components/mintLogs";
+
 import Feedback from "../components/feedback";
 import Footer from "../components/footer";
 import CreateDAO from "../components/createDAO";
@@ -91,7 +94,7 @@ function Dao({ addr }) {
         </Link>
       </Box>
 
-      <CreateDAO></CreateDAO>
+      <CreateDAO addr={addr}></CreateDAO>
 
       {step == 7 && DAOContract && (
         <div style={{ textAlign: "center", margin: 50 }}>
