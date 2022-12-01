@@ -110,10 +110,7 @@ function GettingStarted() {
       // Check if balance is >= 0.05 eth
       const checkBalance = async () => {
         console.log(state);
-        if (
-          (state.walletBalance == "") |
-          (parseFloat(state.walletBalance) <= 0.05)
-        ) {
+        if ((state.walletBalance == "") | (parseFloat(state.walletBalance) <= 0.05)) {
           return;
         }
         setChecked3(true);
@@ -161,19 +158,13 @@ function GettingStarted() {
       <div className="h-screen w-full flex flex-col overflow-y-scroll">
         {/*<Header />*/}
         <div className="h-fit bg-blue-1000 p-5">
-          <img
-            src="osfd-small-logo.png"
-            className="object-scale-down h-10 ml-24"
-          />
+          <img src="osfd-small-logo.png" className="object-scale-down h-10 ml-24" />
         </div>
         <div className="text-white font-bold mt-8 mx-32 my-5">
           <div className="flex flex-col">
-            <p className="text-7xl my-7 break-words">
-              Getting Started with OSFD
-            </p>
+            <p className="text-7xl my-7 break-words">Getting Started with OSFD</p>
             <p className="text-2xl break-words">
-              This page will be a guidance for you to begin your journey with
-              OSFD.
+              This page will be a guidance for you to begin your journey with OSFD.
             </p>
           </div>
         </div>
@@ -184,15 +175,12 @@ function GettingStarted() {
               <Checkbox value={checked1} onChange={handleChange1} />
             </p>
             <p className="text-xl break-words my-2">
-              It is necessary to have your own cryptocurrency wallet in order to
-              interact with the Etherium blockchain.
+              It is necessary to have your own cryptocurrency wallet in order to interact with the
+              Etherium blockchain.
             </p>
             <p className="text-lg break-words my-2">
-              Go to{" "}
-              <a href="https://metamask.io/download/">
-                https://metamask.io/download/
-              </a>{" "}
-              to download and install Metamask to your device.
+              Go to <a href="https://metamask.io/download/">https://metamask.io/download/</a> to
+              download and install Metamask to your device.
             </p>
           </div>
         </div>
@@ -203,13 +191,13 @@ function GettingStarted() {
               <Checkbox value={checked2} onChange={handleChange2} />
             </p>
             <p className="text-xl break-words my-2">
-              In order to test all OSFD&apos;s features and functionality, you
-              will need to obtain test Ether used in the Goerli network. To get
-              Goerli test ETH, you will first switch to the Goeril network.
+              In order to test all OSFD&apos;s features and functionality, you will need to obtain
+              test Ether used in the Goerli network. To get Goerli test ETH, you will first switch
+              to the Goeril network.
             </p>
             <p className="text-lg break-words my-2">
-              To switch to the Goeril network, simply open your Metamask wallet
-              and select the Goerli network in the network droplist.
+              To switch to the Goeril network, simply open your Metamask wallet and select the
+              Goerli network in the network droplist.
             </p>
           </div>
         </div>
@@ -220,16 +208,12 @@ function GettingStarted() {
               <Checkbox value={checked3} onChange={handleChange3} />
             </p>
             <p className="text-xl break-words my-2">
-              You can not obtain free test Ether using your wallet address. Some
-              faucets require posting on your twitter/facebook account to
-              prevent spamming.
+              You can not obtain free test Ether using your wallet address. Some faucets require
+              posting on your twitter/facebook account to prevent spamming.
             </p>
             <p className="text-lg break-words my-2">
-              Go to{" "}
-              <a href="https://faucetlink.to/goerli">
-                https://faucetlink.to/goerli
-              </a>{" "}
-              and select any active faucet to obtain test Eth.
+              Go to <a href="https://faucetlink.to/goerli">https://faucetlink.to/goerli</a> and
+              select any active faucet to obtain test Eth.
             </p>
           </div>
         </div>
@@ -239,12 +223,10 @@ function GettingStarted() {
               Mint NFT from team nouns dao
               <Checkbox value={checked4} onChange={handleChange4} />
             </p>
-            <p className="text-xl break-words my-2">
-              You are now ready to mint your first NFT.
-            </p>
+            <p className="text-xl break-words my-2">You are now ready to mint your first NFT.</p>
             <p className="text-lg break-words my-2">
-              Go to the OSFD main page. Chose any NFT offerings and click on the
-              mint button. You will complete the transaction via Metamask.
+              Go to the OSFD main page. Chose any NFT offerings and click on the mint button. You
+              will complete the transaction via Metamask.
             </p>
           </div>
         </div>
@@ -255,22 +237,20 @@ function GettingStarted() {
               <Checkbox value={checked5} onChange={handleChange5} />
             </p>
             <p className="text-xl break-words my-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
             </p>
             <p className="text-lg break-words my-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
             </p>
           </div>
         </div>
@@ -281,22 +261,20 @@ function GettingStarted() {
               <Checkbox value={checked6} onChange={handleChange6} />
             </p>
             <p className="text-xl break-words my-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
             </p>
             <p className="text-lg break-words my-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+              dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
             </p>
           </div>
         </div>

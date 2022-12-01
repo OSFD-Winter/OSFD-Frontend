@@ -8,9 +8,7 @@ function App() {
     <div className="relative">
       {/* Header Section */}
       <div className="text-center p-14 bg-gradient-to-r from-blue-50 to-blue-1000">
-        <h1 className="font-bold text-4xl text-white">
-          OSFD Stickers and Emojis
-        </h1>
+        <h1 className="font-bold text-4xl text-white">OSFD Stickers and Emojis</h1>
       </div>
 
       {/* Sticker section */}
@@ -71,9 +69,7 @@ function App() {
             </a>
           </div>
           <div className="flex flex-col space-y-2">
-            <h3 className="max-w-md text-xl font-semibold text-center mb-6">
-              Cool links
-            </h3>
+            <h3 className="max-w-md text-xl font-semibold text-center mb-6">Cool links</h3>
             <a
               href="#"
               target="_blank"

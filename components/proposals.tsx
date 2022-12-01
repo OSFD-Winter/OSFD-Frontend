@@ -27,17 +27,11 @@ function Proposals({ space }) {
     <div className={"border-4 my-5"}>
       {proposals &&
         proposals.map((proposal) => (
-          <div
-            key={proposal.id}
-            style={proposalsStyle}
-            className={"text-center"}
-          >
+          <div key={proposal.id} style={proposalsStyle} className={"text-center"}>
             <b>{proposal.title}</b>
             <p>{proposal.body}</p>
             {proposal.state == "active" && (
-              <p style={{ color: "red" }}>
-                Active until {toDateTime(proposal.end)}
-              </p>
+              <p style={{ color: "red" }}>Active until {toDateTime(proposal.end)}</p>
             )}
             {proposal.choices.map((choice) => (
               <Button

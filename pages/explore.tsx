@@ -6,7 +6,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
 import { injected } from "../src/web3ReactInjector";
 import { ethers } from "ethers";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 import FactoryAbi from "../src/GoodsFactory.json";
 import GoodsAbi from "../src/Goods.json";
 import Link from "next/link";
@@ -40,8 +40,7 @@ function Explore() {
   }, [library, factoryAddress]);
 
   async function getContracts() {
-    if (!library)
-      return console.log("Wallet connection failed, please try again");
+    if (!library) return console.log("Wallet connection failed, please try again");
     if (!factoryAddress) return console.log("w");
     const signer = library.getSigner(account).connectUnchecked();
 
@@ -186,19 +185,10 @@ function Explore() {
                     marginInline: 6,
                   }}
                   onClick={async () => {
-                    if (!library)
-                      return toast(
-                        "Wallet connection failed, please try again"
-                      );
+                    if (!library) return toast("Wallet connection failed, please try again");
 
-                    const signer = library
-                      .getSigner(account)
-                      .connectUnchecked();
-                    const contract = new Contract(
-                      cont.address,
-                      GoodsAbi,
-                      signer
-                    );
+                    const signer = library.getSigner(account).connectUnchecked();
+                    const contract = new Contract(cont.address, GoodsAbi, signer);
 
                     try {
                       const mintInitResult = await contract.mintGoods(1, {
@@ -213,10 +203,7 @@ function Explore() {
 
                       console.log(receipt);
 
-                      const mintedTokenId = parseInt(
-                        receipt.logs[0].topics[3],
-                        16
-                      );
+                      const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
 
                       //alert(`Successfully minted token ${mintedTokenId}!`);
 
@@ -272,10 +259,7 @@ function Explore() {
               >
                 {dao.about}
               </Box>
-              <Button
-                fullWidth
-                onClick={() => Router.push(`/dao?daoAddress=${dao.address}`)}
-              >
+              <Button fullWidth onClick={() => Router.push(`/dao?daoAddress=${dao.address}`)}>
                 visit
               </Button>
             </Box>

@@ -22,7 +22,7 @@ import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
 import { injected } from "../src/web3ReactInjector";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 
 //import abi from "../src/Factory.json";
 //import abi from "../src/SurfFactory.json";
@@ -128,11 +128,7 @@ const Home: NextPage = () => {
         })
         .catch((error) => {
           if (error.response) {
-            setPreview({
-              image: "/wrong-zip.jpg",
-              name: "wrong format",
-              faulty: true,
-            });
+            setPreview({ image: "/wrong-zip.jpg", name: "wrong format", faulty: true });
             console.log(error.response);
             console.log("error.response");
           }
@@ -167,19 +163,17 @@ const Home: NextPage = () => {
     const files = await res.files(); // Promise<Web3File[]>
     for (const file of files) {
       console.log(`${file.cid} ${file.name} ${file.size}`);
-      axios
-        .post(`${SERVER}/tokens/zip`, { hash: file.cid, name: file.name })
-        .then(() => {
-          //console.log(data)
+      axios.post(`${SERVER}/tokens/zip`, { hash: file.cid, name: file.name }).then(() => {
+        //console.log(data)
 
-          let zip = {
-            hash: file.cid,
-            name: file.name,
-          };
-          setZips(zips.concat([zip]));
-          setChosenZip(zip);
-          setUploading(false);
-        });
+        let zip = {
+          hash: file.cid,
+          name: file.name,
+        };
+        setZips(zips.concat([zip]));
+        setChosenZip(zip);
+        setUploading(false);
+      });
     }
   }
 
@@ -258,11 +252,7 @@ const Home: NextPage = () => {
         >
           <Input type="file" />
           <Button onClick={upload} style={{ height: 35 }}>
-            {uploading ? (
-              <img src={"./spinner.svg"} height="100%"></img>
-            ) : (
-              "upload"
-            )}{" "}
+            {uploading ? <img src={"./spinner.svg"} height="100%"></img> : "upload"}{" "}
           </Button>
         </Box>
 
@@ -301,11 +291,7 @@ const Home: NextPage = () => {
           <Box sx={{ textAlign: "center", border: "3px solid black" }}>
             <b>{preview.name}</b>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <img
-                key={preview.image}
-                src={preview.image}
-                style={{ height: "35vh" }}
-              ></img>
+              <img key={preview.image} src={preview.image} style={{ height: "35vh" }}></img>
             </div>
             <Button
               onClick={() => {
@@ -318,11 +304,7 @@ const Home: NextPage = () => {
                   })
                   .catch((error) => {
                     if (error.response) {
-                      setPreview({
-                        image: "/wrong-zip.jpg",
-                        name: "wrong format",
-                        faulty: true,
-                      });
+                      setPreview({ image: "/wrong-zip.jpg", name: "wrong format", faulty: true });
                       console.log(error.response);
                       console.log("error.response");
                     }
@@ -338,9 +320,7 @@ const Home: NextPage = () => {
           </Box>
         )}
         {preview && preview.faulty && (
-          <Box
-            style={{ width: "100%", display: "flex", justifyContent: "center" }}
-          >
+          <Box style={{ width: "100%", display: "flex", justifyContent: "center" }}>
             <div style={{ marginInline: 100 }}>
               <a
                 href={
@@ -408,14 +388,7 @@ const Home: NextPage = () => {
               />
             </Box>
 
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                mt: 3,
-                alignItems: "center",
-              }}
-            >
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 3, alignItems: "center" }}>
               <TextField
                 id="outlined-name"
                 label="Safe Address"
@@ -445,11 +418,7 @@ const Home: NextPage = () => {
 
         {name && description && supply && price && (
           <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
-            <Button
-              disabled={isMinting}
-              variant="contained"
-              onClick={handleClickMint}
-            >
+            <Button disabled={isMinting} variant="contained" onClick={handleClickMint}>
               {isMinting ? <CircularProgress /> : "Deploy"}
             </Button>
           </Box>

@@ -4,7 +4,7 @@ import { Button, IconButton, TextField } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import { Description } from "@mui/icons-material";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
@@ -55,15 +55,9 @@ function Dao({ addr }) {
   useEffect(() => {
     if (step === 7 && DAOContract) {
       async function getContracts() {
-        const provider = new ethers.providers.JsonRpcProvider(
-          ETH_GOERLI_ALCHEMY
-        );
+        const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
 
-        const Factory = new Contract(
-          DAOContract.address,
-          GoodsFactoryAbi,
-          provider
-        );
+        const Factory = new Contract(DAOContract.address, GoodsFactoryAbi, provider);
 
         const hexToDecimal = (hex) => parseInt(hex, 16);
         try {
@@ -217,9 +211,7 @@ function Dao({ addr }) {
       website: website,
     };
 
-    const blobMetadata = new Blob([JSON.stringify(daoMetadata)], {
-      type: "application/json",
-    });
+    const blobMetadata = new Blob([JSON.stringify(daoMetadata)], { type: "application/json" });
 
     const files = [new File([blobMetadata], "metadata.json")];
 
@@ -296,9 +288,7 @@ function Dao({ addr }) {
           >
             <Button onClick={handlePrev}>prev</Button>
             <Box>
-              <div
-                style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}
-              >
+              <div style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}>
                 Name of the DAO
               </div>
               <TextField
@@ -328,9 +318,7 @@ function Dao({ addr }) {
           >
             <Button onClick={handlePrev}>prev</Button>
             <Box style={{ width: "50%" }}>
-              <div
-                style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}
-              >
+              <div style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}>
                 About the DAO
               </div>
               <TextField
@@ -362,9 +350,7 @@ function Dao({ addr }) {
           >
             <Button onClick={handlePrev}>prev</Button>
             <Box style={{ width: "50%" }}>
-              <div
-                style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}
-              >
+              <div style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}>
                 Link for Roadmap
               </div>
               <TextField
@@ -393,9 +379,7 @@ function Dao({ addr }) {
           >
             <Button onClick={handlePrev}>prev</Button>
             <Box style={{ width: "50%" }}>
-              <div
-                style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}
-              >
+              <div style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}>
                 Link for Banner Image
               </div>
               <TextField
@@ -424,9 +408,7 @@ function Dao({ addr }) {
           >
             <Button onClick={handlePrev}>prev</Button>
             <Box style={{ width: "50%" }}>
-              <div
-                style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}
-              >
+              <div style={{ textAlign: "center", margin: 50, fontSize: "1.3em" }}>
                 Link for Website
               </div>
               <TextField
@@ -459,11 +441,7 @@ function Dao({ addr }) {
             <br></br>
 
             <h3>ROADMAP</h3>
-            <iframe
-              src={roadmap}
-              width="100%"
-              style={{ height: "40vh" }}
-            ></iframe>
+            <iframe src={roadmap} width="100%" style={{ height: "40vh" }}></iframe>
           </div>
 
           <Button onClick={handleClickDeploy}>Deploy DAO Contract</Button>
@@ -473,10 +451,7 @@ function Dao({ addr }) {
         <div style={{ textAlign: "center", margin: 50 }}>
           <div>
             {DAOContract.metadata && (
-              <img
-                src={DAOContract.metadata.banner}
-                style={{ height: "20vh" }}
-              ></img>
+              <img src={DAOContract.metadata.banner} style={{ height: "20vh" }}></img>
             )}
             <h1>{DAOContract.name}</h1>
             <br></br>
@@ -488,11 +463,7 @@ function Dao({ addr }) {
             {DAOContract.metadata && (
               <Button
                 onClick={() => {
-                  window.open(
-                    DAOContract.metadata.website,
-                    "_blank",
-                    "noopener,noreferrer"
-                  );
+                  window.open(DAOContract.metadata.website, "_blank", "noopener,noreferrer");
                 }}
               >
                 Website
@@ -500,23 +471,12 @@ function Dao({ addr }) {
             )}
           </div>
 
-          <Box
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <Box style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             {contracts &&
               contracts.map((cont) => (
                 <Box
                   key={cont.address}
-                  style={{
-                    border: "2px black solid",
-                    margin: 40,
-                    width: "25vw",
-                    padding: 5,
-                  }}
+                  style={{ border: "2px black solid", margin: 40, width: "25vw", padding: 5 }}
                 >
                   <Box style={{ textAlign: "center", fontSize: "1.5em" }}>
                     {cont.name} {"(" + cont.symbol + ")"}
@@ -535,19 +495,10 @@ function Dao({ addr }) {
                       variant="contained"
                       style={{ textAlign: "center", marginInline: 6 }}
                       onClick={async () => {
-                        if (!library)
-                          return toast(
-                            "Wallet connection failed, please try again"
-                          );
+                        if (!library) return toast("Wallet connection failed, please try again");
 
-                        const signer = library
-                          .getSigner(account)
-                          .connectUnchecked();
-                        const contract = new Contract(
-                          cont.address,
-                          GoodsAbi,
-                          signer
-                        );
+                        const signer = library.getSigner(account).connectUnchecked();
+                        const contract = new Contract(cont.address, GoodsAbi, signer);
 
                         try {
                           const mintInitResult = await contract.mintGoods(1, {
@@ -562,14 +513,9 @@ function Dao({ addr }) {
 
                           console.log(receipt);
 
-                          const mintedTokenId = parseInt(
-                            receipt.logs[0].topics[3],
-                            16
-                          );
+                          const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
 
-                          console.log(
-                            (await contract.baseURI()) + mintedTokenId
-                          );
+                          console.log((await contract.baseURI()) + mintedTokenId);
 
                           //alert(`Successfully minted token ${mintedTokenId}!`);
 
@@ -577,9 +523,7 @@ function Dao({ addr }) {
                             `https://testnets.opensea.io/assets/rinkeby/${receipt.logs[0].address}/${mintedTokenId}`
                           );
                         } catch (error: any) {
-                          toast.error(
-                            "Failed to mint: " + JSON.stringify(error)
-                          );
+                          toast.error("Failed to mint: " + JSON.stringify(error));
                           console.log("Failed to mint: ", error);
                         }
                       }}
@@ -591,19 +535,10 @@ function Dao({ addr }) {
                       <Button
                         variant="contained"
                         onClick={async () => {
-                          if (!library)
-                            return toast(
-                              "Wallet connection failed, please try again"
-                            );
+                          if (!library) return toast("Wallet connection failed, please try again");
 
-                          const signer = library
-                            .getSigner(account)
-                            .connectUnchecked();
-                          const contract = new Contract(
-                            cont.address,
-                            GoodsAbi,
-                            signer
-                          );
+                          const signer = library.getSigner(account).connectUnchecked();
+                          const contract = new Contract(cont.address, GoodsAbi, signer);
 
                           try {
                             const withdrawRes = await contract.withdraw();
@@ -634,11 +569,7 @@ function Dao({ addr }) {
           )}
 
           {DAOContract && DAOContract.owner == account && (
-            <Button
-              onClick={() =>
-                Router.push(`/minter?factoryAddress=${DAOContract.address}`)
-              }
-            >
+            <Button onClick={() => Router.push(`/minter?factoryAddress=${DAOContract.address}`)}>
               CREATE NEW Collection
             </Button>
           )}
@@ -647,9 +578,7 @@ function Dao({ addr }) {
 
       <div style={{ justifyContent: "center", display: "flex" }}>
         {(daoAddress == "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962" ||
-          addr == "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962") && (
-          <h3>Timeline</h3>
-        )}
+          addr == "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962") && <h3>Timeline</h3>}
       </div>
       <div style={{ justifyContent: "center", display: "flex", margin: 20 }}>
         {(daoAddress == "0xd6F69419B3D289b8f26013Fb43B6A7d22aAba962" ||

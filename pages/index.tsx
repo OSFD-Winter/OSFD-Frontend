@@ -27,10 +27,10 @@ import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Referral from "../components/referral";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
-import "react-toastify/dist/ReactToastify.css";
+import 'react-toastify/dist/ReactToastify.css';
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
@@ -142,9 +142,9 @@ const Home: NextPage = () => {
       });
       dispatch({ type: "setWalletAddress", payload: accounts[0] });
       changeNetWork();
-      let balance = await new ethers.providers.Web3Provider(
-        window.ethereum
-      ).getBalance(accounts[0]);
+      let balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
+        accounts[0]
+      );
       let bal = ethers.utils.formatEther(balance);
       dispatch({ type: "setWalletBalance", payload: bal });
       //console.log(state);
@@ -358,9 +358,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[0].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[0].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -379,8 +377,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[0].supply - contracts[0].minted}/
-                {contracts[0].supply}
+                supply: {contracts[0].supply - contracts[0].minted}/{contracts[0].supply}
               </div>
               <div
                 style={{
@@ -459,9 +456,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[1].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[1].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -480,8 +475,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[1].supply - contracts[1].minted}/
-                {contracts[1].supply}
+                supply: {contracts[1].supply - contracts[1].minted}/{contracts[1].supply}
               </div>
               <div
                 style={{
@@ -580,9 +574,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[2].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[2].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -601,8 +593,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[2].supply - contracts[2].minted}/
-                {contracts[2].supply}
+                supply: {contracts[2].supply - contracts[2].minted}/{contracts[2].supply}
               </div>
               <div
                 style={{
@@ -692,9 +683,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[3].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[3].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -713,8 +702,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[3].supply - contracts[3].minted}/
-                {contracts[3].supply}
+                supply: {contracts[3].supply - contracts[3].minted}/{contracts[3].supply}
               </div>
               <div
                 style={{
@@ -824,9 +812,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  onClick={() =>
-                    Router.push(`/dao?daoAddress=${curated[3].factory}`)
-                  }
+                  onClick={() => Router.push(`/dao?daoAddress=${curated[3].factory}`)}
                   style={{
                     backgroundColor: "#1b2f91",
                     color: "white",
@@ -845,8 +831,7 @@ const Home: NextPage = () => {
                   color: "#556cd6",
                 }}
               >
-                supply: {contracts[3].supply - contracts[3].minted}/
-                {contracts[3].supply}
+                supply: {contracts[3].supply - contracts[3].minted}/{contracts[3].supply}
               </div>
               <div
                 style={{
@@ -969,11 +954,7 @@ const Home: NextPage = () => {
       </div>
 
       <div>
-        <Footer
-          gradient={
-            "linear-gradient(to right, #01010A, #010529, #171e74, #2673FF)"
-          }
-        />
+        <Footer gradient={"linear-gradient(to right, #01010A, #010529, #171e74, #2673FF)"} />
         <ToastContainer />
       </div>
     </div>

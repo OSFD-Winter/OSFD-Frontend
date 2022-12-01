@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useCallback,
-  Dispatch,
-  useReducer,
-  useContext,
-} from "react";
+import React, { createContext, useCallback, Dispatch, useReducer, useContext } from "react";
 
 interface IState {
   walletAddress: string;
@@ -64,11 +58,7 @@ export const ReducerContextProvider: React.FC = (props) => {
   );
   const [state, dispatch] = useReducer(reducer, initValue);
 
-  return (
-    <Context.Provider value={{ state, dispatch }}>
-      {props.children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={{ state, dispatch }}>{props.children}</Context.Provider>;
 };
 
 export const useReducerContext = () => {

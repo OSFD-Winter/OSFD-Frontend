@@ -10,9 +10,7 @@ const API_BASE_URL = "https://api.coinbase.com/v2/prices/";
 
 function Referral() {
   const [referrer, setReferrer] = useState("");
-  const [referralLink, setReferralLink] = useState(
-    "https://www.teamnouns.xyz?ref="
-  );
+  const [referralLink, setReferralLink] = useState("https://www.teamnouns.xyz?ref=");
   const [currentReferralAmount, setCurrentReferralAmount] = useState(0);
   const { state } = useReducerContext();
   const [walletAddress, setWalletAddress] = useState("");
