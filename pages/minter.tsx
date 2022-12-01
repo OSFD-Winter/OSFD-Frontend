@@ -22,7 +22,7 @@ import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
 import { injected } from "../src/web3ReactInjector";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 
 //import abi from "../src/Factory.json";
 //import abi from "../src/SurfFactory.json";
