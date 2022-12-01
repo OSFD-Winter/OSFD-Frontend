@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import CSS from "csstype";
 import axios from "axios";
 
+import { ETHERSCAN_MAINNET } from "../utils/constants";
+
 type addressProps = {
   address: string;
 };
@@ -29,7 +31,7 @@ function MintLogs({ address }: addressProps) {
 
   // Redirect to etherscan when the element is clicked
   const handleAddressClick = (address: string) => {
-    openInNewTab(`https://etherscan.io/address/${address}`);
+    openInNewTab(`${ETHERSCAN_MAINNET}/address/${address}`);
   };
 
   const handleIDClick = (hash: string) => {

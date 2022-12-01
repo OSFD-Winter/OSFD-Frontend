@@ -27,11 +27,13 @@ import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Referral from "../components/referral";
-
+import { ToastContainer, toast } from "react-toastify";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
-
+import "react-toastify/dist/ReactToastify.css";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+
+import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
 
 const curated = [
   {
@@ -72,19 +74,19 @@ const Home: NextPage = () => {
       name: "Vote Stamp",
       symbol: "TNV",
       price: 10000000000000,
-      supply: 1000000, minted: 21, hash: "bafkreigpnzgdynfdnvlspgcoi6b5mtc5wf4af6tqtkir5az7wzi4yt3rgq"
+      supply: 1000000,
+      minted: 21,
+      hash: "bafkreigpnzgdynfdnvlspgcoi6b5mtc5wf4af6tqtkir5az7wzi4yt3rgq",
     },
     {
       address: "0x54e305897419eE6941d8941c60724175B2ebAA0c",
       name: "Team Nouns DAO Certificates",
       symbol: "TNDC",
       price: 1000000000000000000,
-      supply: 1000, minted: 2,
-      hash: "bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"
-    }
-
-
-
+      supply: 1000,
+      minted: 2,
+      hash: "bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi",
+    },
   ]);
 
   const { ethereum } = typeof window !== "undefined" && window;
@@ -94,7 +96,7 @@ const Home: NextPage = () => {
     new ethers.providers.Web3Provider(window.ethereum);
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
-  const [accountAddress, setAccountAddress] = useState("");
+  const { state, dispatch } = useReducerContext();
 
   const changeNetWork = async () => {
     try {
@@ -138,10 +140,16 @@ const Home: NextPage = () => {
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
-      setAccountAddress(accounts[0]);
       dispatch({ type: "setWalletAddress", payload: accounts[0] });
       changeNetWork();
+      let balance = await new ethers.providers.Web3Provider(
+        window.ethereum
+      ).getBalance(accounts[0]);
+      let bal = ethers.utils.formatEther(balance);
+      dispatch({ type: "setWalletBalance", payload: bal });
+      //console.log(state);
     } catch (error) {
+      //console.log(error);
       setIsConnected(false);
     }
   };
@@ -162,9 +170,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     async function getContracts() {
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://eth-goerli.g.alchemy.com/v2/yZIdvCyYdidI1nxEKQeR4mCPmkqP2gS5"
-      );
+      const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
       const hexToDecimal = (hex) => parseInt(hex, 16);
       try {
         let detailedContracts = [];
@@ -196,7 +202,7 @@ const Home: NextPage = () => {
         }
         setContracts(detailedContracts);
       } catch (error: any) {
-        alert("Failed " + JSON.stringify(error));
+        toast("Failed " + JSON.stringify(error));
         console.log("Failed  ", error);
       }
     }
@@ -229,7 +235,7 @@ const Home: NextPage = () => {
 
       console.log((await contract.baseURI()) + mintedTokenId);
     } catch (error: any) {
-      alert("Failed to mint: " + JSON.stringify(error));
+      toast("Failed to mint: " + JSON.stringify(error));
       console.log("Failed to mint: ", error);
     }
   }
@@ -282,7 +288,7 @@ const Home: NextPage = () => {
                     height: "50px",
                     marginLeft: "6px",
                   }}
-                  src='MetaMask-logo.png'
+                  src="MetaMask-logo.png"
                 />
               </div>
             )}
@@ -312,7 +318,6 @@ const Home: NextPage = () => {
             }}
           >
             <MintPreview hash={contracts[0].hash}></MintPreview>
-
           </div>
           <div
             style={{
@@ -386,7 +391,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -487,7 +492,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -608,7 +613,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -720,7 +725,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -852,7 +857,7 @@ const Home: NextPage = () => {
                 }}
               >
                 <Button
-                  variant='contained'
+                  variant="contained"
                   style={{
                     textAlign: "center",
                     paddingInline: 40,
@@ -877,8 +882,7 @@ const Home: NextPage = () => {
           alignItems: "center",
           justifyContent: "center",
         }}
-      >
-      </Box>
+      ></Box>
 
       <Box
         style={{
@@ -965,7 +969,12 @@ const Home: NextPage = () => {
       </div>
 
       <div>
-        <Footer />
+        <Footer
+          gradient={
+            "linear-gradient(to right, #01010A, #010529, #171e74, #2673FF)"
+          }
+        />
+        <ToastContainer />
       </div>
     </div>
   );

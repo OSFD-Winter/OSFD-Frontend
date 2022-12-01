@@ -1,61 +1,30 @@
 // @ts-nocheck
+import Image from "next/image";
+import Link from "next/link";
+import osfd from "../public/osfd-small-logo.png";
 
-function Footer() {
+const Footer = ({ gradient }) => {
   return (
-    <footer
-      style={{
-        backgroundImage:
-          "linear-gradient(to right, #01010A, #010529, #171e74, #2673FF)",
-        position: "relative",
-        height: "150px",
-        color: "white",
-        width: "100vw",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          position: "relative",
-          height: "100%",
-          maxWidth: "90%",
-          paddingTop: "30px",
-          margin: "0 auto",
-        }}
-      >
-        <div
-          style={{
-            fontSize: 17,
-          }}
-        >
-          <a href={"/terms"}> Terms of Service </a> | Sales Agreements | Privacy
-          Policy
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            transform: "translateY(-50%)",
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
-          {" "}
-          <img src='./osfd-small-logo.png' alt='osfd'></img>{" "}
-        </div>
-
-        <div
-          style={{
-            fontSize: 19,
-          }}
-        >
-          © 2022 OSFD All rights reserved
+    <footer className={gradient}>
+      <div className="md:flex md:justify-around sm:px-12 md:items-center ">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 sm:px-8 px-5 py-16">
+          <div className="m-auto">
+            <a className="cursor-pointer">Terms of Service | </a>
+            <a className="cursor-pointer">Sales Agreements | </a>
+            <a className="cursor-pointer">Privacy Policy</a>
+          </div>
+          <div className="m-auto cursor-pointer">
+            <Link href="/">
+              <Image src={osfd} alt="osfd" />
+            </Link>
+          </div>
+          <div className="m-auto">
+            <span>© 2022 OSFD All rights reserved.</span>
+          </div>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

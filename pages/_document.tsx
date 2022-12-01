@@ -17,10 +17,7 @@ export default class MyDocument extends Document {
           />
           <link rel="shortcut icon" href="/favicon.ico" />
 
-          <title>
-            OSFD | Tools for Fund Raising
-          </title>
-
+          <title>OSFD | Tools for Fund Raising</title>
         </Head>
         <body>
           <Main />
