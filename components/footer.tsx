@@ -5,7 +5,7 @@ import osfd from "../public/osfd-small-logo.png";
 
 const Footer = ({ gradient }) => {
   return (
-    <footer className={gradient}>
+    <footer className={gradient + " mt-[50px]"}>
       <div className="md:flex md:justify-around sm:px-12 md:items-center ">
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 sm:px-8 px-5 py-16">
           <div className="m-auto">

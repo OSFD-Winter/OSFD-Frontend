@@ -6,6 +6,8 @@ import Footer from "../components/footer";
 import { ArrowLeft } from "@mui/icons-material";
 import Link from "next/link";
 import React, { useRef } from "react";
+import MintButton from "../components/mintButton";
+import Feedback from "../components/feedback";
 
 const InternsDAO: NextPage = () => {
   const space = "internsdao.eth";
@@ -71,15 +73,16 @@ const InternsDAO: NextPage = () => {
         </div>
 
         <div className={"w-[1000px] mx-auto my-10"} ref={mint}>
-          <div className={" h-[679px]"}>
+          <div>
             <MintPreview
               hash={"bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"}
             ></MintPreview>
+            <MintButton
+              address="0x09aD6Fb74584fFbA72C65419c03741325CAE00a1"
+              price="1000000000000000"
+            ></MintButton>
           </div>
-          <div className="w-full mt-[50px]">
-            <div className="w-full flex justify-center">
-              <Button style={{ fontSize: "1.5em", textTransform: "none" }}> Mint</Button>
-            </div>
+          <div className="w-full">
             <div className={"text-[#7E53FF] font-bold text-xl my-10 text-center"}>
               Interns DAO Stakeholder Certificates
             </div>
@@ -135,10 +138,13 @@ const InternsDAO: NextPage = () => {
                   <div className={"font-bold text-xl mb-10"}>Networks 1-5</div>
                   <div>
                     Social apps enabling posting text, color, image, song and creating bounties for
-                    song and image requests.
+                    song and image requests wia wallets. Each post contains signatures as proof.
                   </div>
                 </div>
-                <img src={"./network-5.png"} style={{ width: 300, marginBlock: 30 }}></img>
+                <img
+                  src={"./network-5.png"}
+                  style={{ width: 300, marginBlock: 30, marginInline: 10 }}
+                ></img>
               </Button>
             </Card>
 
@@ -149,13 +155,16 @@ const InternsDAO: NextPage = () => {
                 }}
                 className={"w-full"}
               >
-                <img src={"./discord.jpg"} style={{ width: 300, marginBlock: 30 }}></img>
+                <img
+                  src={"./discord.jpg"}
+                  style={{ width: 300, marginBlock: 30, marginInline: 10 }}
+                ></img>
                 <div className={"w-8/12 text-center normal-case text-[#000]"}>
-                  <div className={"font-bold text-xl mb-10"}>Discord Bots</div>
+                  <div className={"font-bold text-xl mb-10"}>Twitter & Discord Bots</div>
                   <div>
-                    Discord bots can be used for anything, sharing collected feedbacks, collecting
-                    wallet addresses, sharing activity of products we built. All for providing more
-                    transparent and automated process.
+                    Twitter &Discord bots can be used for anything, sharing collected feedbacks,
+                    collecting wallet addresses, sharing activity of products we built. All for
+                    providing more transparent and automated process.
                   </div>
                 </div>
               </Button>
@@ -174,11 +183,44 @@ const InternsDAO: NextPage = () => {
                 <img src={"./AI.png"} style={{ width: 300, marginBlock: 30 }}></img>
               </Button>
             </Card>
+
+            <Card className="flex justify-center items-center bg-gradient-to-r from-[#78dcfa] to-[#4ec9f5] mb-5">
+              <Button className={"w-full"}>
+                <div className={"w-8/12  text-center normal-case text-[#000]"}>
+                  <div className={"font-bold text-xl mb-10"}>Onchain Rock Paper Scissors Game</div>
+                  <div>Mint and play secure decentralised onchainrock paper scissors game.</div>
+                </div>
+                <img
+                  src={
+                    "https://static.vecteezy.com/system/resources/previews/000/691/497/original/rock-paper-scissors-neon-icons-vector.jpg"
+                  }
+                  style={{ width: 300, marginBlock: 30 }}
+                ></img>
+              </Button>
+            </Card>
+
+            <Card className="flex justify-center items-center bg-gradient-to-r from-[#F8F7C5] to-[#FAF719] mb-5">
+              <Button className={"w-full"}>
+                <div className={"w-8/12  text-center normal-case text-[#000]"}>
+                  <div className={"font-bold text-xl mb-10"}>Marketplace for OSFD</div>
+                  <div>Feeless NFT marketplace for OSFD</div>
+                </div>
+                <img
+                  src={
+                    "https://cdnblog.webkul.com/blog/wp-content/uploads/2022/09/the-emergence-of-NFT-marketplace-in-the-mordern-era.png"
+                  }
+                  style={{ width: 300, marginBlock: 30 }}
+                ></img>
+              </Button>
+            </Card>
           </div>
         </div>
       </Box>
       <div className="flex justify-center" ref={proposals}>
         <Proposals space={space}></Proposals>
+      </div>
+      <div style={{ marginTop: 100 }}>
+        <Feedback></Feedback>
       </div>
       <Footer gradient={"bg-gradient-to-r from-[#BFADFC] to-[#FCCD79]"} />
     </Box>

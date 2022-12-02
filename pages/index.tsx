@@ -954,7 +954,9 @@ const Home: NextPage = () => {
       </div>
 
       <div>
-        <Footer gradient={"linear-gradient(to right, #01010A, #010529, #171e74, #2673FF)"} />
+        <Footer
+          gradient={"bg-gradient-to-r from-blue-1000 to-blue-50 relative text-white w-full"}
+        />
         <ToastContainer />
       </div>
     </div>
