@@ -34,6 +34,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
+import MetaMaskButton from "../components/metamaskButton";
 
 const curated = [
   {
@@ -248,56 +249,7 @@ const Home: NextPage = () => {
       }}
     >
       <Header></Header>
-
-      {/* Button to connect metamask */}
-      <div
-        onClick={connectWallet}
-        style={{
-          display: isConnected ? "None" : "flex",
-          position: "absolute",
-          top: 10,
-          right: 10,
-          maxHeight: "60px",
-          maxWidth: "280px",
-          height: "100%",
-          width: "100%",
-          backgroundColor: "#306ac7",
-          borderRadius: "5px",
-          justifyContent: "center",
-          color: "white",
-          padding: "8px 24px",
-          alignItems: "center",
-          cursor: "pointer",
-        }}
-      >
-        {haveMetamask ? (
-          <div>
-            {isConnected ? (
-              <></>
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <div>Connect with Metamask</div>
-                <img
-                  style={{
-                    height: "50px",
-                    marginLeft: "6px",
-                  }}
-                  src="MetaMask-logo.png"
-                />
-              </div>
-            )}
-          </div>
-        ) : (
-          <p>Please Install MataMask</p>
-        )}
-      </div>
-
+      <MetaMaskButton />
       {contracts && contracts[0] && (
         <div
           style={{
