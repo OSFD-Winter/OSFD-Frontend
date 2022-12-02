@@ -27,10 +27,10 @@ import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Referral from "../components/referral";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";

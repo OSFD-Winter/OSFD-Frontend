@@ -6,7 +6,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
 import { injected } from "../src/web3ReactInjector";
 import { ethers } from "ethers";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import FactoryAbi from "../src/GoodsFactory.json";
 import GoodsAbi from "../src/Goods.json";
 import Link from "next/link";

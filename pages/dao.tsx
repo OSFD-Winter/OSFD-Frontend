@@ -4,7 +4,7 @@ import { Button, IconButton, TextField } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import { Description } from "@mui/icons-material";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from "react-toastify";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
