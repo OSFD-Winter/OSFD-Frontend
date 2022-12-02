@@ -1,4 +1,4 @@
-export const SERVER = "https://osfd-backend.onrender.com";
+export const SERVER = "https://osfd-backend-production.up.railway.app";
 export const SANDBOX = "https://sandbox-production.up.railway.app";
 export const ETHERSCAN_MAINNET = "https://etherscan.io";
 export const ETH_GOERLI_ALCHEMY =
