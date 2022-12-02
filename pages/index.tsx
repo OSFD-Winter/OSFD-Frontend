@@ -90,84 +90,9 @@ const Home: NextPage = () => {
     },
   ]);
 
-  const { ethereum } = typeof window !== "undefined" && window;
-  const provider =
-    typeof window !== "undefined" &&
-    haveMetamask &&
-    new ethers.providers.Web3Provider(window.ethereum);
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const { state, dispatch } = useReducerContext();
-
-  const changeNetWork = async () => {
-    try {
-      await ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x5" }], // Goerli Testnet
-      });
-      setIsConnected(true);
-    } catch (err: any) {
-      // This error code indicates that the chain has not been added to MetaMask.
-      if (err.code === 4902) {
-        try {
-          await ethereum.request({
-            method: "wallet_addEthereumChain",
-            params: [
-              {
-                chainId: "0x5",
-                chainName: "Goerli Testnet",
-                rpcUrls: ["https://goerli.prylabs.net"],
-              },
-            ],
-          });
-          setIsConnected(true);
-        } catch (addError) {
-          // handle "add" error
-          setIsConnected(false);
-        }
-      }
-      // handle other "switch" errors
-      setIsConnected(false);
-    }
-    // handle other "switch" errors
-    setIsConnected(false);
-  };
-
-  const connectWallet = async () => {
-    try {
-      if (!ethereum) {
-        sethaveMetamask(false);
-      }
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      dispatch({ type: "setWalletAddress", payload: accounts[0] });
-      changeNetWork();
-      let balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
-        accounts[0]
-      );
-      let bal = ethers.utils.formatEther(balance);
-      dispatch({ type: "setWalletBalance", payload: bal });
-      //console.log(state);
-    } catch (error) {
-      //console.log(error);
-      setIsConnected(false);
-    }
-  };
-
-  // See if Metamask is installed on browser
-  useEffect(() => {
-    if (window !== undefined) {
-      const { ethereum } = window;
-      const checkMetamaskAvailability = async () => {
-        if (!ethereum) {
-          sethaveMetamask(false);
-        }
-        sethaveMetamask(true);
-      };
-      checkMetamaskAvailability();
-    }
-  }, []);
 
   useEffect(() => {
     async function getContracts() {
