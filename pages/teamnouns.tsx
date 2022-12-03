@@ -30,6 +30,7 @@ import { injected } from "../src/web3ReactInjector";
 import GoodsAbi from "../src/Goods.json";
 import Referral from "../components/referral";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+import Navbar from "../components/navbar";
 const curated = [
   {
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
@@ -149,6 +150,7 @@ const Home: NextPage = () => {
 
   return (
     <div>
+      <Navbar />
       <NounsHeader />
       <div className="teamnouns-container flex justify-center items-center p-[20px] space-x-10 ">
         <div className="left-container text-[#00008B] flex flex-col font-[Poppins] max-w-[300px]">
