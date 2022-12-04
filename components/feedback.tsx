@@ -10,7 +10,7 @@ import { SERVER } from "../utils/constants";
 
 function Feedback({ hash: any }) {
   const discordWebhookUrl =
-    "https://discord.com/api/webhooks/1048704738406973480/2B42iPDFQ5SuRr7RfpwJnryEnYBztCn1VmLaCrHkhm9KpN5se0HWw4F9QOTfCw6hAs60";
+    "https://discord.com/api/webhooks/1048923636565807134/KVnUHflpU5XeSMxmFQrLSgwa9ENpVptyH6QMw1qI3sCsLQA6MLDnaNHKEJjAlwzD1b9b";
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [email, setEmail] = useState("");
