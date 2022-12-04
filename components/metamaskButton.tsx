@@ -30,18 +30,18 @@ const MetaMaskButton = () => {
     try {
       if (!ethereum) {
         sethaveMetamask(false);
+        return;
       }
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
       dispatch({ type: "setWalletAddress", payload: accounts[0] });
       changeNetWork();
-      let balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
+      const balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
         accounts[0]
       );
-      // TODO:
-      let bal = ethers.utils.formatEther(balance);
-      dispatch({ type: "setWalletBalance", payload: bal });
+      const bal = +balance / +1000000000000000000;
+      dispatch({ type: "setWalletBalance", payload: bal.toString() });
     } catch (error) {
       console.log(error);
       setIsConnected(false);
@@ -89,19 +89,21 @@ const MetaMaskButton = () => {
       onClick={() => {
         connectWallet();
       }}
+      disabled={!haveMetamask}
+      variant="contained"
       sx={{
         display: isConnected ? "none" : "flex",
         position: "absolute",
         top: 10,
         right: 10,
         maxHeight: "60px",
-        maxWidth: "280px",
+        maxWidth: "300px",
         height: "100%",
         width: "100%",
-        backgroundColor: "#306ac7",
+        bgcolor: "#306ac7",
         borderRadius: "5px",
         justifyContent: "center",
-        color: "white",
+        color: "white !IMPORTANT",
         padding: "8px 24px",
         alignItems: "center",
       }}
