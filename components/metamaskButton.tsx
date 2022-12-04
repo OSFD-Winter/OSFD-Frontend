@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@mui/material";
 import { useReducerContext } from "../api/context";
 import { ethers } from "ethers";
+import { toast } from "react-toastify";
 
 declare global {
   interface Window {
@@ -13,8 +14,7 @@ const MetaMaskButton = () => {
   //TODO: dont use ethers
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
-  const { state, dispatch } = useReducerContext();
-  // const { ethereum } = typeof window !== "undefined" && window;
+  const { dispatch } = useReducerContext();
   const ethereum = typeof window !== "undefined" && window ? window.ethereum : {};
 
   // See if Metamask is installed on browser
@@ -25,7 +25,6 @@ const MetaMaskButton = () => {
       }
     }
   }, []);
-
   const connectWallet = async () => {
     try {
       if (!ethereum) {
@@ -42,6 +41,7 @@ const MetaMaskButton = () => {
       );
       const bal = +balance / +1000000000000000000;
       dispatch({ type: "setWalletBalance", payload: bal.toString() });
+      toast("Wallet Connected");
     } catch (error) {
       console.log(error);
       setIsConnected(false);
