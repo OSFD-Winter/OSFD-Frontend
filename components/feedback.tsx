@@ -2,7 +2,6 @@
 import { storage } from "../src/firebase_images";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState, useRef } from "react";
-import axios from "axios";
 import { Button, TextField, Paper, Box, Input } from "@mui/material";
 import { v4 } from "uuid";
 import spinnerImage from "../public/spinner.svg";
@@ -10,13 +9,16 @@ import spinnerImage from "../public/spinner.svg";
 import { SERVER } from "../utils/constants";
 
 function Feedback({ hash: any }) {
+  const discordWebhookUrl =
+    "https://discord.com/api/webhooks/1048923636565807134/KVnUHflpU5XeSMxmFQrLSgwa9ENpVptyH6QMw1qI3sCsLQA6MLDnaNHKEJjAlwzD1b9b";
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
   const [image, setImage] = useState(null);
-  const [url, seturl] = useState("TEMP");
+  const [url, seturl] = useState("NA");
   const [uploading, setUploading] = useState(false);
+  const stopRender = useRef(true);
   let update = 1;
 
   // handle image upload
@@ -35,6 +37,36 @@ function Feedback({ hash: any }) {
         setUploading(false);
       });
     }
+  };
+
+  const pushToDiscord = () => {
+    if (stopRender.current) {
+      return;
+    }
+    if (email === "" || desc === "" || title === "") {
+      setTimeout(() => {}, 4000);
+      return;
+    }
+    const condensedData = "Email: " + email + "\nDescription: " + desc + "\nImage: " + url;
+    const message = {
+      content: condensedData,
+      username: "User Feedback || Title: " + title,
+    };
+    if (title === "" || desc === "" || email === "") {
+      setTimeout(() => {}, 4000);
+      return;
+    }
+    try {
+      fetch(discordWebhookUrl + "?wait=true", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(message),
+      });
+      setTimeout(() => {}, 4000);
+    } catch (error) {
+      console.log(error);
+    }
+    setSent(true);
   };
 
   return (
@@ -101,46 +133,47 @@ function Feedback({ hash: any }) {
               rows={1}
             />
             <br></br>
+            <div style={{ display: "flex", justifyContent: "left" }}>
+              {url === "NA" ? (
+                <Box
+                  style={{
+                    height: 100,
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: 10,
+                    alignItems: "center",
+                  }}
+                >
+                  <Input
+                    type="file"
+                    name="file"
+                    id="input_img"
+                    accept="image/*"
+                    onChange={(event) => {
+                      setImage(event.target.files[0]);
+                    }}
+                  />
+                  <Box sx={{ display: "flex", justifyContent: "center" }}>
+                    <Button onClick={uploadImage} style={{ height: 35 }}>
+                      {uploading === false ? (
+                        "upload"
+                      ) : (
+                        <img
+                          src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
+                          alt=""
+                          height="30px"
+                          width="30px"
+                        />
+                      )}
+                    </Button>
+                  </Box>
+                </Box>
+              ) : (
+                "Image Uploaded."
+              )}
+            </div>
           </>
         )}
-        <div style={{ display: "flex", justifyContent: "left" }}>
-          {url === "TEMP" ? (
-            <Box
-              style={{
-                height: 100,
-                display: "flex",
-                justifyContent: "center",
-                padding: 10,
-                alignItems: "center",
-              }}
-            >
-              <Input
-                type="file"
-                name="file"
-                id="input_img"
-                accept="image/*"
-                onChange={(event) => {
-                  setImage(event.target.files[0]);
-                }}
-              />
-              <Box sx={{ display: "flex", justifyContent: "center" }}>
-                <Button onClick={uploadImage} style={{ height: 35 }}>
-                  {uploading === false ? (
-                    "upload"
-                  ) : (
-                    <img
-                      src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
-                      alt=""
-                      height="30px"
-                    />
-                  )}
-                </Button>
-              </Box>
-            </Box>
-          ) : (
-            ""
-          )}
-        </div>
         <div style={{ display: "flex", justifyContent: "center" }}>
           <Button
             style={{
@@ -148,27 +181,11 @@ function Feedback({ hash: any }) {
               color: "white",
               paddingInline: 40,
             }}
-            disabled={sent}
+            disabled={sent || title === "" || desc === "" || email === ""}
+            // push to discord using webhooks
             onClick={() => {
-              axios
-                .post(`${SERVER}/tokens/feedback`, {
-                  feedback: {
-                    title: title,
-                    description:
-                      desc +
-                      " EMAIL: " +
-                      email +
-                      " IMAGE URL: " +
-                      url +
-                      " COMING FROM: *ADD PAGE HERE TO TRACK FEEDBACK*",
-                  },
-                })
-                .then(() => {
-                  setSent(true);
-                  setTitle("");
-                  setDesc("");
-                  setEmail("");
-                });
+              stopRender.current = false;
+              pushToDiscord();
             }}
           >
             {sent ? "Received!" : "Send"}
