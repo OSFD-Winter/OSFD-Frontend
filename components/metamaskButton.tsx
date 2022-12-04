@@ -11,7 +11,6 @@ declare global {
 }
 
 const MetaMaskButton = () => {
-  //TODO: dont use ethers
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const { dispatch } = useReducerContext();
