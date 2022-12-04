@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import { useReducerContext } from "../api/context";
 import { ethers } from "ethers";
 import { toast } from "react-toastify";
+import { injected } from "../src/web3ReactInjector";
+import { useWeb3React } from "@web3-react/core";
 
 declare global {
   interface Window {
@@ -10,10 +12,22 @@ declare global {
   }
 }
 
+const generalStyle = {
+  position: "absolute",
+  top: 10,
+  right: 10,
+  width: "20vw",
+  bgcolor: "#306ac7",
+  borderRadius: "5px",
+  color: "white !IMPORTANT",
+  padding: "8px 24px",
+};
+
 const MetaMaskButton = () => {
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
-  const { dispatch } = useReducerContext();
+  const { activate } = useWeb3React();
+  const { state, dispatch } = useReducerContext();
   const ethereum = typeof window !== "undefined" && window ? window.ethereum : {};
 
   // See if Metamask is installed on browser
@@ -23,6 +37,14 @@ const MetaMaskButton = () => {
         sethaveMetamask(false);
       }
     }
+    // Check if wallet is connected already, if so hide button
+    injected.isAuthorized().then((authorized) => {
+      if (authorized) {
+        console.log(authorized);
+        // activate(injected);
+        connectWallet();
+      }
+    });
   }, []);
   const connectWallet = async () => {
     try {
@@ -40,7 +62,7 @@ const MetaMaskButton = () => {
       );
       const bal = +balance / +1000000000000000000;
       dispatch({ type: "setWalletBalance", payload: bal.toString() });
-      toast("Wallet Connected");
+      // toast("Wallet Connected");
     } catch (error) {
       console.log(error);
       setIsConnected(false);
@@ -83,29 +105,25 @@ const MetaMaskButton = () => {
     }
   }
 
-  return (
+  return haveMetamask && !isConnected ? (
     <Button
       onClick={() => {
         connectWallet();
       }}
       disabled={!haveMetamask}
       variant="contained"
-      sx={{
-        display: isConnected ? "none" : "flex",
-        position: "absolute",
-        top: 10,
-        right: 10,
-        maxHeight: "60px",
-        maxWidth: "300px",
-        height: "100%",
-        width: "100%",
-        bgcolor: "#306ac7",
-        borderRadius: "5px",
-        justifyContent: "center",
-        color: "white !IMPORTANT",
-        padding: "8px 24px",
-        alignItems: "center",
-      }}
+      sx={[
+        ...(Array.isArray(generalStyle) ? generalStyle : [generalStyle]),
+        {
+          display: isConnected ? "none" : "flex",
+          maxHeight: "60px",
+          maxWidth: "300px",
+          height: "100%",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+      ]}
     >
       {haveMetamask ? (
         <div>
@@ -129,6 +147,12 @@ const MetaMaskButton = () => {
         <p>Please Install MataMask</p>
       )}
     </Button>
+  ) : (
+    <Paper sx={generalStyle} elevation={3}>
+      <span>Wallet Address: {state.walletAddress}</span>
+      <br />
+      <span>Balance: {state.walletBalance} ETH</span>
+    </Paper>
   );
 };
 
