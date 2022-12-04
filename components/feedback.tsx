@@ -49,8 +49,8 @@ function Feedback({ hash: any }) {
     }
     const condensedData = "Email: " + email + "\nDescription: " + desc + "\nImage: " + url;
     const message = {
-      "content": condensedData,
-      "username": "User Feedback || Title: " + title,
+      content: condensedData,
+      username: "User Feedback || Title: " + title,
     };
     if (title === "" || desc === "" || email === "") {
       setTimeout(() => {}, 4000);
@@ -58,9 +58,9 @@ function Feedback({ hash: any }) {
     }
     try {
       fetch(discordWebhookUrl + "?wait=true", {
-        "method": "POST",
-        "headers": { "content-type": "application/json" },
-        "body": JSON.stringify(message),
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(message),
       });
       setTimeout(() => {}, 4000);
     } catch (error) {
@@ -162,7 +162,7 @@ function Feedback({ hash: any }) {
                           src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
                           alt=""
                           height="30px"
-                          width="30px"                        
+                          width="30px"
                         />
                       )}
                     </Button>
