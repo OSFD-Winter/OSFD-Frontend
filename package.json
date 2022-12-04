@@ -12,7 +12,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "yarn run type-check"
+      "pre-push": "npm test"
     }
   },
   "dependencies": {
@@ -34,7 +34,6 @@
     "eth-new-contract": "^0.3.0",
     "ethers": "^5.5.1",
     "firebase": "^9.14.0",
-    "husky": "^8.0.2",
     "next": "12.0.3",
     "next-transpile-modules": "^9.0.0",
     "pre-commit": "^1.2.2",
@@ -54,6 +53,7 @@
     "eslint": "^7.32.0",
     "eslint-config-next": "12.0.3",
     "eslint-config-prettier": "^8.5.0",
+    "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
     "postcss": "^8.4.19",
     "prettier": "^2.7.1",
@@ -61,9 +61,10 @@
     "typescript": "4.4.4"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,md}": [
+    "./src/*.{js,jsx,ts,tsx}": [
+      "npm run format",
       "npm run lint",
-      "npm lint format"
+      "git add"
     ]
   }
 }
