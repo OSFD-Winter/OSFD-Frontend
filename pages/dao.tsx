@@ -4,7 +4,7 @@ import { Button, IconButton, TextField } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState, useCallback } from "react";
 import { Description } from "@mui/icons-material";
-
+import { ToastContainer, toast } from "react-toastify";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
@@ -100,7 +100,7 @@ function Dao({ addr }) {
           console.log(detailedContracts);
           setContracts(detailedContracts);
         } catch (error: any) {
-          alert("Failed " + JSON.stringify(error));
+          toast.error("Failed " + JSON.stringify(error));
           console.log("Failed  ", error);
         }
       }
@@ -157,7 +157,7 @@ function Dao({ addr }) {
           setStep(7);
         }
       } catch (error: any) {
-        alert("Failed " + JSON.stringify(error));
+        toast.error("Failed " + JSON.stringify(error));
         console.log("Failed  ", error);
       }
     }
@@ -198,7 +198,7 @@ function Dao({ addr }) {
   };
 
   const deploy = useCallback(async () => {
-    if (!library) return alert("Wallet connection failed, please try again");
+    if (!library) return toast("Wallet connection failed, please try again");
 
     const signer = library.getSigner(account).connectUnchecked();
 
@@ -226,7 +226,7 @@ function Dao({ addr }) {
       console.log(receipt);
       setStep(7);
     } catch (error: any) {
-      alert("Failed to deploy: " + JSON.stringify(error));
+      toast("Failed to deploy: " + JSON.stringify(error));
       console.log("Failed to deploy: ", error);
     }
   }, [library, account, name, about, roadmap, banner, website]);
@@ -495,7 +495,7 @@ function Dao({ addr }) {
                       variant="contained"
                       style={{ textAlign: "center", marginInline: 6 }}
                       onClick={async () => {
-                        if (!library) return alert("Wallet connection failed, please try again");
+                        if (!library) return toast("Wallet connection failed, please try again");
 
                         const signer = library.getSigner(account).connectUnchecked();
                         const contract = new Contract(cont.address, GoodsAbi, signer);
@@ -523,7 +523,7 @@ function Dao({ addr }) {
                             `https://testnets.opensea.io/assets/rinkeby/${receipt.logs[0].address}/${mintedTokenId}`
                           );
                         } catch (error: any) {
-                          alert("Failed to mint: " + JSON.stringify(error));
+                          toast.error("Failed to mint: " + JSON.stringify(error));
                           console.log("Failed to mint: ", error);
                         }
                       }}
@@ -535,7 +535,7 @@ function Dao({ addr }) {
                       <Button
                         variant="contained"
                         onClick={async () => {
-                          if (!library) return alert("Wallet connection failed, please try again");
+                          if (!library) return toast("Wallet connection failed, please try again");
 
                           const signer = library.getSigner(account).connectUnchecked();
                           const contract = new Contract(cont.address, GoodsAbi, signer);
@@ -545,7 +545,7 @@ function Dao({ addr }) {
 
                             console.log(withdrawRes);
                           } catch (error: any) {
-                            alert("Failed to mint: " + JSON.stringify(error));
+                            toast("Failed to mint: " + JSON.stringify(error));
                             console.log("Failed to mint: ", error);
                           }
                         }}
@@ -589,6 +589,7 @@ function Dao({ addr }) {
       <Feedback></Feedback>
       <div>
         <Footer />
+        <ToastContainer limit={1} />
       </div>
     </Box>
   );

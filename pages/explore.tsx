@@ -6,7 +6,7 @@ import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
 import { injected } from "../src/web3ReactInjector";
 import { ethers } from "ethers";
-
+import { ToastContainer, toast } from "react-toastify";
 import FactoryAbi from "../src/GoodsFactory.json";
 import GoodsAbi from "../src/Goods.json";
 import Link from "next/link";
@@ -78,7 +78,7 @@ function Explore() {
       console.log(detailedContracts);
       setContracts(detailedContracts);
     } catch (error: any) {
-      alert("Failed " + JSON.stringify(error));
+      toast("Failed " + JSON.stringify(error));
       console.log("Failed  ", error);
     }
   }
@@ -131,7 +131,7 @@ function Explore() {
       console.log(detailedContracts);
       setDAOs(detailedContracts);
     } catch (error: any) {
-      alert("Failed " + JSON.stringify(error));
+      toast("Failed " + JSON.stringify(error));
       console.log("Failed  ", error);
     }
   }
@@ -185,7 +185,7 @@ function Explore() {
                     marginInline: 6,
                   }}
                   onClick={async () => {
-                    if (!library) return alert("Wallet connection failed, please try again");
+                    if (!library) return toast("Wallet connection failed, please try again");
 
                     const signer = library.getSigner(account).connectUnchecked();
                     const contract = new Contract(cont.address, GoodsAbi, signer);
@@ -211,7 +211,7 @@ function Explore() {
                         `https://testnets.opensea.io/assets/rinkeby/${receipt.logs[0].address}/${mintedTokenId}`
                       );
                     } catch (error: any) {
-                      alert("Failed to mint: " + JSON.stringify(error));
+                      toast("Failed to mint: " + JSON.stringify(error));
                       console.log("Failed to mint: ", error);
                     }
                   }}

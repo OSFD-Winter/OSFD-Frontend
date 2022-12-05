@@ -1,10 +1,9 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, IconButton, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 import { CasinoOutlined } from "@mui/icons-material";
 
 import { SERVER } from "../utils/constants";
-import Image from "next/image";
 
 interface IHash {
   hash: string;
@@ -24,7 +23,7 @@ function MintPreview({ hash }: IHash) {
   function getImage() {
     axios
       .get<IPreview>(`${SERVER}/tokens/tokenPreview/${hash}`)
-      .then(({ data, status }) => {
+      .then(({ data }) => {
         setImage(data.image);
       })
       .catch((error) => {
@@ -43,7 +42,7 @@ function MintPreview({ hash }: IHash) {
           getImage();
         }}
         style={{
-          width: "fit-content",
+          width: "100%",
           height: "fit-content",
         }}
       >

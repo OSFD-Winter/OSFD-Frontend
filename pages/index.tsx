@@ -27,10 +27,10 @@ import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import Referral from "../components/referral";
-
+import { ToastContainer, toast } from "react-toastify";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
-
+import "react-toastify/dist/ReactToastify.css";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
@@ -202,7 +202,7 @@ const Home: NextPage = () => {
         }
         setContracts(detailedContracts);
       } catch (error: any) {
-        alert("Failed " + JSON.stringify(error));
+        toast("Failed " + JSON.stringify(error));
         console.log("Failed  ", error);
       }
     }
@@ -235,7 +235,7 @@ const Home: NextPage = () => {
 
       console.log((await contract.baseURI()) + mintedTokenId);
     } catch (error: any) {
-      alert("Failed to mint: " + JSON.stringify(error));
+      toast("Failed to mint: " + JSON.stringify(error));
       console.log("Failed to mint: ", error);
     }
   }
@@ -954,7 +954,10 @@ const Home: NextPage = () => {
       </div>
 
       <div>
-        <Footer gradient={"linear-gradient(to right, #01010A, #010529, #171e74, #2673FF)"} />
+        <Footer
+          gradient={"bg-gradient-to-r from-blue-1000 to-blue-50 relative text-white w-full"}
+        />
+        <ToastContainer />
       </div>
     </div>
   );

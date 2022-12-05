@@ -22,6 +22,7 @@ import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import { Contract } from "@ethersproject/contracts";
 import { injected } from "../src/web3ReactInjector";
+import { ToastContainer, toast } from "react-toastify";
 
 //import abi from "../src/Factory.json";
 //import abi from "../src/SurfFactory.json";
@@ -177,7 +178,7 @@ const Home: NextPage = () => {
   }
 
   const mint = useCallback(async () => {
-    if (!library) return alert("Wallet connection failed, please try again");
+    if (!library) return toast("Wallet connection failed, please try again");
 
     const signer = library.getSigner(account).connectUnchecked();
 
@@ -198,7 +199,7 @@ const Home: NextPage = () => {
 
       Router.push(`/dao`);
     } catch (error: any) {
-      alert("Failed to deploy: " + JSON.stringify(error));
+      toast("Failed to deploy: " + JSON.stringify(error));
       console.log("Failed to deploy: ", error);
     }
   }, [
