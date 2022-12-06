@@ -37,7 +37,9 @@ const Navbar = () => {
         }
     };
     return(
-        <div className="sticky top-0 z-10 p-5 shadow">
+        <div className="sticky top-0 z-10 p-5 shadow bg-gradient-to-r from-[#060227
+] to-[#255aec
+]">
             <div className="flex gap-9 font-medium text-white bg-headerbg">
                 <div className='flex justify-start'>
                     <Image onClick={smoothScroll} src={logo} width={140} height={70} />
