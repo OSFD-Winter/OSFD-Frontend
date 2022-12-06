@@ -24,6 +24,7 @@ const generalStyle = {
 const MetaMaskButton = () => {
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { state, dispatch } = useReducerContext();
   const ethereum = typeof window !== "undefined" && window ? window.ethereum : {};
 
@@ -32,6 +33,7 @@ const MetaMaskButton = () => {
     if (window !== undefined) {
       if (!ethereum) {
         sethaveMetamask(false);
+        setLoading(false);
         return;
       }
     }
@@ -39,6 +41,8 @@ const MetaMaskButton = () => {
     injected.isAuthorized().then((authorized) => {
       if (authorized) {
         initializeWalletAndBalance();
+      } else {
+        setLoading(false);
       }
     });
   }, []);
@@ -65,6 +69,7 @@ const MetaMaskButton = () => {
     );
     const bal = +balance / +1000000000000000000;
     dispatch({ type: "setWalletBalance", payload: bal.toString() });
+    setLoading(false);
   }
   const changeNetWork = async () => {
     try {
@@ -103,55 +108,57 @@ const MetaMaskButton = () => {
     }
   }
   // Display button if metamask is installed or needs to be installed
-  return (haveMetamask && !isConnected) || (!haveMetamask && !isConnected) ? (
-    <Button
-      onClick={() => {
-        connectWallet();
-      }}
-      disabled={!haveMetamask}
-      variant="contained"
-      sx={[
-        ...(Array.isArray(generalStyle) ? generalStyle : [generalStyle]),
-        {
-          display: isConnected ? "none" : "flex",
-          maxHeight: "60px",
-          maxWidth: "300px",
-          height: "100%",
-          width: "100%",
-          justifyContent: "center",
-          alignItems: "center",
-        },
-      ]}
-    >
-      {haveMetamask ? (
-        <div>
-          {isConnected ? (
-            <></>
-          ) : (
-            <div className="flex items-center">
-              <div>Connect with Metamask</div>
-              <img
-                style={{
-                  height: "50px",
-                  marginLeft: "6px",
-                }}
-                src="MetaMask-logo.png"
-                alt=""
-              />
+  return (haveMetamask && !isConnected) || (!haveMetamask && !isConnected)
+    ? !loading && (
+        <Button
+          onClick={() => {
+            connectWallet();
+          }}
+          disabled={!haveMetamask}
+          variant="contained"
+          sx={[
+            ...[generalStyle],
+            {
+              display: isConnected ? "none" : "flex",
+              maxHeight: "60px",
+              maxWidth: "300px",
+              height: "100%",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            },
+          ]}
+        >
+          {haveMetamask ? (
+            <div>
+              {isConnected ? (
+                <></>
+              ) : (
+                <div className="flex items-center">
+                  <div>Connect with Metamask</div>
+                  <img
+                    style={{
+                      height: "50px",
+                      marginLeft: "6px",
+                    }}
+                    src="MetaMask-logo.png"
+                    alt=""
+                  />
+                </div>
+              )}
             </div>
+          ) : (
+            <p>Please Install MataMask</p>
           )}
-        </div>
-      ) : (
-        <p>Please Install MataMask</p>
-      )}
-    </Button>
-  ) : (
-    <Paper sx={generalStyle} elevation={3}>
-      <span>Wallet Address: {state.walletAddress}</span>
-      <br />
-      <span>Balance: {state.walletBalance} ETH</span>
-    </Paper>
-  );
+        </Button>
+      )
+    : !loading && (
+        <Paper sx={generalStyle} elevation={3}>
+          <span>Wallet Address: {state.walletAddress}</span>
+          <br />
+          <span>Balance: {state.walletBalance} ETH</span>
+        </Paper>
+      );
 };
 
 export default MetaMaskButton;
