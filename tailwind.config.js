@@ -31,6 +31,9 @@ module.exports = {
       },
       white: "white",
     },
+    backgroundImage: {
+        'headerbg': "url('/public/header.png')",
+      },
   },
   plugins: [],
 };
