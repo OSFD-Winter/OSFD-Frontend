@@ -26,11 +26,16 @@ import MintPreview from "../components/mintPreview";
 import Sandbox from "./sandbox";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { SwapWidget } from '@uniswap/widgets'
+import '@uniswap/widgets/fonts.css'
 
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
 
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+
+const alchemyRPC = 'https://eth-goerli.g.alchemy.com/v2/31-dijOWeYSAUzF4b2KsubqcY_xDMc3L';
+
 
 const curated = [
     {
@@ -243,7 +248,7 @@ const Home: NextPage = () => {
                                 }}
                             >
                                 <div>Connect with Metamask</div>
-                                <img
+                                <img 
                                     style={{
                                         height: "50px",
                                         marginLeft: "6px",
@@ -256,6 +261,10 @@ const Home: NextPage = () => {
                 ) : (
                     <p>Please Install MataMask</p>
                 )}
+            </div>
+
+            <div className="Uniswap">
+                <SwapWidget provider={provider} jsonRpcUrlMap={alchemyRPC} />
             </div>
 
             {contracts && contracts[0] && (
