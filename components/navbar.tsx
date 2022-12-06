@@ -1,10 +1,11 @@
 // @ts-nocheck
 import Image from 'next/image'
-import {React, useRef} from "react";
+import { React } from "react";
 import logo from '../public/osfd-big-logo.png'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import 'tailwindcss/tailwind.css';
+
 const Navbar = () => {
     const router = useRouter();
     
@@ -36,13 +37,12 @@ const Navbar = () => {
         }
     };
     return(
-        <div className="sticky top-0 z-10 p-5 shadow" style={{backgroundColor:'black'}}>
+        <div className="sticky top-0 z-10 p-5 shadow" style={{backgroundImage:'url("../public/header.png")'}}>
             <div className="flex gap-9 font-medium text-white">
                 <div className='flex justify-start'>
-                    <Image src={logo} width={140} height={70} />
+                    <Image onClick={smoothScroll} src={logo} width={140} height={70} />
                 </div>
             <ul style={{fontFamily: "Poppins", src: "url(./fonts/Poppins-Bold.ttf)"}} className="flex items-center w-full justify-evenly">
-            <p onClick={smoothScroll} className='hover:text-[#d3d3d3] hover:opacity-75'>HOME</p>
             <Link href="/"><p className='hover:text-[#d3d3d3] hover:opacity-75'>SERVICES</p></Link>
             <Link href="/terms"><p className='hover:text-[#d3d3d3] hover:opacity-75'>ABOUT</p></Link>
             <p onClick={smoothScroll2} className='hover:text-[#d3d3d3] hover:opacity-75'>CONTACT</p>
