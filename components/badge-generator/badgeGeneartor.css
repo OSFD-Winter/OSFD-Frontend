@@ -1,0 +1,82 @@
+.pageContainer {
+  max-width: 100%;
+  margin: auto;
+  background: linear-gradient(to bottom, white, rgb(105, 105, 255));
+  border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.customBackground {
+  background-image: url("../badge-generator/Images/noun-205.png");
+  background-position: bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.roundBorder {
+  border-radius: 15px;
+}
+
+.bottomContainer {
+  max-width: 100%;
+  margin: auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background: linear-gradient(to bottom, white, rgb(105, 105, 255));
+  border-radius: 25px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-evenly;
+  padding: 25px;
+}
+
+.newsLetter {
+  max-width: 100%;
+  margin: auto;
+  margin-top: 35px;
+  margin-bottom: auto;
+  justify-content: center;
+  padding: 25px;
+  text-align: center;
+}
+
+.header {
+  text-align: center;
+  font-size: larger;
+}
+
+.containerRow {
+  padding: 15px;
+}
+
+.cardContainer {
+  max-width: 70%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid black;
+  border-radius: 15px;
+  margin: 25px;
+  padding: 25px;
+}
+
+.cardContainertwo {
+  background-color: rgb(214, 209, 209);
+}
+
+.carousel {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  transition-duration: 0.5s;
+  transition-property: border-color;
+}
+
+#cardHolder {
+  width: 80%;
+  height: 25px;
+  border: 1px solid black;
+  border-radius: 15px;
+  background-color: rgba(151, 196, 211, 0.681);
+  margin: 0 auto;
+}
