@@ -8,6 +8,9 @@ import createEmotionCache from "../src/createEmotionCache";
 import { Web3ReactProvider } from "@web3-react/core";
 import { ExternalProvider, Web3Provider } from "@ethersproject/providers";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+import { hotjar } from "react-hotjar";
+import { useEffect } from "react";
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 
@@ -21,6 +24,10 @@ interface MyAppProps extends AppProps {
 
 function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+  useEffect(() => {
+    hotjar.initialize(3274843, 6);
+  }, []);
 
   return (
     <ReducerContextProvider>
