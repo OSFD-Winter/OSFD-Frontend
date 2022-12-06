@@ -19,6 +19,7 @@ const generalStyle = {
   borderRadius: "5px",
   color: "white !IMPORTANT",
   padding: "8px 24px",
+  zIndex: 11,
 } as const;
 
 const MetaMaskButton = () => {
@@ -78,7 +79,6 @@ const MetaMaskButton = () => {
         params: [{ chainId: "0x5" }], // Goerli Testnet
       });
       setIsConnected(true);
-      toast("Wallet Connected");
     } catch (err: any) {
       // This error code indicates that the chain has not been added to MetaMask.
       if (err.code === 4902) {

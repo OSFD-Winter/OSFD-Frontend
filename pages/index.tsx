@@ -34,7 +34,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
-import MetaMaskButton from "../components/metamaskButton";
 
 const curated = [
   {
@@ -174,7 +173,6 @@ const Home: NextPage = () => {
       }}
     >
       <Header></Header>
-      <MetaMaskButton />
       {contracts && contracts[0] && (
         <div
           style={{
