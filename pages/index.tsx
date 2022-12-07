@@ -139,10 +139,8 @@ const Home: NextPage = () => {
       activate(injected);
       return;
     }
-
     const signer = library.getSigner(account).connectUnchecked();
     const contract = new Contract(cont.address, GoodsAbi, signer);
-
     try {
       const mintInitResult = await contract.mintGoods(1, {
         value: cont.price.toString(),
@@ -153,6 +151,14 @@ const Home: NextPage = () => {
       //alert("Successfully initiated mint!");
 
       const receipt = await mintInitResult.wait();
+      if (receipt) {
+        // Get updated balance after successful mint
+        const balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
+          state.walletAddress
+        );
+        const bal = +balance / +1000000000000000000;
+        dispatch({ type: "setWalletBalance", payload: bal.toString() });
+      }
 
       console.log(receipt);
 
@@ -271,6 +277,7 @@ const Home: NextPage = () => {
                     color: "white",
                   }}
                   onClick={async () => {
+                    console.log("T");
                     mint(contracts[0]);
                   }}
                 >

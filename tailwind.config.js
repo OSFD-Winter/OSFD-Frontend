@@ -7,7 +7,7 @@ module.exports = {
       spacing: {
         "22vw": "22vw",
         "8vw": "8vw",
-        "13vh": "13vh"
+        "13vh": "13vh",
       },
       gridTemplateColumns: {
         "referral-row": "30% 50% 13%",

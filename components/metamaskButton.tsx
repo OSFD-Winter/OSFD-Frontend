@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Button, Paper } from "@mui/material";
 import { useReducerContext } from "../api/context";
 import { ethers } from "ethers";
-import { toast } from "react-toastify";
 import { injected } from "../src/web3ReactInjector";
 
 declare global {
