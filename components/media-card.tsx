@@ -14,11 +14,9 @@ const Card = ({ image, title, href }: CardInterface) => {
             <h5 className="font-medium text-base">:{title}:</h5>
           </div>
         </div>
-        <button>
-          <a className="w-7 h-10 flex items-center text-center m-3" href={href} download>
-            <BsDownload size={28} />
-          </a>
-        </button>
+        <a className="w-7 h-10 flex items-center text-center m-3" href={href} download>
+          <BsDownload size={28} />
+        </a>
       </div>
     </div>
   );
