@@ -34,6 +34,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
+import Navbar from "../components/navbar";
 
 const curated = [
   {
@@ -173,11 +174,13 @@ const Home: NextPage = () => {
 
   return (
     <div
+    id='top'
       sx={{
         height: "100%",
         backgroundImage: `url(bg.png)`,
       }}
     >
+      <Navbar />
       <Header></Header>
       {contracts && contracts[0] && (
         <div
@@ -831,7 +834,7 @@ const Home: NextPage = () => {
       </Box>
       <Sandbox></Sandbox>
 
-      <div style={{ marginTop: 100 }}>
+      <div id='feedback' style={{ marginTop: 100 }}>
         <Feedback></Feedback>
       </div>
 
