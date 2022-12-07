@@ -1,25 +1,27 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-
 import { BsDownload } from "react-icons/bs";
+import type { CardInterface } from "../api/interfaces";
 
-function Card() {
+const Card = ({ image, title, href }: CardInterface) => {
   return (
-    <div className="max-w-xs max-h-2">
+    <div className="min-h-[50px] w-full">
       <div className="relative flex m-0 shadow-xs rounded border border-gray-300 bg-white">
-        <div className="flex-no-shrink p-2">
-          <img alt="sticker" className="h-12 mx-auto" src="noun-205.png"></img>
+        <div className="p-2">
+          <img src={image} alt="sticker" className="w-full object-cover h-12 mx-auto"></img>
         </div>
-        <div className="flex-auto card-block justify-between relative">
-          <div className="p-4">
-            <h5 className="font-medium text-xl">:Title:</h5>
+        <div className="flex-auto">
+          <div className="p-5">
+            <h5 className="font-medium text-base">:{title}:</h5>
           </div>
         </div>
-        <a className=" w-10 h-10 flex items-center text-center m-3" href="#">
-          <BsDownload size={28} />
-        </a>
+        <button>
+          <a className="w-7 h-10 flex items-center text-center m-3" href={href} download>
+            <BsDownload size={28} />
+          </a>
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default Card;
