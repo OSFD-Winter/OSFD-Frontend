@@ -9,7 +9,7 @@ interface IContext {
   state: IState;
   dispatch: Dispatch<{
     type: string;
-    payload?: Partial<IState>;
+    payload?: string;
   }>;
 }
 
@@ -32,7 +32,7 @@ export const ReducerContextProvider: React.FC = (props) => {
       preState: any,
       action: {
         type: string;
-        payload?: Partial<IState>;
+        payload?: string;
       }
     ) => {
       const { type, payload } = action;
