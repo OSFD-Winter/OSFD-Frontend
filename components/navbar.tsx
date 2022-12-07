@@ -5,7 +5,6 @@ import logo from '../public/osfd-big-logo.png'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import 'tailwindcss/tailwind.css';
-import gradientbg from '../public/osfd-gradient.png'
 
 const Navbar = () => {
     const router = useRouter();
