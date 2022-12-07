@@ -19,6 +19,7 @@ import Router from "next/router";
 import { FC, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Footer from "../components/footer";
+import Navbar from "../components/navbar";
 
 let p1 = `
 ●	You have working knowledge of web3 technologies, specifically NFTs aka Smart Contracts
@@ -31,8 +32,8 @@ let p1 = `
 const Home: NextPage = () => {
   return (
     <Box sx={{ height: "100%", backgroundImage: `url(bg.png)` }}>
-      <img src={"./header.png"} width="100%"></img>
-      <div style={{ marginInline: "10vw" }}>
+      <Navbar />
+      <div style={{ marginInline: "10vw", marginTop: 50 }}>
         <pre>
           <b>TL;DR Terms of Sales:</b>
           {p1}
