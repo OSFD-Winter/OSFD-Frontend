@@ -3,6 +3,7 @@ import { Button, Paper } from "@mui/material";
 import { useReducerContext } from "../api/context";
 import { ethers } from "ethers";
 import { injected } from "../src/web3ReactInjector";
+import { toast } from "react-toastify";
 
 declare global {
   interface Window {
@@ -153,9 +154,17 @@ const MetaMaskButton = () => {
       )
     : !loading && (
         <Paper sx={generalStyle} elevation={3}>
-          <span>Wallet Address: {state.walletAddress}</span>
+          <span
+            className="cursor-pointer"
+            onClick={() => {
+              navigator.clipboard.writeText(state.walletAddress);
+              toast("Address coppied!");
+            }}
+          >
+            Wallet: {state.walletAddress.slice(0, 5) + "..." + state.walletAddress.slice(-4)}
+          </span>
           <br />
-          <span>Balance: {state.walletBalance} ETH</span>
+          <span>Balance: {state.walletBalance.slice(0, 5)} ETH</span>
         </Paper>
       );
 };

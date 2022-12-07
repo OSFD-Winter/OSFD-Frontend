@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import {
   Button,
   Card,
@@ -93,6 +93,9 @@ const Home: NextPage = () => {
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const { state, dispatch } = useReducerContext();
+  const refTop = useRef();
+  const refSandbox = useRef();
+  const refFeedback = useRef();
 
   useEffect(() => {
     async function getContracts() {
@@ -174,14 +177,93 @@ const Home: NextPage = () => {
 
   return (
     <div
-    id='top'
+      ref={refTop}
       sx={{
         height: "100%",
         backgroundImage: `url(bg.png)`,
       }}
     >
-      <Navbar />
-      <Header></Header>
+      <Navbar refTop={refTop} refSandbox={refSandbox} refFeedback={refFeedback} />
+
+      <Box
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "36%",
+          marginTop: 50,
+        }}
+      >
+        <Paper
+          elevation={3}
+          style={{
+            width: "24vh",
+            marginInline: "10vh",
+            textTransform: "none",
+            textAlign: "center",
+            padding: 10,
+            backgroundColor: "#f8f8f8",
+          }}
+        >
+          <div
+            style={{
+              margin: 20,
+              fontSize: 30,
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              color: "#19217b",
+            }}
+          >
+            Are You a Founder ?
+          </div>
+          <Button
+            style={{
+              textAlign: "center",
+              backgroundColor: "#1b2f91",
+              color: "white",
+            }}
+            onClick={() => Router.push("/dao")}
+          >
+            Create DAO Offering
+          </Button>
+        </Paper>
+
+        <Paper
+          elevation={3}
+          style={{
+            width: "24vh",
+            marginInline: "10vh",
+            textTransform: "none",
+            textAlign: "center",
+            padding: 10,
+            backgroundColor: "#f8f8f8",
+          }}
+        >
+          <div
+            style={{
+              margin: 20,
+              fontSize: 30,
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              color: "#19217b",
+            }}
+          >
+            Are You an Investor ?
+          </div>
+          <Button
+            style={{
+              textAlign: "center",
+              backgroundColor: "#1b2f91",
+              color: "white",
+            }}
+            onClick={() => Router.push("/explore")}
+          >
+            Discover DAO Offerings
+          </Button>
+        </Paper>
+      </Box>
       {contracts && contracts[0] && (
         <div
           style={{
@@ -754,87 +836,11 @@ const Home: NextPage = () => {
         }}
       ></Box>
 
-      <Box
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "36%",
-        }}
-      >
-        <Paper
-          elevation={3}
-          style={{
-            width: "24vh",
-            marginInline: "10vh",
-            textTransform: "none",
-            textAlign: "center",
-            padding: 10,
-            backgroundColor: "#f8f8f8",
-          }}
-        >
-          <div
-            style={{
-              margin: 20,
-              fontSize: 30,
-              display: "flex",
-              justifyContent: "center",
-              fontWeight: "bold",
-              color: "#19217b",
-            }}
-          >
-            Are You a Founder ?
-          </div>
-          <Button
-            style={{
-              textAlign: "center",
-              backgroundColor: "#1b2f91",
-              color: "white",
-            }}
-            onClick={() => Router.push("/dao")}
-          >
-            Create DAO Offering
-          </Button>
-        </Paper>
+      <div ref={refSandbox}>
+        <Sandbox></Sandbox>
+      </div>
 
-        <Paper
-          elevation={3}
-          style={{
-            width: "24vh",
-            marginInline: "10vh",
-            textTransform: "none",
-            textAlign: "center",
-            padding: 10,
-            backgroundColor: "#f8f8f8",
-          }}
-        >
-          <div
-            style={{
-              margin: 20,
-              fontSize: 30,
-              display: "flex",
-              justifyContent: "center",
-              fontWeight: "bold",
-              color: "#19217b",
-            }}
-          >
-            Are You an Investor ?
-          </div>
-          <Button
-            style={{
-              textAlign: "center",
-              backgroundColor: "#1b2f91",
-              color: "white",
-            }}
-            onClick={() => Router.push("/explore")}
-          >
-            Discover DAO Offerings
-          </Button>
-        </Paper>
-      </Box>
-      <Sandbox></Sandbox>
-
-      <div id='feedback' style={{ marginTop: 100 }}>
+      <div ref={refFeedback} style={{ marginTop: 100 }}>
         <Feedback></Feedback>
       </div>
 

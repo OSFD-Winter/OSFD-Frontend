@@ -33,8 +33,7 @@ const Home: NextPage = () => {
   return (
     <Box sx={{ height: "100%", backgroundImage: `url(bg.png)` }}>
       <Navbar />
-      <img src={"./header.png"} width="100%"></img>
-      <div style={{ marginInline: "10vw" }}>
+      <div style={{ marginInline: "10vw", marginTop: 50 }}>
         <pre>
           <b>TL;DR Terms of Sales:</b>
           {p1}

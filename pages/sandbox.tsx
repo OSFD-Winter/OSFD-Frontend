@@ -93,7 +93,7 @@ const Sandbox: NextPage = () => {
   }, [zip]);
 
   return (
-    <Box sx={{ height: "100%", marginTop: 20, border: "4px solid black" }}>
+    <Box sx={{ height: "100%", marginTop: 20 }}>
       <div
         style={{
           marginBlock: 20,
