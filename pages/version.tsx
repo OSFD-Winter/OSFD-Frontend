@@ -33,25 +33,25 @@ const Version = () => {
       repo = "OSFD-Frontend",
       per_page = commitCount;
 
-    const fiveMostRecentCommits = await octokit.request(`GET /repos/{owner}/{repo}/commits`, {
+    const mostRecentCommits = await octokit.request(`GET /repos/{owner}/{repo}/commits`, {
       owner,
       repo,
       per_page,
     });
     //1st load
     if (localStorage.getItem("data") === null) {
-      localStorage.setItem("data", JSON.stringify(fiveMostRecentCommits.data));
+      localStorage.setItem("data", JSON.stringify(mostRecentCommits.data));
       // disable new commit notification when old commits are getting loaded
-    } else if (fiveMostRecentCommits.data.length === 15) {
+    } else if (mostRecentCommits.data.length === 15) {
       let localArray = JSON.parse(localStorage.getItem("data"));
-      notifyNewCommits(fiveMostRecentCommits.data, localArray);
-      localStorage.setItem("data", JSON.stringify(fiveMostRecentCommits.data));
+      notifyNewCommits(mostRecentCommits.data, localArray);
+      localStorage.setItem("data", JSON.stringify(mostRecentCommits.data));
     }
 
-    setCommits(fiveMostRecentCommits.data);
+    setCommits(mostRecentCommits.data);
   };
 
-  // Change commit count
+  // Load commit count
   const [commitCount, changeCount] = useState(15);
   const loadMoreCommits = () => {
     changeCount(commitCount + 15);
@@ -59,7 +59,7 @@ const Version = () => {
 
   useEffect(() => {
     sendRequest(commitCount);
-  }, [commitCount]);
+  }, [commitCount, commits]);
 
   return (
     <div>
