@@ -178,7 +178,7 @@ const Home: NextPage = () => {
   }
 
   const mint = useCallback(async () => {
-    if (!library) return toast("Wallet connection failed, please try again");
+    if (!library) return toast.error("Wallet connection failed, please try again");
 
     const signer = library.getSigner(account).connectUnchecked();
 
@@ -199,7 +199,7 @@ const Home: NextPage = () => {
 
       Router.push(`/dao`);
     } catch (error: any) {
-      toast("Failed to deploy: " + JSON.stringify(error));
+      toast.error("Failed to deploy: " + JSON.stringify(error));
       console.log("Failed to deploy: ", error);
     }
   }, [

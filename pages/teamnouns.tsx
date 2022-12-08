@@ -30,6 +30,7 @@ import { injected } from "../src/web3ReactInjector";
 import GoodsAbi from "../src/Goods.json";
 import Referral from "../components/referral";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+import { ToastContainer, toast } from "react-toastify";
 const curated = [
   {
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
@@ -142,7 +143,7 @@ const Home: NextPage = () => {
 
       console.log((await contract.baseURI()) + mintedTokenId);
     } catch (error: any) {
-      alert("Failed to mint: " + JSON.stringify(error));
+      toast.error("Failed to mint: " + JSON.stringify(error));
       console.log("Failed to mint: ", error);
     }
   }

@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from "react";
 import { Button, TextField, Paper, Box, Input } from "@mui/material";
 import { v4 } from "uuid";
 import spinnerImage from "../public/spinner.svg";
-
+import { ToastContainer, toast } from "react-toastify";
 import { SERVER } from "../utils/constants";
 
 function Feedback({ hash: any }) {
@@ -32,7 +32,7 @@ function Feedback({ hash: any }) {
         getDownloadURL(ref(storage, address)).then((url) => {
           seturl(url);
         });
-        alert("Image Uploaded");
+        toast.success("Image Uploaded");
         update = update - 1;
         setUploading(false);
       });
@@ -192,6 +192,7 @@ function Feedback({ hash: any }) {
           </Button>
         </div>
       </Paper>
+      <ToastContainer limit={1} />
     </div>
   );
 }

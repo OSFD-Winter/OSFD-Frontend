@@ -198,7 +198,7 @@ function Dao({ addr }) {
   };
 
   const deploy = useCallback(async () => {
-    if (!library) return toast("Wallet connection failed, please try again");
+    if (!library) return toast.error("Wallet connection failed, please try again");
 
     const signer = library.getSigner(account).connectUnchecked();
 
@@ -226,7 +226,7 @@ function Dao({ addr }) {
       console.log(receipt);
       setStep(7);
     } catch (error: any) {
-      toast("Failed to deploy: " + JSON.stringify(error));
+      toast.error("Failed to deploy: " + JSON.stringify(error));
       console.log("Failed to deploy: ", error);
     }
   }, [library, account, name, about, roadmap, banner, website]);
@@ -495,7 +495,8 @@ function Dao({ addr }) {
                       variant="contained"
                       style={{ textAlign: "center", marginInline: 6 }}
                       onClick={async () => {
-                        if (!library) return toast("Wallet connection failed, please try again");
+                        if (!library)
+                          return toast.error("Wallet connection failed, please try again");
 
                         const signer = library.getSigner(account).connectUnchecked();
                         const contract = new Contract(cont.address, GoodsAbi, signer);
@@ -535,7 +536,8 @@ function Dao({ addr }) {
                       <Button
                         variant="contained"
                         onClick={async () => {
-                          if (!library) return toast("Wallet connection failed, please try again");
+                          if (!library)
+                            return toast.error("Wallet connection failed, please try again");
 
                           const signer = library.getSigner(account).connectUnchecked();
                           const contract = new Contract(cont.address, GoodsAbi, signer);
@@ -545,7 +547,7 @@ function Dao({ addr }) {
 
                             console.log(withdrawRes);
                           } catch (error: any) {
-                            toast("Failed to mint: " + JSON.stringify(error));
+                            toast.error("Failed to mint: " + JSON.stringify(error));
                             console.log("Failed to mint: ", error);
                           }
                         }}
@@ -589,7 +591,6 @@ function Dao({ addr }) {
       <Feedback></Feedback>
       <div>
         <Footer />
-        <ToastContainer limit={1} />
       </div>
     </Box>
   );
