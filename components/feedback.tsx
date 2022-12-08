@@ -192,7 +192,6 @@ function Feedback({ hash: any }) {
           </Button>
         </div>
       </Paper>
-      <ToastContainer limit={1} />
     </div>
   );
 }

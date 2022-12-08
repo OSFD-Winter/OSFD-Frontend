@@ -165,7 +165,6 @@ const MetaMaskButton = () => {
           </span>
           <br />
           <span>Balance: {state.walletBalance.slice(0, 5)} ETH</span>
-          <ToastContainer limit={1} />
         </Paper>
       );
 };
