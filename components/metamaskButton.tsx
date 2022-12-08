@@ -173,7 +173,7 @@ const MetaMaskButton = () => {
             className="cursor-pointer"
             onClick={() => {
               navigator.clipboard.writeText(state.walletAddress);
-              toast("Address coppied!");
+              toast.success("Address coppied!");
             }}
           >
             Wallet: {state.walletAddress.slice(0, 5) + "..." + state.walletAddress.slice(-4)}

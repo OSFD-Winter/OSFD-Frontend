@@ -132,7 +132,7 @@ const Home: NextPage = () => {
         }
         setContracts(detailedContracts);
       } catch (error: any) {
-        toast("Failed " + JSON.stringify(error));
+        toast.error("Failed " + JSON.stringify(error));
         console.log("Failed  ", error);
       }
     }
@@ -182,7 +182,7 @@ const Home: NextPage = () => {
 
       console.log((await contract.baseURI()) + mintedTokenId);
     } catch (error: any) {
-      toast("Failed to mint: " + JSON.stringify(error));
+      toast.error("Failed to mint: " + JSON.stringify(error));
       console.log("Failed to mint: ", error);
     }
   }
