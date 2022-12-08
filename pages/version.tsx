@@ -9,9 +9,6 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 
 const Version = () => {
   const [commits, setCommits] = useState([]);
-  const octokit = new Octokit({
-    auth: "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",
-  });
 
   // Send toastify notifications if new commits are added
   const notifyNewCommits = (incomingData: any, localData: any) => {
@@ -28,28 +25,6 @@ const Version = () => {
       `);
   };
   //Get Data from Github commits page
-  const sendRequest = async (commitCount: any) => {
-    const owner = "OSFD-Winter",
-      repo = "OSFD-Frontend",
-      per_page = commitCount;
-
-    const mostRecentCommits = await octokit.request(`GET /repos/{owner}/{repo}/commits`, {
-      owner,
-      repo,
-      per_page,
-    });
-    //1st load
-    if (localStorage.getItem("data") === null) {
-      localStorage.setItem("data", JSON.stringify(mostRecentCommits.data));
-      // disable new commit notification when old commits are getting loaded
-    } else if (mostRecentCommits.data.length === 15) {
-      let localArray = JSON.parse(localStorage.getItem("data"));
-      notifyNewCommits(mostRecentCommits.data, localArray);
-      localStorage.setItem("data", JSON.stringify(mostRecentCommits.data));
-    }
-
-    setCommits(mostRecentCommits.data);
-  };
 
   // Load older commits
   const [commitCount, changeCount] = useState(15);
@@ -58,6 +33,33 @@ const Version = () => {
   };
 
   useEffect(() => {
+    const octokit = new Octokit({
+      auth: "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",
+    });
+
+    const sendRequest = async (commitCount: any) => {
+      const owner = "OSFD-Winter",
+        repo = "OSFD-Frontend",
+        per_page = commitCount;
+
+      const mostRecentCommits = await octokit.request(`GET /repos/{owner}/{repo}/commits`, {
+        owner,
+        repo,
+        per_page,
+      });
+      //1st load
+      if (localStorage.getItem("data") === null) {
+        localStorage.setItem("data", JSON.stringify(mostRecentCommits.data));
+        // disable new commit notification when old commits are getting loaded
+      } else if (mostRecentCommits.data.length === 15) {
+        let localArray = JSON.parse(localStorage.getItem("data"));
+        notifyNewCommits(mostRecentCommits.data, localArray);
+        localStorage.setItem("data", JSON.stringify(mostRecentCommits.data));
+      }
+
+      setCommits(mostRecentCommits.data);
+    };
+
     sendRequest(commitCount);
     setInterval(() => sendRequest(commitCount), 90000);
   }, [commitCount]);
