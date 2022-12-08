@@ -10,7 +10,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 const Version = () => {
   const [commits, setCommits] = useState([]);
   const octokit = new Octokit({
-    auth: "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",
+    auth: "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",
   });
 
   // Send toastify notifications if new commits are added
@@ -51,7 +51,7 @@ const Version = () => {
     setCommits(mostRecentCommits.data);
   };
 
-  // Load commit count
+  // Load older commits
   const [commitCount, changeCount] = useState(15);
   const loadMoreCommits = () => {
     changeCount(commitCount + 15);
@@ -59,7 +59,8 @@ const Version = () => {
 
   useEffect(() => {
     sendRequest(commitCount);
-  }, [commitCount, commits]);
+    setInterval(() => sendRequest(commitCount), 90000);
+  }, [commitCount]);
 
   return (
     <div>
@@ -94,7 +95,7 @@ const Version = () => {
               </li>
 
               <li>
-                <strong>Merged: </strong>
+                <strong>Verification: </strong>
                 {(() => {
                   switch (index.commit.verification.verified) {
                     case true:
