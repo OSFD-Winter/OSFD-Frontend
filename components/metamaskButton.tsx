@@ -4,6 +4,7 @@ import { useReducerContext } from "../api/context";
 import { ethers } from "ethers";
 import { injected } from "../src/web3ReactInjector";
 import { toast } from "react-toastify";
+import { useWeb3React } from "@web3-react/core";
 
 declare global {
   interface Window {
@@ -27,6 +28,7 @@ const MetaMaskButton = () => {
   const [isConnected, setIsConnected] = useState(false);
   const [loading, setLoading] = useState(true);
   const { state, dispatch } = useReducerContext();
+  const { activate } = useWeb3React();
   const ethereum = typeof window !== "undefined" && window ? window.ethereum : {};
 
   // See if Metamask is installed on browser
@@ -37,6 +39,10 @@ const MetaMaskButton = () => {
         setLoading(false);
         return;
       }
+      // Detect account connection from mint button
+      window.ethereum.on("accountsChanged", () => {
+        initializeWalletAndBalance();
+      });
     }
     // Check if wallet is connected already, if so hide button and initialize states
     injected.isAuthorized().then((authorized) => {
@@ -70,6 +76,7 @@ const MetaMaskButton = () => {
     );
     const bal = +balance / +1000000000000000000;
     dispatch({ type: "setWalletBalance", payload: bal.toString() });
+    activate(injected);
     setLoading(false);
   }
   const changeNetWork = async () => {

@@ -362,7 +362,6 @@ const Home: NextPage = () => {
                     color: "white",
                   }}
                   onClick={async () => {
-                    console.log("T");
                     mint(contracts[0]);
                   }}
                 >
