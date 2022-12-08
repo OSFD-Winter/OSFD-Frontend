@@ -34,7 +34,7 @@ const Version = () => {
 
   useEffect(() => {
     const octokit = new Octokit({
-      auth: "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",
+      auth: "AUTH KEY",
     });
 
     const sendRequest = async (commitCount: any) => {
