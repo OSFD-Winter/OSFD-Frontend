@@ -140,6 +140,7 @@ const Sandbox: NextPage = () => {
               style={{ color: "darkblue" }}
               href="https://edition.async.art/blog/generative-art-nfts-an-artists-guide"
               target="_blank"
+              rel="noreferrer"
             >
               <Button variant="contained">Here</Button>
             </a>{" "}
