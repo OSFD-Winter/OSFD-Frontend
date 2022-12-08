@@ -20,6 +20,7 @@ import type { NextPage } from "next";
 import { FC, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { SANDBOX } from "../utils/constants";
+import { red } from "@mui/material/colors";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -136,10 +137,11 @@ const Sandbox: NextPage = () => {
           <div>
             First you need to start thinking with &quot;layers&quot;. &nbsp;
             <a
-              style={{ color: "darkblue", textDecoration: "underline" }}
+              style={{ color: "darkblue" }}
               href="https://edition.async.art/blog/generative-art-nfts-an-artists-guide"
+              target="_blank"
             >
-              Here
+              <Button variant="contained">Here</Button>
             </a>{" "}
             is link for a good read
           </div>
@@ -186,7 +188,11 @@ const Sandbox: NextPage = () => {
         <Button component="label" onsubmit="return checksubmit()" onClick={getFile}>
           <img src="./Sandbox Components/Choose File Button.svg" />
           <Input type="file" id="upload_file" style={{ opacity: 0, marginLeft: -60, width: 75 }} />
-          <input type="text" style={{ height: 50, display: "flex", fontSize: 25 }} id="doc"></input>
+          <input
+            type="text"
+            style={{ height: 50, display: "flex", fontSize: 25, border: "1px solid" }}
+            id="doc"
+          ></input>
         </Button>
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
