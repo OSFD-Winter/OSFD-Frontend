@@ -104,10 +104,8 @@ const Version = () => {
                       return "✅";
                     case false:
                       return "❌";
-                    case "blue":
-                      return "#0000FF";
                     default:
-                      return "#FFFFFF";
+                      return "pending";
                   }
                 })()}
               </li>
