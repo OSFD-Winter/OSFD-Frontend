@@ -96,6 +96,7 @@ const Home: NextPage = () => {
   const refTop = useRef();
   const refSandbox = useRef();
   const refFeedback = useRef();
+  const [tempContract, setTempContract] = useState(null);
 
   useEffect(() => {
     async function getContracts() {
@@ -137,9 +138,20 @@ const Home: NextPage = () => {
     }
     getContracts();
   }, []);
+  useEffect(() => {
+    /* If library was detected as undefined in mint function this useEffect 
+    runs to continue w/ minting transaction */
+    if (tempContract && library) {
+      mint(tempContract);
+      setTempContract(null);
+    } else if (!tempContract && !library) {
+      setTempContract(null);
+    }
+  }, [library, tempContract]);
 
   async function mint(cont) {
     if (!library) {
+      setTempContract(cont);
       activate(injected);
       return;
     }

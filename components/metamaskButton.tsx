@@ -39,11 +39,18 @@ const MetaMaskButton = () => {
         setLoading(false);
         return;
       }
-      // Detect account connection from mint button
-      window.ethereum.on("accountsChanged", () => {
-        initializeWalletAndBalance();
+      // Detect account connection from mint button & change button on disconnect
+      window.ethereum.on("accountsChanged", (accounts: Array<string>) => {
+        if (accounts.length === 1 && state.walletAddress === "" && state.walletBalance === "") {
+          initializeWalletAndBalance();
+        } else {
+          setIsConnected(false);
+          dispatch({ type: "setWalletAddress", payload: "" });
+          dispatch({ type: "setWalletBalance", payload: "" });
+        }
       });
     }
+
     // Check if wallet is connected already, if so hide button and initialize states
     injected.isAuthorized().then((authorized) => {
       if (authorized) {
@@ -53,6 +60,7 @@ const MetaMaskButton = () => {
       }
     });
   }, []);
+
   const connectWallet = async () => {
     try {
       if (!ethereum) {
