@@ -3,6 +3,9 @@
 module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    screens: {
+      sm: "640px",
+    },
     extend: {
       spacing: {
         "22vw": "22vw",

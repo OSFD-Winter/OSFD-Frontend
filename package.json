@@ -25,6 +25,7 @@
     "@mui/icons-material": "^5.1.0",
     "@mui/material": "^5.1.0",
     "@mui/styled-engine-sc": "^5.1.0",
+    "@octokit/core": "^4.1.0",
     "@snapshot-labs/snapshot.js": "^0.4.41",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
