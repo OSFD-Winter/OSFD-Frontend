@@ -138,6 +138,46 @@ const Home: NextPage = () => {
     }
     getContracts();
   }, []);
+  const mint = useCallback(
+    async function (cont) {
+      if (!library) {
+        setTempContract(cont);
+        activate(injected);
+        return;
+      }
+      const signer = library.getSigner(account).connectUnchecked();
+      const contract = new Contract(cont.address, GoodsAbi, signer);
+      try {
+        const mintInitResult = await contract.mintGoods(1, {
+          value: cont.price.toString(),
+        });
+
+        console.log(mintInitResult);
+
+        //alert("Successfully initiated mint!");
+
+        const receipt = await mintInitResult.wait();
+        if (receipt) {
+          // Get updated balance after successful mint
+          const balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
+            state.walletAddress
+          );
+          const bal = +balance / +1000000000000000000;
+          dispatch({ type: "setWalletBalance", payload: bal.toString() });
+        }
+
+        console.log(receipt);
+
+        const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
+
+        console.log((await contract.baseURI()) + mintedTokenId);
+      } catch (error: any) {
+        toast.error("Failed to mint: " + JSON.stringify(error));
+        console.log("Failed to mint: ", error);
+      }
+    },
+    [account, activate, dispatch, library, state.walletAddress]
+  );
   useEffect(() => {
     /* If library was detected as undefined in mint function this useEffect 
     runs to continue w/ minting transaction */
@@ -147,45 +187,7 @@ const Home: NextPage = () => {
     } else if (!tempContract && !library) {
       setTempContract(null);
     }
-  }, [library, tempContract]);
-
-  async function mint(cont) {
-    if (!library) {
-      setTempContract(cont);
-      activate(injected);
-      return;
-    }
-    const signer = library.getSigner(account).connectUnchecked();
-    const contract = new Contract(cont.address, GoodsAbi, signer);
-    try {
-      const mintInitResult = await contract.mintGoods(1, {
-        value: cont.price.toString(),
-      });
-
-      console.log(mintInitResult);
-
-      //alert("Successfully initiated mint!");
-
-      const receipt = await mintInitResult.wait();
-      if (receipt) {
-        // Get updated balance after successful mint
-        const balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
-          state.walletAddress
-        );
-        const bal = +balance / +1000000000000000000;
-        dispatch({ type: "setWalletBalance", payload: bal.toString() });
-      }
-
-      console.log(receipt);
-
-      const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
-
-      console.log((await contract.baseURI()) + mintedTokenId);
-    } catch (error: any) {
-      toast.error("Failed to mint: " + JSON.stringify(error));
-      console.log("Failed to mint: ", error);
-    }
-  }
+  }, [library, tempContract, mint]);
 
   return (
     <div
