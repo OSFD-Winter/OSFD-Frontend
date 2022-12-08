@@ -197,6 +197,7 @@ const Home: NextPage = () => {
       <TreasuryDisplay safeAddress={"0x432b351Db56d95F0ed37c7De3E20249200f8d3C9"}></TreasuryDisplay>
       <Referral />
       <Footer />
+      <ToastContainer limit={1} />
     </div>
   );
 };

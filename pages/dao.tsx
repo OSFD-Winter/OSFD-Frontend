@@ -591,6 +591,7 @@ function Dao({ addr }) {
       <Feedback></Feedback>
       <div>
         <Footer />
+        <ToastContainer limit={1} />
       </div>
     </Box>
   );
