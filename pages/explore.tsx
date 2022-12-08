@@ -20,6 +20,7 @@ import Feedback from "../components/feedback";
 import Footer from "../components/footer";
 
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
+import MintButton from "../components/mintButton";
 
 const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 
@@ -28,7 +29,41 @@ function Explore() {
   const { factoryAddress } = router.query;
 
   const { active, activate, account, library } = useWeb3React();
-  const [contracts, setContracts] = useState([]);
+  const [contracts, setContracts] = useState([
+    {
+      address: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
+      hash: "bafkreiffv5b3tyd2l4j5rti4snixwvghbxsqlnyn6aoxgzrnxbv7pqejhu",
+      symbol: "MST",
+      name: "Join Team Nouns",
+      price: 1000000000000000,
+      supply: 100,
+      desc: "Description",
+      preview:
+        "https://media.gettyimages.com/id/157482029/photo/stack-of-books.jpg?s=612x612&w=gi&k=20&c=_Yaofm8sZLZkKs1eMkv-zhk8K4k5u0g0fJuQrReWfdQ=",
+    },
+    {
+      address: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
+      hash: "bafkreiffv5b3tyd2l4j5rti4snixwvghbxsqlnyn6aoxgzrnxbv7pqejhu",
+      symbol: "MST",
+      name: "Join Team Nouns",
+      price: 1000000000000000,
+      supply: 100,
+      desc: "Description",
+      preview:
+        "https://media.gettyimages.com/id/157482029/photo/stack-of-books.jpg?s=612x612&w=gi&k=20&c=_Yaofm8sZLZkKs1eMkv-zhk8K4k5u0g0fJuQrReWfdQ=",
+    },
+    {
+      address: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
+      hash: "bafkreiffv5b3tyd2l4j5rti4snixwvghbxsqlnyn6aoxgzrnxbv7pqejhu",
+      symbol: "MST",
+      name: "Join Team Nouns",
+      price: 1000000000000000,
+      supply: 100,
+      desc: "Description",
+      preview:
+        "https://media.gettyimages.com/id/157482029/photo/stack-of-books.jpg?s=612x612&w=gi&k=20&c=_Yaofm8sZLZkKs1eMkv-zhk8K4k5u0g0fJuQrReWfdQ=",
+    },
+  ]);
   const [DAOs, setDAOs] = useState([]);
   const [link, setLink] = useState();
 
@@ -143,42 +178,34 @@ function Explore() {
   }
 
   return (
-    <Box sx={{ height: "100%", p: 2 }}>
-      <Box style={{ position: "absolute", top: 5, left: 5 }}>
+    <div className="flex justify-center flex-col ">
+      <Box className=" top-5 left-5 ">
         <Link href={`/`}>
           <a>
             <img src={"./OSFD.svg"} width="80"></img>
           </a>
         </Link>
       </Box>
-      <Box style={{ display: "flex" }}>
+      <div className="flex">
         {contracts &&
           contracts.map((cont) => (
             <Box
               key={cont.address}
-              style={{
-                border: "2px black solid",
-                margin: 50,
-                width: "25vw",
-              }}
+              className="rounded-lg shadow-lg max-w-sm flex flex-col mx-auto mb-10"
             >
-              <Box
-                style={{
-                  textAlign: "center",
-                  fontSize: "1.5em",
-                }}
-              >
+              <h1 className="text-2xl font-semibold mt-0 mb-6 text-center">
                 {cont.name} {"(" + cont.symbol + ")"}
-              </Box>
+              </h1>
 
-              <Box style={{ textAlign: "center" }}>
-                <img src={cont.preview} style={{ width: "100%" }}></img>
-                <br></br>
-                {cont.desc}
-                <br></br>
-                supply: {cont.supply}
-                <br></br>
-                <Button
+              <div className=" items-center align-center text-center font-[Poppins]">
+                <img src={cont.preview} className=" w-15"></img>
+                <p className="text-gray-700 font-thin mb-4">{cont.desc}</p>
+                <p className=" text-gray-300 font-normal mb-4">Supply: {cont.supply}</p>
+                <MintButton
+                  address={`0x09aD6Fb74584fFbA72C65419c03741325CAE00a1`}
+                  price={`1000000000000000`}
+                />
+                {/* <Button
                   variant="contained"
                   style={{
                     textAlign: "center",
@@ -217,11 +244,11 @@ function Explore() {
                   }}
                 >
                   mint {cont.price / 1000000000000000000} eth
-                </Button>
-              </Box>
+                </Button> */}
+              </div>
             </Box>
           ))}
-      </Box>
+      </div>
 
       <Box
         style={{
@@ -279,7 +306,7 @@ function Explore() {
       <div>
         <Footer />
       </div>
-    </Box>
+    </div>
   );
 }
 
