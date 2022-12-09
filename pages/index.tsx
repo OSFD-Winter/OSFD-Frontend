@@ -32,6 +32,8 @@ import { useWeb3React } from "@web3-react/core";
 import { injected } from "../src/web3ReactInjector";
 import "react-toastify/dist/ReactToastify.css";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+import { SwapWidget } from "@uniswap/widgets";
+import "@uniswap/widgets/fonts.css";
 
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
 import Navbar from "../components/navbar";
@@ -198,6 +200,10 @@ const Home: NextPage = () => {
       }}
     >
       <Navbar refTop={refTop} refSandbox={refSandbox} refFeedback={refFeedback} />
+
+      <div className="Uniswap">
+        <SwapWidget />
+      </div>
 
       <Box
         style={{
