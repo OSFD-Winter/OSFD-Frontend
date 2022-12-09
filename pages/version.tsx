@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/footer";
 import { Button } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { GITHUB_API_TOKEN } from "../utils/constants";
 
 const Version = () => {
   const [commits, setCommits] = useState([]);
@@ -34,7 +35,7 @@ const Version = () => {
 
   useEffect(() => {
     const octokit = new Octokit({
-      auth: "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",
+      auth: GITHUB_API_TOKEN,
     });
 
     const sendRequest = async (commitCount: any) => {
@@ -97,7 +98,7 @@ const Version = () => {
               </li>
 
               <li>
-                <strong>Verification: </strong>
+                <strong>Merged: </strong>
                 {(() => {
                   switch (index.commit.verification.verified) {
                     case true:
