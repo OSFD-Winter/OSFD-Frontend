@@ -6,5 +6,5 @@ export const ETH_GOERLI_ALCHEMY =
 export const API_BASE_URL = "https://api.etherscan.io";
 export const API_PLACE_HOLDER = "5V84IP6PWKTS51SNIPDNUNURIBU74ERPBK";
 export const SOURCE = "https://testnet.snapshot.org";
-export const GITHUB_API_TOKEN = "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";
+export const GITHUB_API_TOKEN = "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";
 //const API_BASE_URL = "https://api-goerli.etherscan.io/";
