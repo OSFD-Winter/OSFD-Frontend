@@ -24,6 +24,7 @@ function Feedback({ hash: any }) {
   // handle image upload
   const uploadImage = () => {
     if (image == null) return;
+    setUploading(true);
     const address = `images/${image.name + v4()}`;
     const imageRef = ref(storage, address);
     if (update === 1) {
@@ -41,7 +42,7 @@ function Feedback({ hash: any }) {
   };
 
   const pushToDiscord = () => {
-    if (stopRender.current) {
+    if (stopRender.current || uploading) {
       return;
     }
     if (email === "" || desc === "" || title === "") {
@@ -192,7 +193,7 @@ function Feedback({ hash: any }) {
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Button
                   class="px-8 py-3 text-red bg-blue-600 rounded cursor-not-allowed focus:outline-none disabled:opacity-75"
-                  disabled={sent || email === "" || title === "" || desc === ""}
+                  disabled={sent || email === "" || title === "" || image !== null || uploading}
                   // push to discord using webhooks
                   onClick={() => {
                     stopRender.current = false;
