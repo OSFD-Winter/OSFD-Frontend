@@ -162,7 +162,11 @@ const Sandbox: NextPage = () => {
           &quot;00-bg&quot;, &quot;01-title&quot;, &quot;02-leftnoun&quot; ...
           <br></br>
           <div style={{ display: "flex", justifyContent: "center", marginBlock: "20px" }}>
-            <img className="Folder Structure" src="./Sandbox Components/Folder Structure.svg" />
+            <img
+              className="Folder Structure"
+              alt="Folder_Structure"
+              src="./Sandbox Components/Folder Structure.svg"
+            />
           </div>
           As you can notice subfolder names have numbers as prefix, it is for layer composing order;
           lowest number
@@ -195,7 +199,7 @@ const Sandbox: NextPage = () => {
         }}
       >
         <Button component="label" onsubmit="return checksubmit()" onClick={getFile}>
-          <img src="./Sandbox Components/Choose File Button.svg" />
+          <img alt="Choose_File_Buttton" src="./Sandbox Components/Choose File Button.svg" />
           <Input type="file" id="upload_file" style={{ opacity: 0, marginLeft: -60, width: 75 }} />
           <input
             type="text"
@@ -215,7 +219,7 @@ const Sandbox: NextPage = () => {
             {uploading ? (
               <CircularProgress />
             ) : (
-              <img src="./Sandbox Components/Upload Button.svg" />
+              <img alt="Upload_Button" src="./Sandbox Components/Upload Button.svg" />
             )}
           </Button>
         </Box>
@@ -260,11 +264,11 @@ const Sandbox: NextPage = () => {
           {preview && (
             <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Button onClick={cancel_zip} style={{ height: 35, marginRight: 60 }}>
-                <img src="./Sandbox Components/Cancel Button.svg" />
+                <img alt="Cancel_Button" src="./Sandbox Components/Cancel Button.svg" />
               </Button>
 
               <Button onClick={create_NFT} style={{ height: 35, marginLeft: 60 }}>
-                <img src="./Sandbox Components/Create Button.svg" />
+                <img alt="Create_Button" src="./Sandbox Components/Create Button.svg" />
               </Button>
             </Box>
           )}
