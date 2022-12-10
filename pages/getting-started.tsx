@@ -212,8 +212,11 @@ function GettingStarted() {
               posting on your twitter/facebook account to prevent spamming.
             </p>
             <p className="text-lg break-words my-2">
-              Go to <a href="https://faucetlink.to/goerli">https://faucetlink.to/goerli</a> and
-              select any active faucet to obtain test Eth.
+              Go to{" "}
+              <a href="https://osfd-goerli-faucets.vercel.app/ ">
+                https://osfd-goerli-faucets.vercel.app/{" "}
+              </a>{" "}
+              and select any active faucet to obtain test Eth.
             </p>
           </div>
         </div>
