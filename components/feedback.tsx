@@ -66,7 +66,6 @@ function Feedback({ hash: any }) {
               seturl(url);
             });
             toast.success("Image Uploaded");
-            update = update - 1;
             setUploading(false);
           });
         }
@@ -166,6 +165,7 @@ function Feedback({ hash: any }) {
                           onChange={(event) => {
                             setImage(event.target.files[0]);
                             setUploading(true);
+                            update = update - 1;
                           }}
                         />
                         <Box sx={{ display: "flex", justifyContent: "center" }}>
