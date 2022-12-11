@@ -14,7 +14,7 @@ export const fetchNFTs = async (owner, setNFTs, retryAttempt) => {
                 data = await fetch(`${API_BASE_URL}/getNFTs?owner=${owner}`).then(data => data.json())
             }
         } catch (e) {
-            fetchNFTs(endpoint, owner, contractAddress, setNFTs, retryAttempt+1)
+            fetchNFTs(API_BASE_URL, owner, setNFTs, retryAttempt+1)
         }
 
         setNFTs(data.ownedNfts)

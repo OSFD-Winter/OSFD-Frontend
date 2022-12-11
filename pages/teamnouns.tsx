@@ -195,7 +195,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <TreasuryDisplay safeAddress={"0x432b351Db56d95F0ed37c7De3E20249200f8d3C9"}></TreasuryDisplay>
-      <NFTDisplay owner="0x4bA9285EDE9D46Bc367ee1d5cD5a8F1d9e6572e6" />
+      <NFTDisplay owner={"0x4bA9285EDE9D46Bc367ee1d5cD5a8F1d9e6572e6"}></NFTDisplay>
       <Referral />
       <Footer />
     </div>
