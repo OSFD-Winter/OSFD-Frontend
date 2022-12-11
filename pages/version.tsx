@@ -36,7 +36,6 @@ const Version = () => {
     const octokit = new Octokit({
       auth: process.env.GITHUB_API_TOKEN,
     });
-    console.log(process.env.GITHUB_API_TOKEN);
 
     const sendRequest = async (commitCount: any) => {
       const owner = "OSFD-Winter",
@@ -77,7 +76,7 @@ const Version = () => {
         {commits.map((index) => {
           return (
             <ul
-              className="flex flex-col bg-gradient-to-r from-[#ff8000] to-[#ffe6cc]  shadow-gray-400 border-gray-300 border-2 m-3 h-56 w-72	items-center rounded-lg	p-1	 hover:border-purple-700 justify-center text-sm"
+              className="flex flex-col bg-gradient-to-r from-[#ff8000] to-[#ffe6cc]  overflow-hidden	 shadow-gray-400 border-gray-300 border-2 m-3 h-58 w-80	items-center rounded-lg	p-1	 hover:border-purple-700 justify-center text-sm"
               key={index.sha}
             >
               <li>
