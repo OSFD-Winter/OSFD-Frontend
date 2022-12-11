@@ -8,6 +8,7 @@ import Link from "next/link";
 import React, { useRef } from "react";
 import MintButton from "../components/mintButton";
 import Feedback from "../components/feedback";
+import NFTDisplay from "../components/NFTDisplay";
 
 const InternsDAO: NextPage = () => {
   const space = "internsdao.eth";
@@ -214,6 +215,7 @@ const InternsDAO: NextPage = () => {
               </Button>
             </Card>
           </div>
+          <NFTDisplay owner="0x4bA9285EDE9D46Bc367ee1d5cD5a8F1d9e6572e6" />
         </div>
       </Box>
       <div className="flex justify-center" ref={proposals}>

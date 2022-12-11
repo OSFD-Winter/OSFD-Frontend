@@ -27,5 +27,5 @@
     "**/*.ts",
     "**/*.tsx",
     "components/badge-generator/badgeGenerator.jsx"
-  ]
+, "components/NFTDisplay.jsx"  ]
 }
