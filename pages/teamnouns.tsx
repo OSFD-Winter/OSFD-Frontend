@@ -30,11 +30,8 @@ import { injected } from "../src/web3ReactInjector";
 import GoodsAbi from "../src/Goods.json";
 import Referral from "../components/referral";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
-<<<<<<< HEAD
 import NFTDisplay from "../components/NFTDisplay";
-=======
 import { ToastContainer, toast } from "react-toastify";
->>>>>>> f8106ce88efce214262b67b43ea84e53c3a62ebc
 const curated = [
   {
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
