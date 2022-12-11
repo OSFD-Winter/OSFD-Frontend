@@ -30,7 +30,11 @@ import { injected } from "../src/web3ReactInjector";
 import GoodsAbi from "../src/Goods.json";
 import Referral from "../components/referral";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+<<<<<<< HEAD
 import NFTDisplay from "../components/NFTDisplay";
+=======
+import { ToastContainer, toast } from "react-toastify";
+>>>>>>> f8106ce88efce214262b67b43ea84e53c3a62ebc
 const curated = [
   {
     contract: "0x09aD6Fb74584fFbA72C65419c03741325CAE00a1",
@@ -143,7 +147,7 @@ const Home: NextPage = () => {
 
       console.log((await contract.baseURI()) + mintedTokenId);
     } catch (error: any) {
-      alert("Failed to mint: " + JSON.stringify(error));
+      toast.error("Failed to mint: " + JSON.stringify(error));
       console.log("Failed to mint: ", error);
     }
   }
@@ -198,6 +202,7 @@ const Home: NextPage = () => {
       <NFTDisplay owner={"0x4bA9285EDE9D46Bc367ee1d5cD5a8F1d9e6572e6"}></NFTDisplay>
       <Referral />
       <Footer />
+      <ToastContainer limit={1} />
     </div>
   );
 };

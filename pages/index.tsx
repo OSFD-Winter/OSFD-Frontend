@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import {
   Button,
   Card,
@@ -34,6 +34,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
 
 import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
+import Navbar from "../components/navbar";
 
 const curated = [
   {
@@ -89,84 +90,13 @@ const Home: NextPage = () => {
     },
   ]);
 
-  const { ethereum } = typeof window !== "undefined" && window;
-  const provider =
-    typeof window !== "undefined" &&
-    haveMetamask &&
-    new ethers.providers.Web3Provider(window.ethereum);
   const [haveMetamask, sethaveMetamask] = useState(true);
   const [isConnected, setIsConnected] = useState(false);
   const { state, dispatch } = useReducerContext();
-
-  const changeNetWork = async () => {
-    try {
-      await ethereum.request({
-        method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0x5" }], // Goerli Testnet
-      });
-      setIsConnected(true);
-    } catch (err: any) {
-      // This error code indicates that the chain has not been added to MetaMask.
-      if (err.code === 4902) {
-        try {
-          await ethereum.request({
-            method: "wallet_addEthereumChain",
-            params: [
-              {
-                chainId: "0x5",
-                chainName: "Goerli Testnet",
-                rpcUrls: ["https://goerli.prylabs.net"],
-              },
-            ],
-          });
-          setIsConnected(true);
-        } catch (addError) {
-          // handle "add" error
-          setIsConnected(false);
-        }
-      }
-      // handle other "switch" errors
-      setIsConnected(false);
-    }
-    // handle other "switch" errors
-    setIsConnected(false);
-  };
-
-  const connectWallet = async () => {
-    try {
-      if (!ethereum) {
-        sethaveMetamask(false);
-      }
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      dispatch({ type: "setWalletAddress", payload: accounts[0] });
-      changeNetWork();
-      let balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
-        accounts[0]
-      );
-      let bal = ethers.utils.formatEther(balance);
-      dispatch({ type: "setWalletBalance", payload: bal });
-      //console.log(state);
-    } catch (error) {
-      //console.log(error);
-      setIsConnected(false);
-    }
-  };
-
-  // See if Metamask is installed on browser
-  useEffect(() => {
-    if (window !== undefined) {
-      const { ethereum } = window;
-      const checkMetamaskAvailability = async () => {
-        if (!ethereum) {
-          sethaveMetamask(false);
-        }
-        sethaveMetamask(true);
-      };
-      checkMetamaskAvailability();
-    }
-  }, []);
+  const refTop = useRef();
+  const refSandbox = useRef();
+  const refFeedback = useRef();
+  const [tempContract, setTempContract] = useState(null);
 
   useEffect(() => {
     async function getContracts() {
@@ -202,102 +132,152 @@ const Home: NextPage = () => {
         }
         setContracts(detailedContracts);
       } catch (error: any) {
-        toast("Failed " + JSON.stringify(error));
+        toast.error("Failed " + JSON.stringify(error));
         console.log("Failed  ", error);
       }
     }
     getContracts();
   }, []);
+  const mint = useCallback(
+    async function (cont) {
+      if (!library) {
+        setTempContract(cont);
+        activate(injected);
+        return;
+      }
+      const signer = library.getSigner(account).connectUnchecked();
+      const contract = new Contract(cont.address, GoodsAbi, signer);
+      try {
+        const mintInitResult = await contract.mintGoods(1, {
+          value: cont.price.toString(),
+        });
 
-  async function mint(cont) {
-    if (!library) {
-      activate(injected);
-      return;
+        console.log(mintInitResult);
+
+        //alert("Successfully initiated mint!");
+
+        const receipt = await mintInitResult.wait();
+        if (receipt) {
+          // Get updated balance after successful mint
+          const balance = await new ethers.providers.Web3Provider(window.ethereum).getBalance(
+            state.walletAddress
+          );
+          const bal = +balance / +1000000000000000000;
+          dispatch({ type: "setWalletBalance", payload: bal.toString() });
+        }
+
+        console.log(receipt);
+
+        const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
+
+        console.log((await contract.baseURI()) + mintedTokenId);
+      } catch (error: any) {
+        toast.error("Failed to mint: " + JSON.stringify(error));
+        console.log("Failed to mint: ", error);
+      }
+    },
+    [account, activate, dispatch, library, state.walletAddress]
+  );
+  useEffect(() => {
+    /* If library was detected as undefined in mint function this useEffect 
+    runs to continue w/ minting transaction */
+    if (tempContract && library) {
+      mint(tempContract);
+      setTempContract(null);
+    } else if (!tempContract && !library) {
+      setTempContract(null);
     }
-
-    const signer = library.getSigner(account).connectUnchecked();
-    const contract = new Contract(cont.address, GoodsAbi, signer);
-
-    try {
-      const mintInitResult = await contract.mintGoods(1, {
-        value: cont.price.toString(),
-      });
-
-      console.log(mintInitResult);
-
-      //alert("Successfully initiated mint!");
-
-      const receipt = await mintInitResult.wait();
-
-      console.log(receipt);
-
-      const mintedTokenId = parseInt(receipt.logs[0].topics[3], 16);
-
-      console.log((await contract.baseURI()) + mintedTokenId);
-    } catch (error: any) {
-      toast("Failed to mint: " + JSON.stringify(error));
-      console.log("Failed to mint: ", error);
-    }
-  }
+  }, [library, tempContract, mint]);
 
   return (
     <div
+      ref={refTop}
       sx={{
         height: "100%",
         backgroundImage: `url(bg.png)`,
       }}
     >
-      <Header></Header>
+      <Navbar refTop={refTop} refSandbox={refSandbox} refFeedback={refFeedback} />
 
-      {/* Button to connect metamask */}
-      <div
-        onClick={connectWallet}
+      <Box
         style={{
-          display: isConnected ? "None" : "flex",
-          position: "absolute",
-          top: 10,
-          right: 10,
-          maxHeight: "60px",
-          maxWidth: "280px",
-          height: "100%",
-          width: "100%",
-          backgroundColor: "#306ac7",
-          borderRadius: "5px",
+          display: "flex",
           justifyContent: "center",
-          color: "white",
-          padding: "8px 24px",
           alignItems: "center",
-          cursor: "pointer",
+          height: "36%",
+          marginTop: 50,
         }}
       >
-        {haveMetamask ? (
-          <div>
-            {isConnected ? (
-              <></>
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <div>Connect with Metamask</div>
-                <img
-                  style={{
-                    height: "50px",
-                    marginLeft: "6px",
-                  }}
-                  src="MetaMask-logo.png"
-                />
-              </div>
-            )}
+        <Paper
+          elevation={3}
+          style={{
+            width: "24vh",
+            marginInline: "10vh",
+            textTransform: "none",
+            textAlign: "center",
+            padding: 10,
+            backgroundColor: "#f8f8f8",
+          }}
+        >
+          <div
+            style={{
+              margin: 20,
+              fontSize: 30,
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              color: "#19217b",
+            }}
+          >
+            Are You a Founder ?
           </div>
-        ) : (
-          <p>Please Install MataMask</p>
-        )}
-      </div>
+          <Button
+            style={{
+              textAlign: "center",
+              backgroundColor: "#1b2f91",
+              color: "white",
+            }}
+            onClick={() => Router.push("/dao")}
+          >
+            Create DAO Offering
+          </Button>
+        </Paper>
 
+        <Paper
+          elevation={3}
+          style={{
+            width: "24vh",
+            marginInline: "10vh",
+            textTransform: "none",
+            textAlign: "center",
+            padding: 10,
+            backgroundColor: "#f8f8f8",
+          }}
+        >
+          <div
+            style={{
+              margin: 20,
+              fontSize: 30,
+              display: "flex",
+              justifyContent: "center",
+              fontWeight: "bold",
+              color: "#19217b",
+            }}
+          >
+            Are You an Investor ?
+          </div>
+          <Button
+            style={{
+              textAlign: "center",
+              backgroundColor: "#1b2f91",
+              color: "white",
+            }}
+            onClick={() => Router.push("/explore")}
+          >
+            Discover DAO Offerings
+          </Button>
+        </Paper>
+      </Box>
       {contracts && contracts[0] && (
         <div
           style={{
@@ -869,87 +849,11 @@ const Home: NextPage = () => {
         }}
       ></Box>
 
-      <Box
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "36%",
-        }}
-      >
-        <Paper
-          elevation={3}
-          style={{
-            width: "24vh",
-            marginInline: "10vh",
-            textTransform: "none",
-            textAlign: "center",
-            padding: 10,
-            backgroundColor: "#f8f8f8",
-          }}
-        >
-          <div
-            style={{
-              margin: 20,
-              fontSize: 30,
-              display: "flex",
-              justifyContent: "center",
-              fontWeight: "bold",
-              color: "#19217b",
-            }}
-          >
-            Are You a Founder ?
-          </div>
-          <Button
-            style={{
-              textAlign: "center",
-              backgroundColor: "#1b2f91",
-              color: "white",
-            }}
-            onClick={() => Router.push("/dao")}
-          >
-            Create DAO Offering
-          </Button>
-        </Paper>
+      <div ref={refSandbox}>
+        <Sandbox></Sandbox>
+      </div>
 
-        <Paper
-          elevation={3}
-          style={{
-            width: "24vh",
-            marginInline: "10vh",
-            textTransform: "none",
-            textAlign: "center",
-            padding: 10,
-            backgroundColor: "#f8f8f8",
-          }}
-        >
-          <div
-            style={{
-              margin: 20,
-              fontSize: 30,
-              display: "flex",
-              justifyContent: "center",
-              fontWeight: "bold",
-              color: "#19217b",
-            }}
-          >
-            Are You an Investor ?
-          </div>
-          <Button
-            style={{
-              textAlign: "center",
-              backgroundColor: "#1b2f91",
-              color: "white",
-            }}
-            onClick={() => Router.push("/explore")}
-          >
-            Discover DAO Offerings
-          </Button>
-        </Paper>
-      </Box>
-      <Sandbox></Sandbox>
-
-      <div style={{ marginTop: 100 }}>
+      <div ref={refFeedback} style={{ marginTop: 100 }}>
         <Feedback></Feedback>
       </div>
 
