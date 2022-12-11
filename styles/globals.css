@@ -48,8 +48,13 @@ a {
 }
 
 @font-face {
-  font-family: Poppins-Thin;
-  src: url(./fonts/Poppins-Thin.ttf);
+  font-family: BebasNeue;
+  src: url(./fonts/BebasNeue-Regular.ttf);
+}
+
+@font-face {
+  font-family: Montserrat;
+  src: url(./fonts/Montserrat.ttf);
 }
 
 .nouns-header-nav {
