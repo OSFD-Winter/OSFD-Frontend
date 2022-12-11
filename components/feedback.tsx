@@ -21,26 +21,6 @@ function Feedback({ hash: any }) {
   const stopRender = useRef(true);
   let update = 1;
 
-  // handle image upload
-  const uploadImage = () => {
-    if (image == null) return;
-    setUploading(true);
-    const address = `images/${image.name + v4()}`;
-    const imageRef = ref(storage, address);
-    if (update === 1) {
-      uploadBytes(imageRef, image).then((response) => {
-        getDownloadURL(ref(storage, address)).then((url) => {
-          seturl(url);
-        });
-        toast.success("Image Uploaded");
-        update = update - 1;
-        setUploading(false);
-      });
-    }
-    setUploading(false);
-    setImage(null);
-  };
-
   const pushToDiscord = () => {
     if (stopRender.current || uploading) {
       return;
@@ -74,9 +54,28 @@ function Feedback({ hash: any }) {
 
   useEffect(() => {
     if (image) {
+      // handle image upload
+      const uploadImage = () => {
+        if (image == null) return;
+        setUploading(true);
+        const address = `images/${image.name + v4()}`;
+        const imageRef = ref(storage, address);
+        if (update === 1) {
+          uploadBytes(imageRef, image).then((response) => {
+            getDownloadURL(ref(storage, address)).then((url) => {
+              seturl(url);
+            });
+            toast.success("Image Uploaded");
+            update = update - 1;
+            setUploading(false);
+          });
+        }
+        setUploading(false);
+        setImage(null);
+      };
       uploadImage();
     }
-  }, [image, uploadImage]);
+  }, [image]);
 
   return (
     <>
