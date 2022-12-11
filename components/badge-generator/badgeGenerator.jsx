@@ -60,19 +60,16 @@ const BadgeGenerator = () => {
                   <div className="my-6 grid grid-flow-row auto-rows-max gap-5">
                     <input
                       type="text"
-                      bg-black
                       placeholder="Name"
                       className="placeholder:text-black block bg-white w-full border border-slate-300 rounded-md pl-2 pr-3 shadow-sm"
                     />
                     <input
                       type="text"
-                      bg-black
                       placeholder="ID No."
                       className="placeholder:text-black block bg-white w-full border border-slate-300 rounded-md pl-2 pr-3 shadow-sm"
                     />
                     <input
                       type="text"
-                      bg-black
                       placeholder="Friend Code"
                       className="placeholder:text-black block bg-white md:w-full lg:w-full border border-slate-300 rounded-md pl-2 pr-3 shadow-sm"
                     />
@@ -207,14 +204,12 @@ const BadgeGenerator = () => {
               <div className="h-8 w-3/4 bg-white border-zinc-400 border-2 rounded-lg mx-auto" />
               <input
                 type="text"
-                bg-black
                 placeholder="John Smith"
                 className="placeholder:text-black text-center font-bold bg-white w-3/4 border border-slate-300 rounded-md pl-2 pr-3 shadow-sm mx-auto"
               />
               <textarea
                 rows="4"
                 cols="50"
-                bg-black
                 placeholder={`234987665232056 \n Developer `}
                 className="placeholder:text-black font-bold text-center bg-white w-3/4 border border-slate-300 rounded-md pl-2 pr-3 shadow-sm mx-auto"
               />

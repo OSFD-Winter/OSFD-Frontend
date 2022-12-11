@@ -178,7 +178,7 @@ const Home: NextPage = () => {
   return (
     <div
       ref={refTop}
-      sx={{
+      style={{
         height: "100%",
         backgroundImage: `url(bg.png)`,
       }}
