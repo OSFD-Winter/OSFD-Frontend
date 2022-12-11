@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/footer";
 import { Button } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import { GITHUB_API_TOKEN } from "../utils/constants";
 
 const Version = () => {
   const [commits, setCommits] = useState([]);
@@ -35,8 +34,9 @@ const Version = () => {
 
   useEffect(() => {
     const octokit = new Octokit({
-      auth: GITHUB_API_TOKEN,
+      auth: process.env.GITHUB_API_TOKEN,
     });
+    console.log(process.env.GITHUB_API_TOKEN);
 
     const sendRequest = async (commitCount: any) => {
       const owner = "OSFD-Winter",
