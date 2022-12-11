@@ -74,7 +74,7 @@ function Feedback({ hash: any }) {
       };
       uploadImage();
     }
-  }, [image]);
+  }, [image, update]);
 
   return (
     <>
