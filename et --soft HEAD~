@@ -1,0 +1,147 @@
+[33m88a4301[m[33m ([m[1;36mHEAD -> [m[1;32mversions-page[m[33m)[m test
+[33m5fe3a6c[m[33m ([m[1;31mmain/versions-page[m[33m)[m  added api key in env file
+[33m63ac225[m test
+[33me1ca0af[m DISABLE_SECRET_SCANNING
+[33m1797440[m test
+[33mec02b59[m added new file to ignore from secret scanner
+[33m68ddbad[m test
+[33m4a7c39e[m edited path-ignore path
+[33mdcd8495[m test
+[33mc107a0c[m re-installed node-modules & updated API Key
+[33m7e7770a[m small change
+[33m80bf522[m edited auth key
+[33m7149db8[m s
+[33m52b93c1[m missing dependency warning solved
+[33m66a2aae[m Added set interval
+[33m9ffa392[m some changes
+[33m141b540[m created versions page
+[33m899041f[m navbar & landing page changes
+[33mcaeebfd[m Merge pull request #75 from OSFD-Winter/new-navbar
+[33mf894874[m[33m ([m[1;31morigin/new-navbar[m[33m)[m Merge branch 'main' into new-navbar
+[33ma22cdd3[m Merge pull request #68 from OSFD-Winter/metamask-button-component
+[33m11d3fa5[m Merge pull request #71 from YuWei-CH/main
+[33m139da29[m[33m ([m[1;31morigin/metamask-button-component[m[33m)[m Update balance after mint.
+[33mee04605[m Update navbar.tsx
+[33me5da250[m Add files via upload
+[33mb9d6c2a[m Add files via upload
+[33ma669ab2[m Update header sizing
+[33m79013fc[m Merge branch 'main' of https://github.com/OSFD-Winter/OSFD-Frontend into metamask-button-component
+[33m255e68b[m Change to sticky header and button/wallet details.
+[33m1d3d58a[m Merge pull request #70 from OSFD-Winter/badge-generator
+[33m038ac9f[m Add loading variable to pause button display until state is determined.
+[33m1765f8e[m Upload sandbox components
+[33m1c0be64[m Fix Document error
+[33mfd0ce85[m Update sandbox.tsx
+[33mdb7ed0e[m Merge branch 'main' of https://github.com/OSFD-Winter/OSFD-Frontend into metamask-button-component
+[33m0bd7da2[m Refactor overall code and update when button/account details is displayed.
+[33m79cf9a1[m Initial implementation of persisting wallet connection and displaying account details.
+[33mfca87d3[m Merge pull request #67 from OSFD-Winter/feedback
+[33m1664fe3[m update to precommit
+[33mc8a7f98[m updates to package.json
+[33mdfa8930[m update husky pre-commit
+[33m188abcf[m update feedback url
+[33m7792246[m add npm to husky
+[33mb04e764[m hotjar
+[33m4223003[m Remove temp comments
+[33m9b00c0d[m Add toastify notification upon wallet connection.
+[33m6dc299a[m Update styling after MUI changes and quick refactor of ethers code.
+[33m6de3dce[m push feedbacks to discord w/ webhook
+[33mcd9ed9f[m[33m ([m[1;31morigin/badge-generator[m[33m)[m badgeGenerator
+[33m6d27d35[m Clean up code for typescript.
+[33m3d2c30f[m Refactor to remove typescript error in metamask button setting wallet balance.
+[33m7331765[m Remove metamask wallet code from index.tsx
+[33m24a1f8a[m Transfer code to component
+[33m1dc6f6c[m internsdao page
+[33mfcbde35[m server change
+[33md0bce86[m Merge pull request #65 from OSFD-Winter/interns-dao
+[33m603881b[m Merge pull request #64 from OSFD-Winter/createDAO
+[33m4d5f007[m[33m ([m[1;31morigin/interns-dao[m[33m)[m sandbox
+[33m52bef0f[m Merge pull request #33 from OSFD-Winter/teamnounsupdate
+[33ma0656c8[m[33m ([m[1;31morigin/createDAO[m[33m)[m Merge pull request #60 from OSFD-Winter/fix-get-started-page-width
+[33m2cdd65e[m Merge pull request #62 from OSFD-Winter/added-toastify
+[33m9d880a5[m[33m ([m[1;31morigin/added-toastify[m[33m)[m added toastify feature
+[33m2bf7689[m added toastify feature
+[33m01b33cc[m added toastify feature
+[33meaa78d9[m keep footer at bottom
+[33m95ce59a[m resize paragraph width to screen
+[33mcc76cf6[m     modified:   pages/getting-started.tsx
+[33m222e5fe[m Merge pull request #38 from OSFD-Winter/get-started-page
+[33m86c2576[m updated minepreview
+[33m71205f0[m Merge pull request #59 from OSFD-Winter/interns-dao
+[33m3e04f90[m interns dao page v1
+[33m6b3d4b3[m header & footer
+[33md9be03c[m Merge pull request #56 from OSFD-Winter/mint-preview-refactor
+[33mc568fa3[m Merge pull request #58 from OSFD-Winter/fix-bg-problem
+[33m35de20d[m update
+[33m8f157c5[m Add back in overlapped tailwind config
+[33m18f7452[m Revert image tag
+[33m6457c57[m[33m ([m[1;31morigin/fix-bg-problem[m[33m)[m fixed tailwing bg-color problem
+[33md42b40f[m Merge branch 'main' of https://github.com/OSFD-Winter/OSFD-Frontend into mint-preview-refactor
+[33m2e9a769[m Merge branch 'main' of https://github.com/OSFD-Winter/OSFD-Frontend into get-started-page
+[33md80fd10[m changing "'" to &apos;
+[33m91b77dc[m server change
+[33m00139c3[m Merge pull request #55 from OSFD-Winter/treasuryDisplay
+[33ma511ec9[m wallet balance in global state, auto check list
+[33m585b583[m color & other css fix
+[33m1ab1528[m tag fix
+[33m26abc51[m Merge branch 'main' of https://github.com/OSFD-Winter/OSFD-Frontend into get-started-page
+[33me889943[m Refactor function and implement typescript interfaces
+[33mb996ac8[m[33m ([m[1;31morigin/treasuryDisplay[m[33m)[m styled treasuryDisplay and added some constants
+[33m1ba9884[m Merge pull request #48 from OSFD-Winter/tailwind-header-footer
+[33m51d02cf[m Merge pull request #54 from nsafarova/media-page
+[33ma529164[m added media page
+[33mfce378e[m formatted file
+[33mb8fc0fe[m Merge branch 'main' of https://github.com/OSFD-Winter/OSFD-Frontend into get-started-page
+[33m8542345[m[33m ([m[1;31morigin/tailwind-header-footer[m[33m)[m Merge branch 'main' into tailwind-header-footer
+[33mf7d7bdb[m Responsive header and footer using tailwind
+[33m62cd00d[m Merge pull request #40 from OSFD-Winter/functional-referral
+[33m9753f4a[m Fix function
+[33m27159e6[m Add in missing line for index.tsx
+[33m88b77ef[m Refactor w/ tailwind.
+[33m15d17ad[m Delete overlapping code from merging
+[33m080edce[m Update default values & fix API url in treasury display
+[33mb15644b[m Fix conflicts
+[33m964f4ef[m Merge pull request #47 from OSFD-Winter/constants
+[33m96175d9[m[33m ([m[1;31morigin/constants[m[33m)[m Added constants.tsx
+[33mc8a2b77[m precommit fix
+[33m00e9180[m test
+[33m47253db[m yarn to npm
+[33m9bd9e18[m yarn to npm
+[33mad6f20a[m yarn to npm
+[33mc961a06[m test
+[33m9fb276d[m pre-commit-test
+[33mee64ca1[m pre-commit-test
+[33mcbef6df[m pre-commit-test
+[33mb39e9a1[m pre-commit-test
+[33m1fa5b73[m Merge branch 'main' of https://github.com/OSFD-Winter/OSFD-Frontend into teamnounsupdate
+[33m3704352[m precommit test
+[33m786ecec[m added tailwindcss in teamnouns.tsx and fixed footer
+[33mb4e5ef1[m Update to main
+[33m90908b2[m Merge branch 'main' of https://github.com/OSFD-Winter/OSFD-Frontend into teamnounsupdate
+[33m9826e89[m Merge pull request #41 from OSFD-Winter/temporary-loading-speed-fix
+[33m0593a86[m[33m ([m[1;31morigin/temporary-loading-speed-fix[m[33m)[m temporary loading speed fix
+[33m43b3f2c[m Fix function
+[33mda8e06b[m fix index.tsx to merge w/ main
+[33m77c88a4[m Change api from etherscan to coinbase
+[33m5c57467[m small changes
+[33m3e9e56e[m Merge branch 'main' of https://github.com/OSFD-Winter/OSFD-Frontend into functional-referral
+[33m4707e22[m Merge main
+[33m19aeaca[m precommit script test2
+[33m2beda99[m Retrieve wallet address w/ global context.
+[33m15e20bc[m precommit script test
+[33mda1bae6[m Merge pull request #39 from LucidJoy/tailwind_setup
+[33mdcbba00[m test linting config
+[33m7d6dba9[m Left noun fix
+[33ma25b9bc[m precommit test
+[33m4b9aaf6[m Fix merge conflict & merge w/ main
+[33ma778976[m added footer
+[33ma5fc40a[m Basic layout of the starting page
+[33mcf08885[m Finalize and cleanup styling and temporarily removed send button.
+[33m98f7fa0[m First pass refactor styling
+[33m0159d64[m Dynamically retrieve referral reward amount w/ etherscan
+[33mb51ebb2[m Merge pull request #36 from LucidJoy/tailwind_setup
+[33m87d3717[m Tailwind setup reverted header & index
+[33m5f6aa15[m Tailwind set-up success
+[33m3349f9d[m Update referral text and start creating functionality to store referrer and save link to clipboard.
+[33m4125b90[m Update code that was deleted in merging.
+[33mafa
