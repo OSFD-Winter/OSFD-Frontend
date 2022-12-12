@@ -2,12 +2,18 @@
 import { storage } from "../../src/firebase_images";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState, useRef } from "react";
-import { Button, TextField, Paper, Box, Input, IconButton } from "@mui/material";
+import { Button, TextField, Paper, Box, Input, IconButton, DialogContent } from "@mui/material";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import { v4 } from "uuid";
 import spinnerImage from "../public/spinner.svg";
 import { ToastContainer, toast } from "react-toastify";
 import { SERVER } from "../utils/constants";
+
+const neoBorder = {
+  border: "1px solid black",
+  fontFamily: "Montserrat",
+  boxShadow: "1px 1px 0px #000000",
+} as const;
 
 function InternsFeedback({ hash: any }) {
   const discordWebhookUrl =
@@ -15,16 +21,16 @@ function InternsFeedback({ hash: any }) {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
   const [image, setImage] = useState(null);
+  const [sent, setSent] = useState(false);
   const [url, seturl] = useState("NA");
   const [uploading, setUploading] = useState(false);
   const stopRender = useRef(true);
   let update = 1;
 
   // handle image upload
-  const uploadImage = () => {
-    if (image == null) return;
+  const uploadImage = (image) => {
+    if (!image) return;
     setUploading(true);
     const address = `images/${image.name + v4()}`;
     const imageRef = ref(storage, address);
@@ -72,24 +78,25 @@ function InternsFeedback({ hash: any }) {
 
   return (
     <div style={{ backgroundColor: "rgba(24, 24, 24, 0.4)" }} className="w-full">
-      <div className="mx-auto w-4/5">
+      <div className="mx-auto p-24">
         {!sent && (
           <div className="flex flex-col gap-2 ">
             <h2 className="text-white text-3xl font-bold">FEEDBACK</h2>
             <div className="flex gap-2">
               <TextField
                 variant="outlined"
-                label="Title"
+                placeholder="Title"
                 value={title}
                 onChange={(event) => {
                   setTitle(event.target.value);
                 }}
                 fullWidth
+                sx={neoBorder}
                 className="bg-white rounded-lg"
               />
               <TextField
                 id="outlined-name"
-                label="E-mail"
+                placeholder="E-mail"
                 variant="outlined"
                 value={email}
                 onChange={(event) => {
@@ -98,12 +105,13 @@ function InternsFeedback({ hash: any }) {
                 fullWidth
                 multiline
                 rows={1}
+                sx={neoBorder}
                 className="bg-white rounded-lg"
               />
             </div>
             <TextField
               id="outlined-name"
-              label="Description"
+              placeholder="Description"
               variant="outlined"
               value={desc}
               onChange={(event) => {
@@ -112,64 +120,85 @@ function InternsFeedback({ hash: any }) {
               fullWidth
               multiline
               rows={3}
+              sx={neoBorder}
               className="bg-white rounded-lg"
             />
             <div>
-              {url === "NA" ? (
-                <Box>
-                  {/* <Input
-                    type="file"
-                    name="file"
-                    id="input_img"
+              <Box className="flex items-center gap-4">
+                <label htmlFor="input_img">
+                  <Input
+                    sx={{ display: "none" }}
                     accept="image/*"
+                    id="input_img"
+                    type="file"
                     onChange={(event) => {
                       setImage(event.target.files[0]);
+                      uploadImage(event.target.files[0]);
+                      console.log(event.target.files[0]);
                     }}
-                  /> */}
-                  <input
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    id="raised-button-file"
-                    multiple
-                    type="file"
                   />
-                  <label htmlFor="raised-button-file">
-                    <IconButton  component="span">
-                      Attach Files
-                      <CloudUploadOutlinedIcon />
-                    </IconButton>
-                  </label>
-                  <Box>
-                    <Button onClick={uploadImage}>
-                      {uploading === false ? (
-                        "upload"
-                      ) : (
-                        <img
-                          src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
-                          alt=""
-                          height="30px"
-                          width="30px"
-                        />
-                      )}
-                    </Button>
-                  </Box>
-                </Box>
-              ) : (
-                "Image Uploaded."
-              )}
+                  <Button
+                    sx={[
+                      ...[neoBorder],
+                      {
+                        color: "black",
+                        bgcolor: "#FFF48F",
+                      },
+                    ]}
+                    variant="contained"
+                    component="span"
+                    endIcon={<CloudUploadOutlinedIcon />}
+                  >
+                    Attach Files
+                  </Button>
+                </label>
+                {image && (
+                  <div>
+                    {uploading && url !== "NA" ? (
+                      <img
+                        src="https://logosbynick.com/wp-content/uploads/2021/01/animated-gif.gif"
+                        alt=""
+                        height="30px"
+                        width="30px"
+                      />
+                    ) : (
+                      <p>Image Uploaded</p>
+                    )}
+                  </div>
+                )}
+                <Button
+                  disabled={sent || title === "" || desc === "" || email === ""}
+                  // push to discord using webhooks
+                  onClick={() => {
+                    stopRender.current = false;
+                    pushToDiscord();
+                  }}
+                  variant="contained"
+                  sx={[...[neoBorder], { bgcolor: "#4277FF", color: "white !IMPORTANT" }]}
+                >
+                  Send
+                </Button>
+              </Box>
             </div>
           </div>
         )}
-        <Button
-          disabled={sent || title === "" || desc === "" || email === ""}
-          // push to discord using webhooks
-          onClick={() => {
-            stopRender.current = false;
-            pushToDiscord();
-          }}
-        >
-          {sent ? "Received!" : "Send"}
-        </Button>
+        {sent && (
+          <Paper
+            sx={[
+              ...[neoBorder],
+              {
+                bgcolor: "#4277FF",
+                color: "white !IMPORTANT",
+                width: "10vw",
+                textAlign: "center",
+                margin: "0 auto",
+              },
+            ]}
+            elevation={3}
+          >
+            Received!
+          </Paper>
+        )}
       </div>
     </div>
   );

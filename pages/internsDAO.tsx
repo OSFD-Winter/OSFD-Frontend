@@ -10,6 +10,7 @@ import MintButton from "../components/mintButton";
 import Feedback from "../components/feedback";
 import ProjectCard from "../components/projectCard";
 import image from "next/image";
+import InternsFeedback from "../components/internsDAO/internsDAOFb";
 
 const projects = [
   {
@@ -58,7 +59,11 @@ const InternsDAO: NextPage = () => {
   const proposals = useRef();
 
   return (
-    <Box className={"bg-gradient-to-r from-[#73CBFD] to-[#A8E8DA] "}>
+    <Box
+      className={
+        "bg-gradient-to-r from-[#73CBFD] to-[#A8E8DA] bg-fixed bg-center bg-no-repeat bg-cover"
+      }
+    >
       <Box
         className={
           "h-[100px] border-solid border-2 rounded-b-3xl bg-gradient-to-r from-[#D57EEA] to-[#FCCB90] flex items-center sticky top-0 z-10"
@@ -124,7 +129,13 @@ const InternsDAO: NextPage = () => {
         </Box>
       </Box>
 
-      <Box className={" my-10 flex w-10/12 mx-auto"} ref={mint}>
+      <Box
+        style={{
+          backgroundImage: `url("./bg-test.png")`,
+        }}
+        className={" my-10 flex w-10/12 mx-auto bg-fixed bg-center bg-cover bg-no-repeat"}
+        ref={mint}
+      >
         <div className="w-6/12 mx-auto">
           <div className={"font-bold text-xl my-10 text-center font-Poppins "}>
             Interns DAO Stakeholder Certificates
@@ -170,7 +181,7 @@ const InternsDAO: NextPage = () => {
         <Proposals space={space}></Proposals>
       </div>
       <div style={{ marginTop: 100 }}>
-        <Feedback></Feedback>
+        <InternsFeedback></InternsFeedback>
       </div>
       <Footer gradient={"bg-gradient-to-r from-[#D57EEA] to-[#FCCB90] "} />
     </Box>
