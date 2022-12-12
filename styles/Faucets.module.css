@@ -1,0 +1,21 @@
+/* ============== General Styles ============= */
+
+.container {
+  width: var(--container-width-lg);
+  display: flex;
+  justify-content: center;
+}
+
+/* ====================== MEDIA QUERIES (MEDIUM DEVICES) ======================== */
+@media screen and (max-width: 1024px) {
+  .container {
+    width: var(--container-width-md);
+  }
+}
+
+/* ====================== MEDIA QUERIES (SMALL DEVICES) ======================== */
+@media screen and (max-width: 600px) {
+  .container {
+    width: var(--container-width-sm);
+  }
+}

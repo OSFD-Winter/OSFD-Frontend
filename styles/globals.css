@@ -42,6 +42,13 @@ a {
   background-color: #a8bbbf;
 }
 
+:root {
+  /* Large | Medium | Small  */
+  --container-width-lg: 75%;
+  --container-width-md: 86%;
+  --container-width-sm: 90%;
+}
+
 @font-face {
   font-family: Poppins;
   src: url(./fonts/Poppins-Bold.ttf);
