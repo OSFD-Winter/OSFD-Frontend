@@ -4,6 +4,11 @@ module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        Poppins: ["Poppins", "sans-serif"],
+        BebasNeue: ["BebasNeue", "sans-serif"],
+        Montserrat: ["Montserrat", "sans-serif"],
+      },
       spacing: {
         "22vw": "22vw",
         "8vw": "8vw",

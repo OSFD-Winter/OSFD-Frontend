@@ -20,6 +20,8 @@ import type { NextPage } from "next";
 import { FC, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { SANDBOX } from "../utils/constants";
+import { red } from "@mui/material/colors";
+import { FaUnderline } from "react-icons/fa";
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -78,6 +80,11 @@ const Sandbox: NextPage = () => {
     console.log(filePath);
   }
 
+  // waiting for function
+  async function cancel_zip() {}
+  // waiting for function
+  async function create_NFT() {}
+
   useEffect(() => {
     if (zip) {
       axios
@@ -125,10 +132,12 @@ const Sandbox: NextPage = () => {
           </div>
           <div>
             <a
-              style={{ color: "darkblue" }}
+              style={{ color: "darkblue", textDecoration: "underline darkblue" }}
               href="https://bafybeich73zpd2fa5wrmnesxgtjgkqc6swavca6yeig2uhfk4xbwgmaqta.ipfs.w3s.link/"
+              target="_blank"
+              rel="noreferrer"
             >
-              Here
+              <Button variant="text">Here</Button>
             </a>
             is an example zip file
           </div>
@@ -136,10 +145,12 @@ const Sandbox: NextPage = () => {
           <div>
             First you need to start thinking with &quot;layers&quot;. &nbsp;
             <a
-              style={{ color: "darkblue", textDecoration: "underline" }}
+              style={{ color: "darkblue", textDecoration: "underline darkblue" }}
               href="https://edition.async.art/blog/generative-art-nfts-an-artists-guide"
+              target="_blank"
+              rel="noreferrer"
             >
-              Here
+              <Button variant="text">Here</Button>
             </a>{" "}
             is link for a good read
           </div>
@@ -151,7 +162,11 @@ const Sandbox: NextPage = () => {
           &quot;00-bg&quot;, &quot;01-title&quot;, &quot;02-leftnoun&quot; ...
           <br></br>
           <div style={{ display: "flex", justifyContent: "center", marginBlock: "20px" }}>
-            <img className="Folder Structure" src="./Sandbox Components/Folder Structure.svg" />
+            <img
+              className="Folder Structure"
+              alt="Folder_Structure"
+              src="./Sandbox Components/Folder Structure.svg"
+            />
           </div>
           As you can notice subfolder names have numbers as prefix, it is for layer composing order;
           lowest number
@@ -184,17 +199,27 @@ const Sandbox: NextPage = () => {
         }}
       >
         <Button component="label" onsubmit="return checksubmit()" onClick={getFile}>
-          <img src="./Sandbox Components/Choose File Button.svg" />
+          <img alt="Choose_File_Buttton" src="./Sandbox Components/Choose File Button.svg" />
           <Input type="file" id="upload_file" style={{ opacity: 0, marginLeft: -60, width: 75 }} />
-          <input type="text" style={{ height: 50, display: "flex", fontSize: 25 }} id="doc"></input>
+          <input
+            type="text"
+            style={{
+              height: 50,
+              display: "flex",
+              fontSize: 25,
+              border: "1px solid",
+              marginLeft: 20,
+            }}
+            id="doc"
+          ></input>
         </Button>
 
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box sx={{ display: "flex", justifyContent: "center", marginLeft: 5 }}>
           <Button onClick={upload} style={{ height: 35 }}>
             {uploading ? (
               <CircularProgress />
             ) : (
-              <img src="./Sandbox Components/Upload Button.svg" />
+              <img alt="Upload_Button" src="./Sandbox Components/Upload Button.svg" />
             )}
           </Button>
         </Box>
@@ -232,6 +257,18 @@ const Sandbox: NextPage = () => {
                 style={{ height: 35 }}
               >
                 Variation{" "}
+              </Button>
+            </Box>
+          )}
+
+          {preview && (
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Button onClick={cancel_zip} style={{ height: 35, marginRight: 60 }}>
+                <img alt="Cancel_Button" src="./Sandbox Components/Cancel Button.svg" />
+              </Button>
+
+              <Button onClick={create_NFT} style={{ height: 35, marginLeft: 60 }}>
+                <img alt="Create_Button" src="./Sandbox Components/Create Button.svg" />
               </Button>
             </Box>
           )}

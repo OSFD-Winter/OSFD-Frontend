@@ -113,7 +113,7 @@ function Explore() {
       console.log(detailedContracts);
       setContracts(detailedContracts);
     } catch (error: any) {
-      toast("Failed " + JSON.stringify(error));
+      toast.error("Failed " + JSON.stringify(error));
       console.log("Failed  ", error);
     }
   }
@@ -166,7 +166,7 @@ function Explore() {
       console.log(detailedContracts);
       setDAOs(detailedContracts);
     } catch (error: any) {
-      toast("Failed " + JSON.stringify(error));
+      toast.error("Failed " + JSON.stringify(error));
       console.log("Failed  ", error);
     }
   }
@@ -212,7 +212,7 @@ function Explore() {
                     marginInline: 6,
                   }}
                   onClick={async () => {
-                    if (!library) return toast("Wallet connection failed, please try again");
+                    if (!library) return toast.error("Wallet connection failed, please try again");
 
                     const signer = library.getSigner(account).connectUnchecked();
                     const contract = new Contract(cont.address, GoodsAbi, signer);
@@ -238,7 +238,7 @@ function Explore() {
                         `https://testnets.opensea.io/assets/rinkeby/${receipt.logs[0].address}/${mintedTokenId}`
                       );
                     } catch (error: any) {
-                      toast("Failed to mint: " + JSON.stringify(error));
+                      toast.error("Failed to mint: " + JSON.stringify(error));
                       console.log("Failed to mint: ", error);
                     }
                   }}

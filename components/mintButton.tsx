@@ -37,7 +37,7 @@ function MintButton({ address, price }: IMint) {
 
       console.log((await contract.baseURI()) + mintedTokenId);
     } catch (error: any) {
-      toast("Failed to mint: " + JSON.stringify(error));
+      toast.error("Failed to mint: " + JSON.stringify(error));
       console.log("Failed to mint: ", error);
     }
   }
