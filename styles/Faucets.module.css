@@ -1,12 +1,31 @@
+/* ============== Header Styles ============= */
+
+.header__container {
+  display: flex;
+  justify-content: center;
+  --tw-bg-opacity: 1;
+  background-color: rgb(36 37 45 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  padding: 1rem;
+}
+
+.logo {
+  width: 130px;
+  height: 58.5px;
+}
+
 /* ============== General Styles ============= */
 
 .container {
   width: var(--container-width-lg);
+  margin: 0 auto;
   display: flex;
   justify-content: center;
 }
 
 /* ====================== MEDIA QUERIES (MEDIUM DEVICES) ======================== */
+
 @media screen and (max-width: 1024px) {
   .container {
     width: var(--container-width-md);
@@ -14,6 +33,7 @@
 }
 
 /* ====================== MEDIA QUERIES (SMALL DEVICES) ======================== */
+
 @media screen and (max-width: 600px) {
   .container {
     width: var(--container-width-sm);
