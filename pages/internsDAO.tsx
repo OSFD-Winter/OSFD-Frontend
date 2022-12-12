@@ -151,7 +151,10 @@ const InternsDAO: NextPage = () => {
           ></MintButton>
         </div>
         <Box style={{ width: 500 }}>
-          <MintPreview hash={"bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"} />
+          <MintPreview
+            hash={"bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"}
+            design={"neo"}
+          />
         </Box>
       </Box>
 

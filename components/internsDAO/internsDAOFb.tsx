@@ -138,13 +138,11 @@ function InternsFeedback({ hash: any }) {
                     }}
                   />
                   <Button
-                    sx={[
-                      ...[neoBorder],
-                      {
-                        color: "black",
-                        bgcolor: "#FFF48F",
-                      },
-                    ]}
+                    sx={{
+                      ...neoBorder,
+                      color: "black",
+                      bgcolor: "#FFF48F",
+                    }}
                     variant="contained"
                     component="span"
                     endIcon={<CloudUploadOutlinedIcon />}
@@ -174,7 +172,7 @@ function InternsFeedback({ hash: any }) {
                     pushToDiscord();
                   }}
                   variant="contained"
-                  sx={[...[neoBorder], { bgcolor: "#4277FF", color: "white !IMPORTANT" }]}
+                  sx={{ ...neoBorder, bgcolor: "#4277FF", color: "white !IMPORTANT" }}
                 >
                   Send
                 </Button>
@@ -184,16 +182,15 @@ function InternsFeedback({ hash: any }) {
         )}
         {sent && (
           <Paper
-            sx={[
-              ...[neoBorder],
-              {
-                bgcolor: "#4277FF",
-                color: "white !IMPORTANT",
-                width: "10vw",
-                textAlign: "center",
-                margin: "0 auto",
-              },
-            ]}
+            sx={{
+              ...neoBorder,
+
+              bgcolor: "#4277FF",
+              color: "white !IMPORTANT",
+              width: "10vw",
+              textAlign: "center",
+              margin: "0 auto",
+            }}
             elevation={3}
           >
             Received!

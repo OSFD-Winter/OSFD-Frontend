@@ -54,6 +54,10 @@ function Proposals({ space }) {
                     width: "120px",
                     bgcolor: "#FFF",
                     color: "black",
+                    "&:hover": {
+                      opacity: "0.6",
+                      bgcolor: "#FFF",
+                    },
                   }}
                   onClick={() => console.log(choice)} //vote(id, proposal.id)}
                 >
