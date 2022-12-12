@@ -11,6 +11,7 @@ import Feedback from "../components/feedback";
 import ProjectCard from "../components/projectCard";
 import image from "next/image";
 import InternsFeedback from "../components/internsDAO/internsDAOFb";
+import ProposalSuggestion from "../components/proposalSuggestion";
 
 const projects = [
   {
@@ -130,9 +131,6 @@ const InternsDAO: NextPage = () => {
       </Box>
 
       <Box
-        style={{
-          backgroundImage: `url("./bg-test.png")`,
-        }}
         className={" my-10 flex w-10/12 mx-auto bg-fixed bg-center bg-cover bg-no-repeat"}
         ref={mint}
       >
@@ -177,8 +175,16 @@ const InternsDAO: NextPage = () => {
           </div>
         </div>
       </Box>
-      <div className="flex justify-center" ref={proposals}>
-        <Proposals space={space}></Proposals>
+      <div className="flex flex-col justify-center p-24" ref={proposals}>
+        <h2 className="text-black text-3xl font-bold">Proposals</h2>
+        <div className="flex justify-between gap-8">
+          <div className="w-1/3">
+            <Proposals space={space}></Proposals>
+          </div>
+          {/* <div className="w-7/12">
+            <ProposalSuggestion />
+          </div> */}
+        </div>
       </div>
       <div style={{ marginTop: 100 }}>
         <InternsFeedback></InternsFeedback>
