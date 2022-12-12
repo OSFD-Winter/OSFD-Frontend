@@ -29,6 +29,7 @@
     "@snapshot-labs/snapshot.js": "^0.4.41",
     "@web3-react/core": "^6.1.9",
     "@web3-react/injected-connector": "^6.0.7",
+    "@xmtp/xmtp-js": "^7.4.0",
     "axios": "^0.27.2",
     "dotenv": "^16.0.2",
     "eslint-plugin-prettier": "^4.2.1",
