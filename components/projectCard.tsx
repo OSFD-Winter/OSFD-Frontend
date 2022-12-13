@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Box, Button, Card } from "@mui/material";
+import { Box, Button, Card, withStyles } from "@mui/material";
 
 function ProjectCard({ name, desc, image, left, color }) {
   return (
@@ -43,13 +43,21 @@ function ProjectCard({ name, desc, image, left, color }) {
               "noopener,noreferrer"
             );
           }}
-          style={{
-            backgroundColor: "#FF9B9B",
+          variant="contained"
+          sx={{
+            background: "linear-gradient(to right, #FF7575 50%, #FF9B9B 50%)",
+            backgroundSize: " 200% 100%",
+            backgroundPosition: "right bottom",
+            marginLeft: "10px",
+            transition: "all .5s ease",
             color: "black",
             border: "1px solid black",
-            borderRadius: 10,
+            borderRadius: 2,
             fontFamily: "Montserrat",
             boxShadow: "1px 1px 0px #000000",
+            "&:hover": {
+              backgroundPosition: "left bottom",
+            },
           }}
         >
           view

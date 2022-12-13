@@ -10,6 +10,8 @@ import MintButton from "../components/mintButton";
 import Feedback from "../components/feedback";
 import ProjectCard from "../components/projectCard";
 import image from "next/image";
+import InternsFeedback from "../components/internsDAO/internsDAOFb";
+import ProposalSuggestion from "../components/proposalSuggestion";
 
 const projects = [
   {
@@ -58,7 +60,11 @@ const InternsDAO: NextPage = () => {
   const proposals = useRef();
 
   return (
-    <Box className={"bg-gradient-to-r from-[#73CBFD] to-[#A8E8DA] "}>
+    <Box
+      className={
+        "bg-gradient-to-r from-[#73CBFD] to-[#A8E8DA] bg-fixed bg-center bg-no-repeat bg-cover"
+      }
+    >
       <Box
         className={
           "h-[100px] border-solid border-2 rounded-b-3xl bg-gradient-to-r from-[#D57EEA] to-[#FCCB90] flex items-center sticky top-0 z-10"
@@ -124,7 +130,10 @@ const InternsDAO: NextPage = () => {
         </Box>
       </Box>
 
-      <Box className={" my-10 flex w-10/12 mx-auto"} ref={mint}>
+      <Box
+        className={" my-10 flex w-10/12 mx-auto bg-fixed bg-center bg-cover bg-no-repeat"}
+        ref={mint}
+      >
         <div className="w-6/12 mx-auto">
           <div className={"font-bold text-xl my-10 text-center font-Poppins "}>
             Interns DAO Stakeholder Certificates
@@ -142,7 +151,10 @@ const InternsDAO: NextPage = () => {
           ></MintButton>
         </div>
         <Box style={{ width: 500 }}>
-          <MintPreview hash={"bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"} />
+          <MintPreview
+            hash={"bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"}
+            design={"neo"}
+          />
         </Box>
       </Box>
 
@@ -166,11 +178,19 @@ const InternsDAO: NextPage = () => {
           </div>
         </div>
       </Box>
-      <div className="flex justify-center" ref={proposals}>
-        <Proposals space={space}></Proposals>
+      <div className="flex flex-col justify-center p-24" ref={proposals}>
+        <h2 className="text-black text-3xl font-bold">Proposals</h2>
+        <div className="flex justify-between gap-8">
+          <div className="w-1/3">
+            <Proposals space={space}></Proposals>
+          </div>
+          {/* <div className="w-7/12">
+            <ProposalSuggestion />
+          </div> */}
+        </div>
       </div>
       <div style={{ marginTop: 100 }}>
-        <Feedback></Feedback>
+        <InternsFeedback></InternsFeedback>
       </div>
       <Footer gradient={"bg-gradient-to-r from-[#D57EEA] to-[#FCCB90] "} />
     </Box>
