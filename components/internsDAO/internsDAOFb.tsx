@@ -16,8 +16,7 @@ const neoBorder = {
 } as const;
 
 function InternsFeedback({ hash: any }) {
-  const discordWebhookUrl =
-    "https://discord.com/api/webhooks/1048923636565807134/KVnUHflpU5XeSMxmFQrLSgwa9ENpVptyH6QMw1qI3sCsLQA6MLDnaNHKEJjAlwzD1b9b";
+  const discordWebhookUrl = process.env.DISCORD_HOOK;
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [email, setEmail] = useState("");
