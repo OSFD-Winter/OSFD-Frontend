@@ -19,7 +19,17 @@ const faucets = () => {
     <>
       <Header />
       <div className={styles.container}>
-        <div>faucets</div>
+        <div className={styles.cards}>
+          <div className={styles.card}>
+            <div className="image">imagem</div>
+
+            <div className="amount">amount</div>
+
+            <div className="balance">balance</div>
+
+            <div className="wallet">wallet</div>
+          </div>
+        </div>
       </div>
     </>
   );
