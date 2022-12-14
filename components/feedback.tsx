@@ -75,6 +75,8 @@ function Feedback({ hash: any }) {
     }
   }, [image, update]);
 
+  const getRandomNumber = () => (Math.random() < 0.5 ? 0 : 2);
+
   return (
     <>
       <div className="">
@@ -97,9 +99,12 @@ function Feedback({ hash: any }) {
                       justifyContent: "center",
                       color: "#01052a",
                       fontSize: 40,
+                      textAlign: "center",
                     }}
                   >
-                    FEEDBACK
+                    {getRandomNumber() === 2
+                      ? "Contact Us"
+                      : "What did you find interesting about the site?"}
                   </div>
 
                   <TextField
