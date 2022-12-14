@@ -1,253 +1,26 @@
 // @ts-nocheck
 import { Box } from "@mui/system";
-import { Button, IconButton, TextField } from "@mui/material";
-import Image from "next/image";
-import { useEffect, useState, useCallback } from "react";
-import { Description } from "@mui/icons-material";
-import { ToastContainer, toast } from "react-toastify";
-import { ethers } from "ethers";
-import { useWeb3React } from "@web3-react/core";
-import { Contract } from "@ethersproject/contracts";
-import { injected } from "../src/web3ReactInjector";
+import { Button } from "@mui/material";
 
-import DAOFactoryAbi from "../src/DAOFactory.json";
-import GoodsFactoryAbi from "../src/GoodsFactory.json";
+import { ToastContainer, toast } from "react-toastify";
+
+import { Contract } from "@ethersproject/contracts";
 import GoodsAbi from "../src/Goods.json";
 
 import Router from "next/router";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 import MintPreview from "../components/mintPreview";
-import { Web3Storage } from "web3.storage";
-import axios from "axios";
 import Feedback from "../components/feedback";
 import Footer from "../components/footer";
 import MintLogs from "../components/mintLogs";
 
-import CreateDAO from "../components/createDAO";
+import { DAO_FACTORY_ADDRESS } from "../utils/constants";
 
-import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
-
-const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
+// const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 const TOKEN_CLIENT = process.env.TOKEN_CLIENT;
 
-function Dao({ addr }) {
-  const router = useRouter();
-  const client = new Web3Storage({ TOKEN_CLIENT });
-
-  const { daoAddress } = router.query;
-
-  const { active, activate, account, library } = useWeb3React();
-  const [deployRequest, setDeployRequest] = useState(false);
-
-  const [step, setStep] = useState(0);
-
-  const [name, setName] = useState("");
-  const [about, setAbout] = useState("");
-
-  const [roadmap, setRoadmap] = useState("");
-  const [banner, setBanner] = useState("");
-  const [website, setWebsite] = useState("");
-
-  const [DAOContract, setDAOContract] = useState();
-  const [contracts, setContracts] = useState([]);
-  const [link, setLink] = useState();
-
-  useEffect(() => {
-    if (step === 7 && DAOContract) {
-      async function getContracts() {
-        const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
-
-        const Factory = new Contract(DAOContract.address, GoodsFactoryAbi, provider);
-
-        const hexToDecimal = (hex) => parseInt(hex, 16);
-        try {
-          let resContracts = await Factory.getGoodsArray();
-
-          let detailedContracts = [];
-          for (let i = 0; i < resContracts.length; i++) {
-            const temp = new Contract(resContracts[i], GoodsAbi, provider);
-            let tempName = await temp.name();
-            let tempSymbol = await temp.symbol();
-            let tempPrice = await temp.goodsPrice();
-            let tempSupply = await temp.MAX_GOODS();
-            let tempMinted = await temp.totalSupply();
-            let balance = await provider.getBalance(resContracts[i]);
-
-            //let tempPreview = await temp.previewImage()
-            let base = await temp.baseURI();
-            let tempHash = base.slice(-60, -1);
-
-            console.log(typeof tempPrice);
-            console.log(tempPrice);
-            //console.log(tempPreview)
-            //console.log(base)
-
-            let r = {
-              address: resContracts[i],
-              name: tempName,
-              symbol: tempSymbol,
-              price: hexToDecimal(tempPrice._hex),
-              supply: hexToDecimal(tempSupply._hex),
-              minted: hexToDecimal(tempMinted._hex),
-              hash: tempHash,
-              balance: hexToDecimal(balance._hex),
-              //preview: tempPreview
-            };
-
-            detailedContracts.push(r);
-          }
-
-          console.log(detailedContracts);
-          setContracts(detailedContracts);
-        } catch (error: any) {
-          toast.error("Failed " + JSON.stringify(error));
-          console.log("Failed  ", error);
-        }
-      }
-
-      if (active) {
-        getContracts();
-      } else {
-        activate(injected).then(() => getContracts());
-      }
-    }
-  }, [library, step, DAOContract]);
-
-  useEffect(() => {
-    async function getContracts() {
-      const provider = new ethers.providers.JsonRpcProvider(ETH_GOERLI_ALCHEMY);
-
-      const hexToDecimal = (hex) => parseInt(hex, 16);
-
-      let address = addr ? addr : daoAddress;
-      console.log(address);
-      try {
-        if (address) {
-          const temp = new Contract(address, GoodsFactoryAbi, provider);
-          let tempOwner = await temp.owner();
-          let tempName = await temp.daoName();
-          let tempAbout = await temp.daoAbout();
-          let tempMetadataUri = await temp.daoMetadata();
-
-          let metadata;
-          axios
-            .get(tempMetadataUri)
-            .then(({ data }) => {
-              console.log(data);
-              metadata = data;
-            })
-            .catch((error) => {
-              if (error.response) {
-                console.log(error.response);
-                console.log("error.response");
-              }
-            });
-
-          console.log(tempOwner);
-          console.log(tempName);
-
-          let r = {
-            address: address,
-            owner: tempOwner,
-            name: tempName,
-            about: tempAbout,
-            metadata: metadata,
-          };
-          setDAOContract(r);
-          setStep(7);
-        }
-      } catch (error: any) {
-        toast.error("Failed " + JSON.stringify(error));
-        console.log("Failed  ", error);
-      }
-    }
-
-    if (active) {
-      getContracts();
-    } else {
-      activate(injected).then(() => getContracts());
-    }
-  }, [library, daoAddress, addr]);
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleAboutChange = (event) => {
-    setAbout(event.target.value);
-  };
-
-  const handleRoadmapChange = (event) => {
-    setRoadmap(event.target.value);
-  };
-
-  const handleBannerChange = (event) => {
-    setBanner(event.target.value);
-  };
-
-  const handleWebsiteChange = (event) => {
-    setWebsite(event.target.value);
-  };
-
-  const handleNext = () => {
-    setStep((step) => step + 1);
-  };
-
-  const handlePrev = () => {
-    setStep((step) => step - 1);
-  };
-
-  const deploy = useCallback(async () => {
-    if (!library) return toast.error("Wallet connection failed, please try again");
-
-    const signer = library.getSigner(account).connectUnchecked();
-
-    const DAOFactory = new Contract(DAO_FACTORY_ADDRESS, DAOFactoryAbi, signer);
-
-    // prepare metadata ipfs
-    const daoMetadata = {
-      roadmap: roadmap,
-      banner: banner,
-      website: website,
-    };
-
-    const blobMetadata = new Blob([JSON.stringify(daoMetadata)], { type: "application/json" });
-
-    const files = [new File([blobMetadata], "metadata.json")];
-
-    const cid = await client.put(files);
-    console.log("stored files with cid:", cid);
-    let metadatauri = `https://${cid}.ipfs.w3s.link/`;
-    console.log(metadatauri);
-    try {
-      console.log(name + about + metadatauri);
-      let res = await DAOFactory.CreateNewDAO(name, about, metadatauri);
-      const receipt = await res.wait();
-      console.log(receipt);
-      setStep(7);
-    } catch (error: any) {
-      toast.error("Failed to deploy: " + JSON.stringify(error));
-      console.log("Failed to deploy: ", error);
-    }
-  }, [library, account, name, about, roadmap, banner, website]);
-
-  useEffect(() => {
-    if (library && deployRequest) {
-      setDeployRequest(false);
-      deploy();
-    }
-  }, [library, deployRequest, deploy]);
-
-  const handleClickDeploy = () => {
-    if (active) {
-      setDeployRequest(true);
-    } else {
-      activate(injected).then(() => setDeployRequest(true));
-    }
-  };
-
+function Dao({ addr, step, daoAddress }) {
   return (
     <Box sx={{ height: "100%", p: 2 }}>
       <Box style={{ position: "absolute", top: 5, left: 5 }}>
@@ -257,24 +30,6 @@ function Dao({ addr }) {
           </a>
         </Link>
       </Box>
-
-      <CreateDAO
-        addr={addr}
-        step={step}
-        about={about}
-        name={name}
-        roadmap={roadmap}
-        banner={banner}
-        website={website}
-        handlePrev={handlePrev}
-        handleNameChange={handleNameChange}
-        handleNext={handleNext}
-        handleAboutChange={handleAboutChange}
-        handleRoadmapChange={handleRoadmapChange}
-        handleBannerChange={handleBannerChange}
-        handleWebsiteChange={handleWebsiteChange}
-        handleClickDeploy={handleClickDeploy}
-      />
 
       {step == 7 && DAOContract && (
         <div style={{ textAlign: "center", margin: 50 }}>
