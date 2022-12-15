@@ -4,7 +4,6 @@ import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/footer";
-import { Button } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 const Version = () => {
@@ -61,13 +60,30 @@ const Version = () => {
     };
 
     sendRequest(commitCount);
-    setInterval(() => sendRequest(commitCount), 90000);
+    setInterval(() => sendRequest(commitCount), 200000);
   }, [commitCount]);
+
+  const [box, showBox] = useState("h-10");
+  const [clickCount, IncreaseCount] = useState(0);
+
+  const showFullInfo = () => {
+    IncreaseCount(clickCount + 1);
+    console.log(clickCount);
+    if (clickCount === 0) {
+      showBox("h-60");
+    } else if (clickCount === 1) {
+      showBox("h-10");
+    } else if (clickCount % 2 === 0) {
+      showBox("h-60");
+    } else {
+      showBox("h-10");
+    }
+  };
 
   return (
     <div>
-      <div className="navbar bg-gradient-to-r from-blue-1000 to-blue-50 relative text-white w-full   ">
-        <div className="p-6">
+      <div className="navbar  text-black w-full   ">
+        <div className="p-6 border-b-2">
           <h1 className="text-4xl text-black font-bold text-center">Version v1.0</h1>
         </div>
       </div>
@@ -75,59 +91,72 @@ const Version = () => {
       <ul className="flex flex-wrap  justify-center w-9/12 m-auto mt-8 	">
         {commits.map((index) => {
           return (
-            <ul
-              className="flex flex-col bg-gradient-to-r from-[#ff8000] to-[#ffe6cc]  overflow-hidden	 shadow-gray-400 border-gray-300 border-2 m-3 h-58 w-80	items-center rounded-lg	p-1	 hover:border-purple-700 justify-center text-sm"
+            <div
+              className={
+                box +
+                " flex-col items-center justify-center	 m-auto w-9/12  overflow-hidden border-b-2 mt-4  cursor-pointer transition-all duration-500  "
+              }
               key={index.sha}
             >
-              <li>
-                <strong>Name: </strong>
-                {index.commit.author.name}
-              </li>
-              <li>
-                <strong>Message: </strong>
-                {index.commit.message}
-              </li>
-              <li>
-                <strong>Date: </strong>
-                {index.commit.author.date.split("T", 1)}
-              </li>
-              <li>
-                <strong>Time: </strong>
-                {index.commit.author.date.split("T").pop().split("Z", 1)}
-              </li>
-              cccccccccccc
-              <li>
-                <strong>Merged: </strong>
-                {(() => {
-                  switch (index.commit.verification.verified) {
-                    case true:
-                      return "✅";
-                    case false:
-                      return "❌";
-                    default:
-                      return "pending";
-                  }
-                })()}
-              </li>
-              <li>
-                <a href={index.html_url}>
-                  <GitHubIcon className="text-white" />
-                </a>
-              </li>
-            </ul>
+              <div
+                className="flex flex-row justify-between hover:text-zinc-600 "
+                onClick={() => showFullInfo()}
+              >
+                <div className="font-bold text-3xl">
+                  <h2> {index.commit.author.name}</h2>
+                </div>
+                <div>
+                  <h2 className="font-bold text-32l">
+                    {" "}
+                    {index.commit.author.date.split("T", 1)}/{" "}
+                    {index.commit.author.date.split("T").pop().split("Z", 1)}
+                  </h2>
+                </div>
+              </div>
+              <div className="p-2 flex flex-row    m-3 h-58 w-full	items-center ">
+                <div className="w-40 m-2 h-42">
+                  <img src={index.author.avatar_url}></img>
+                </div>
+                <ul>
+                  <li>
+                    <p>
+                      <strong>Message:</strong> {index.commit.message}
+                    </p>
+                  </li>
+                  <li>
+                    {" "}
+                    <strong>Merged: </strong>
+                    {(() => {
+                      switch (index.commit.verification.verified) {
+                        case true:
+                          return "✅";
+                        case false:
+                          return "❌";
+                        default:
+                          return "pending";
+                      }
+                    })()}
+                  </li>
+                  <li>
+                    <a href={index.html_url}>
+                      <GitHubIcon className="text-black" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
           );
         })}
       </ul>
-      <ToastContainer />
+      <ToastContainer progressStyle={{ background: "black" }} />
 
-      <div className="w-full flex justify-center mt-8">
-        <Button
-          variant="contained"
-          className="rounded-xl w-28 h-15 text-white font-bold m-4  hover:bg-purple-900"
+      <div className="w-full flex justify-center mt-8 underline-offset-2">
+        <button
+          className="w-28 h-20  text-black font-bold border-2"
           onClick={() => loadMoreCommits()}
         >
           {"Load More"}
-        </Button>
+        </button>
       </div>
       <Footer
         gradient={
