@@ -4,6 +4,11 @@ module.exports = {
   content: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        Poppins: ["Poppins", "sans-serif"],
+        BebasNeue: ["BebasNeue", "sans-serif"],
+        Montserrat: ["Montserrat", "sans-serif"],
+      },
       spacing: {
         "22vw": "22vw",
         "8vw": "8vw",
@@ -29,6 +34,11 @@ module.exports = {
       gray: {
         300: "#a8a8a8",
         50: "#e8eaf2",
+      },
+      zinc: {
+        800: "#27272a",
+        700: "#3f3f46",
+        600: "#52525b",
       },
       white: "white",
     },

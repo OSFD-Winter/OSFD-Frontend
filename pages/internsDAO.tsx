@@ -8,24 +8,82 @@ import Link from "next/link";
 import React, { useRef } from "react";
 import MintButton from "../components/mintButton";
 import Feedback from "../components/feedback";
+import ProjectCard from "../components/projectCard";
+import image from "next/image";
+import InternsFeedback from "../components/internsDAO/internsDAOFb";
+import ProposalSuggestion from "../components/proposalSuggestion";
+
+const projects = [
+  {
+    color: "#C3FF94",
+    name: "OSFD CHAT",
+    desc: "Wallet to Wallet cryptographically secure feeless chat app built with XMTP SDK &metamask.",
+    image: "./chat.png",
+  },
+  {
+    color: "#94B2FF",
+    name: "Networks 1-5",
+    desc: "Social apps enabling posting text, color, image, song and creating bounties for song and image requests wia wallets. Each post contains signatures as proof.",
+    image: "./network-5.png",
+  },
+  {
+    color: "#C3FF94",
+    name: "Image Generator AI integration for OSFD",
+    desc: "Enhancing OSFD creative tools by using DALL-E, Midjourney & Stable Diffusion.",
+    image: "./AI.png",
+  },
+  {
+    color: "#FFE194",
+    name: "Onchain Rock Paper Scissors Game",
+    desc: "Mint and play secure decentralised onchainrock paper scissors game.",
+    image:
+      "https://static.vecteezy.com/system/resources/previews/000/691/497/original/rock-paper-scissors-neon-icons-vector.jpg",
+  },
+  {
+    color: "#FF94F4",
+    name: "Marketplace for OSFD",
+    desc: "NFT marketplace for trading NFTs created by OSFD contracts without paying any fee.",
+    image: "https://agentestudio.com/uploads/post/image/187/main_Article_Covers_NFT.png",
+  },
+  {
+    color: "#FFE194",
+    name: "Twitter & Discord Bots",
+    desc: " Twitter & Discord bots can be used for anything, sharing collected feedbacks, collecting wallet addresses, sharing activity of products we built. All for providing more transparent and automated process.",
+    image: "./discord.jpg",
+  },
+];
 
 const InternsDAO: NextPage = () => {
   const space = "internsdao.eth";
   const mint = useRef();
-  const projects = useRef();
+  const projectsRef = useRef();
   const proposals = useRef();
 
   return (
-    <Box sx={{ height: "100%" }}>
-      <Box>
-        <div className="bg-gradient-to-r from-[#FFCF71] to-[#BDACFF] h-36 flex">
-          <div className="m-auto cursor-pointer">
-            <Link href="/">
-              <img src={"./osfd-small-logo.png"} alt="osfd" />
-            </Link>
-          </div>
-
-          <div className="flex ml-auto justify-between w-6/12">
+    <Box
+      className={
+        "bg-gradient-to-r from-[#73CBFD] to-[#A8E8DA] bg-fixed bg-center bg-no-repeat bg-cover"
+      }
+    >
+      <Box
+        className={
+          "h-[100px] border-solid border-2 rounded-b-3xl bg-gradient-to-r from-[#D57EEA] to-[#FCCB90] flex items-center sticky top-0 z-10"
+        }
+      >
+        <Button
+          style={{
+            textShadow: "3px 3px 0px #000000",
+            fontSize: "3em",
+            fontFamily: "BebasNeue",
+            color: "white",
+            marginLeft: 30,
+            lineHeight: "77px",
+          }}
+        >
+          <Link href="/">OSFD</Link>
+        </Button>
+        <Box style={{ marginLeft: "auto" }}>
+          <div className="flex ml-auto justify-between mr-[36px]">
             <Button
               onClick={() => {
                 mint.current.scrollIntoView({
@@ -34,19 +92,19 @@ const InternsDAO: NextPage = () => {
                   block: "nearest",
                 });
               }}
-              style={{ color: "white", fontSize: "1.5em", textTransform: "none" }}
+              style={{ fontFamily: "Montserrat", fontSize: "1.3em", color: "#000000" }}
             >
               Mint
             </Button>
             <Button
               onClick={() => {
-                projects.current.scrollIntoView({
+                projectsRef.current.scrollIntoView({
                   behavior: "smooth",
                   inline: "center",
                   block: "nearest",
                 });
               }}
-              style={{ color: "white", fontSize: "1.5em", textTransform: "none" }}
+              style={{ fontFamily: "Montserrat", fontSize: "1.3em", color: "#000000" }}
             >
               Projects
             </Button>
@@ -58,171 +116,83 @@ const InternsDAO: NextPage = () => {
                   block: "nearest",
                 });
               }}
-              style={{ color: "white", fontSize: "1.5em", textTransform: "none" }}
+              style={{ fontFamily: "Montserrat", fontSize: "1.3em", color: "#000000" }}
             >
               Proposals
             </Button>
-            <Button style={{ color: "white", fontSize: "1.5em", textTransform: "none" }}>
+            <Button style={{ fontFamily: "Montserrat", fontSize: "1.3em", color: "#000000" }}>
               About
             </Button>
-            <Button style={{ color: "white", fontSize: "1.5em", textTransform: "none" }}>
+            <Button style={{ fontFamily: "Montserrat", fontSize: "1.3em", color: "#000000" }}>
               Contact
             </Button>
           </div>
-          <img src={"./nouns-world.png"} className="h-36 ml-auto"></img>
-        </div>
+        </Box>
+      </Box>
 
-        <div className={"w-[1000px] mx-auto my-10"} ref={mint}>
+      <Box
+        className={" my-10 flex w-10/12 mx-auto bg-fixed bg-center bg-cover bg-no-repeat"}
+        ref={mint}
+      >
+        <div className="w-6/12 mx-auto">
+          <div className={"font-bold text-xl my-10 text-center font-Poppins "}>
+            Interns DAO Stakeholder Certificates
+          </div>
           <div>
-            <MintPreview
-              hash={"bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"}
-            ></MintPreview>
-            <MintButton
-              address="0x09aD6Fb74584fFbA72C65419c03741325CAE00a1"
-              price="1000000000000000"
-            ></MintButton>
+            Silent sir say desire fat him letter. Whatever settling goodness too and honoured she
+            building answered her. Strongly thoughts remember mr to do consider debating. Spirits
+            musical behaved on we he farther letters. Repulsive he he as deficient newspaper
+            dashwoods we. Discovered her his pianoforte insipidity entreaties. Began he at terms
+            meant as fancy. Breakfast arranging he if furniture we described on.
           </div>
-          <div className="w-full">
-            <div className={"text-[#7E53FF] font-bold text-xl my-10 text-center"}>
-              Interns DAO Stakeholder Certificates
-            </div>
-            <div>
-              Silent sir say desire fat him letter. Whatever settling goodness too and honoured she
-              building answered her. Strongly thoughts remember mr to do consider debating. Spirits
-              musical behaved on we he farther letters. Repulsive he he as deficient newspaper
-              dashwoods we. Discovered her his pianoforte insipidity entreaties. Began he at terms
-              meant as fancy. Breakfast arranging he if furniture we described on.
-            </div>
+          <MintButton
+            address="0x09aD6Fb74584fFbA72C65419c03741325CAE00a1"
+            price="1000000000000000"
+          ></MintButton>
+        </div>
+        <Box style={{ width: 500 }}>
+          <MintPreview
+            hash={"bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi"}
+            design={"neo"}
+          />
+        </Box>
+      </Box>
+
+      <Box style={{ backgroundColor: "rgba(24, 24, 24, 0.4)" }}>
+        <div>
+          <div className="w-full p-24">
+            <div className={"text-white font-bold text-4xl mb-24 "}>Projects</div>
+
+            <Box className={"columns-2"} ref={projectsRef}>
+              {projects.map((project, index) => (
+                <ProjectCard
+                  key={project.name}
+                  name={project.name}
+                  desc={project.desc}
+                  image={project.image}
+                  left={index < 3}
+                  color={project.color}
+                />
+              ))}
+            </Box>
           </div>
         </div>
       </Box>
-
-      <Box>
-        <div className={"flex w-8/12 mx-auto my-10"}>
-          <div className="w-full">
-            <div className={"text-[#7E53FF] font-bold text-3xl my-10"}>Projects</div>
-
-            <Card className="flex justify-center items-center bg-gradient-to-r from-[#4992FF] to-[#E4EFFF] mb-5">
-              <Button
-                onClick={() => {
-                  window.open(
-                    "https://osfd-winter.github.io/Fang-Chat/",
-                    "_blank",
-                    "noopener,noreferrer"
-                  );
-                }}
-                className={"w-full"}
-              >
-                <img src={"./chat.png"} style={{ width: 300, marginBlock: 30 }}></img>
-                <div className={"w-8/12 text-center normal-case text-[#000]"}>
-                  <div className={"font-bold text-xl mb-10"}>OSFD CHAT</div>
-                  <div>
-                    Wallet to Wallet cryptographically secure feeless chat app built with XMTP SDK &
-                    metamask.
-                  </div>
-                </div>
-              </Button>
-            </Card>
-
-            <Card
-              className="flex justify-center items-center bg-gradient-to-r from-[#FFDBF5] to-[#F47AD2] mb-5"
-              ref={projects}
-            >
-              <Button
-                onClick={() => {
-                  window.open("https://network1.cc/", "_blank", "noopener,noreferrer");
-                }}
-                className={"w-full"}
-              >
-                <div className={"w-8/12 text-center normal-case text-[#000]"}>
-                  <div className={"font-bold text-xl mb-10"}>Networks 1-5</div>
-                  <div>
-                    Social apps enabling posting text, color, image, song and creating bounties for
-                    song and image requests wia wallets. Each post contains signatures as proof.
-                  </div>
-                </div>
-                <img
-                  src={"./network-5.png"}
-                  style={{ width: 300, marginBlock: 30, marginInline: 10 }}
-                ></img>
-              </Button>
-            </Card>
-
-            <Card className="flex justify-center items-center bg-gradient-to-r from-[#ff8000] to-[#ffe6cc] mb-5">
-              <Button
-                onClick={() => {
-                  window.open("https://discord.gg/SfcAZTctf9", "_blank", "noopener,noreferrer");
-                }}
-                className={"w-full"}
-              >
-                <img
-                  src={"./discord.jpg"}
-                  style={{ width: 300, marginBlock: 30, marginInline: 10 }}
-                ></img>
-                <div className={"w-8/12 text-center normal-case text-[#000]"}>
-                  <div className={"font-bold text-xl mb-10"}>Twitter & Discord Bots</div>
-                  <div>
-                    Twitter &Discord bots can be used for anything, sharing collected feedbacks,
-                    collecting wallet addresses, sharing activity of products we built. All for
-                    providing more transparent and automated process.
-                  </div>
-                </div>
-              </Button>
-            </Card>
-
-            <Card className="flex justify-center items-center bg-gradient-to-r from-[#d6f5d6] to-[#28a428] mb-5">
-              <Button className={"w-full"}>
-                <div className={"w-8/12  text-center normal-case text-[#000]"}>
-                  <div className={"font-bold text-xl mb-10"}>
-                    Image Generator AI integration for OSFD
-                  </div>
-                  <div>
-                    Enhancing OSFD creative tools by using DALL-E, Midjourney & Stable Diffusion.
-                  </div>
-                </div>
-                <img src={"./AI.png"} style={{ width: 300, marginBlock: 30 }}></img>
-              </Button>
-            </Card>
-
-            <Card className="flex justify-center items-center bg-gradient-to-r from-[#78dcfa] to-[#4ec9f5] mb-5">
-              <Button className={"w-full"}>
-                <div className={"w-8/12  text-center normal-case text-[#000]"}>
-                  <div className={"font-bold text-xl mb-10"}>Onchain Rock Paper Scissors Game</div>
-                  <div>Mint and play secure decentralised onchainrock paper scissors game.</div>
-                </div>
-                <img
-                  src={
-                    "https://static.vecteezy.com/system/resources/previews/000/691/497/original/rock-paper-scissors-neon-icons-vector.jpg"
-                  }
-                  style={{ width: 300, marginBlock: 30 }}
-                ></img>
-              </Button>
-            </Card>
-
-            <Card className="flex justify-center items-center bg-gradient-to-r from-[#F8F7C5] to-[#FAF719] mb-5">
-              <Button className={"w-full"}>
-                <div className={"w-8/12  text-center normal-case text-[#000]"}>
-                  <div className={"font-bold text-xl mb-10"}>Marketplace for OSFD</div>
-                  <div>Feeless NFT marketplace for OSFD</div>
-                </div>
-                <img
-                  src={
-                    "https://cdnblog.webkul.com/blog/wp-content/uploads/2022/09/the-emergence-of-NFT-marketplace-in-the-mordern-era.png"
-                  }
-                  style={{ width: 300, marginBlock: 30 }}
-                ></img>
-              </Button>
-            </Card>
+      <div className="flex flex-col justify-center p-24" ref={proposals}>
+        <h2 className="text-black text-3xl font-bold">Proposals</h2>
+        <div className="flex justify-between gap-8">
+          <div className="w-1/3">
+            <Proposals space={space}></Proposals>
           </div>
+          {/* <div className="w-7/12">
+            <ProposalSuggestion />
+          </div> */}
         </div>
-      </Box>
-      <div className="flex justify-center" ref={proposals}>
-        <Proposals space={space}></Proposals>
       </div>
       <div style={{ marginTop: 100 }}>
-        <Feedback></Feedback>
+        <InternsFeedback></InternsFeedback>
       </div>
-      <Footer gradient={"bg-gradient-to-r from-[#BFADFC] to-[#FCCD79]"} />
+      <Footer gradient={"bg-gradient-to-r from-[#D57EEA] to-[#FCCB90] "} />
     </Box>
   );
 };

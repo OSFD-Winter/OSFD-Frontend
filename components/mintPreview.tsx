@@ -7,6 +7,7 @@ import { SERVER } from "../utils/constants";
 
 interface IHash {
   hash: string;
+  design: string;
 }
 
 interface IPreview {
@@ -14,7 +15,22 @@ interface IPreview {
   image: string;
 }
 
-function MintPreview({ hash }: IHash) {
+const neoStyling = {
+  bgcolor: "#FF8DC4",
+  color: "black",
+  border: "1px solid black",
+  fontFamily: "Montserrat",
+  boxShadow: "1px 1px 0px #000000",
+} as const;
+
+const defaultStyling = {
+  width: "100%",
+  height: "fit-content",
+};
+
+function MintPreview({ hash, design }: IHash) {
+  const styles = design === "default" ? defaultStyling : neoStyling;
+  const stylesVariant: any = design === "default" ? "text" : "contained";
   const [image, setImage] = useState("/spinner.svg");
 
   useEffect(() => {
@@ -41,10 +57,8 @@ function MintPreview({ hash }: IHash) {
           setImage("/spinner.svg");
           getImage();
         }}
-        style={{
-          width: "100%",
-          height: "fit-content",
-        }}
+        variant={stylesVariant}
+        sx={styles}
       >
         Generate <CasinoOutlined />
       </Button>

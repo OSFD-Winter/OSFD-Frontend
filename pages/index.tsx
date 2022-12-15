@@ -297,7 +297,7 @@ const Home: NextPage = () => {
               padding: 20,
             }}
           >
-            <MintPreview hash={contracts[0].hash}></MintPreview>
+            <MintPreview hash={contracts[0].hash} design={"default"}></MintPreview>
           </div>
           <div
             style={{
@@ -490,7 +490,7 @@ const Home: NextPage = () => {
               padding: 20,
             }}
           >
-            <MintPreview hash={contracts[1].hash}></MintPreview>
+            <MintPreview hash={contracts[1].hash} design={"default"}></MintPreview>
           </div>
         </div>
       )}
@@ -513,7 +513,7 @@ const Home: NextPage = () => {
               padding: 20,
             }}
           >
-            <MintPreview hash={contracts[2].hash}></MintPreview>
+            <MintPreview hash={contracts[2].hash} design={"default"}></MintPreview>
           </div>
           <div
             style={{
@@ -717,7 +717,7 @@ const Home: NextPage = () => {
               padding: 20,
             }}
           >
-            <MintPreview hash={contracts[3].hash}></MintPreview>
+            <MintPreview hash={contracts[3].hash} design={"default"}></MintPreview>
           </div>
         </div>
       )}
@@ -740,7 +740,7 @@ const Home: NextPage = () => {
               padding: 20,
             }}
           >
-            <MintPreview hash={contracts[3].hash}></MintPreview>
+            <MintPreview hash={contracts[3].hash} design={"default"}></MintPreview>
           </div>
           <div
             style={{
