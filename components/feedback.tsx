@@ -75,7 +75,13 @@ function Feedback({ hash: any }) {
     }
   }, [image, update]);
 
-  const getRandomNumber = () => (Math.random() < 0.5 ? 0 : 2);
+  const FeebackTitle = [
+    "What did you find interesting about the site ?",
+    "Would you like to particpate in the intern program ?",
+    "Contact Us",
+    "Send a message to our discord!",
+  ];
+  const selectTitle = FeebackTitle[Math.floor(Math.random() * FeebackTitle.length)];
 
   return (
     <>
@@ -102,9 +108,7 @@ function Feedback({ hash: any }) {
                       textAlign: "center",
                     }}
                   >
-                    {getRandomNumber() === 2
-                      ? "Contact Us"
-                      : "What did you find interesting about the site?"}
+                    {selectTitle}
                   </div>
 
                   <TextField
