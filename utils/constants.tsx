@@ -6,8 +6,6 @@ export const ETH_GOERLI_ALCHEMY =
 export const API_BASE_URL = "https://api.etherscan.io";
 export const API_PLACE_HOLDER = "5V84IP6PWKTS51SNIPDNUNURIBU74ERPBK";
 export const SOURCE = "https://testnet.snapshot.org";
-
-#DAO;
 export const DAO_FACTORY_ADDRESS = "0x1FC3e350392a8963828A997Efc657E09DFc66692";
 
 //const API_BASE_URL = "https://api-goerli.etherscan.io/";
