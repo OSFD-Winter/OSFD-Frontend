@@ -19,11 +19,12 @@ import Router from "next/router";
 import { FC, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Dao from "./dao";
+import CreateDAO from "./createDAO";
 
 const Home: NextPage = () => {
   return (
     <Box sx={{ height: "100%" }}>
-      <Dao addr={"0x4E02C328CA3Ff8A69be6c5ED23fE504AD61EdEb9"}> </Dao>
+      <CreateDAO addr={"0x4E02C328CA3Ff8A69be6c5ED23fE504AD61EdEb9"}> </CreateDAO>
     </Box>
   );
 };

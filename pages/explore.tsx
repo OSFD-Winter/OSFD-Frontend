@@ -19,10 +19,10 @@ import axios from "axios";
 import Feedback from "../components/feedback";
 import Footer from "../components/footer";
 
-import { ETH_GOERLI_ALCHEMY } from "../utils/constants";
+import { ETH_GOERLI_ALCHEMY, DAO_FACTORY_ADDRESS } from "../utils/constants";
 import MintButton from "../components/mintButton";
 
-const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
+// const DAO_FACTORY_ADDRESS = process.env.DAO_FACTORY_ADDRESS;
 
 function Explore() {
   const router = useRouter();

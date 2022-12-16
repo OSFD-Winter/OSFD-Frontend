@@ -237,7 +237,7 @@ const Home: NextPage = () => {
               backgroundColor: "#1b2f91",
               color: "white",
             }}
-            onClick={() => Router.push("/dao")}
+            onClick={() => Router.push("/createDAO")}
           >
             Create DAO Offering
           </Button>
