@@ -17,12 +17,14 @@ import {
 import { Box } from "@mui/system";
 import type { NextPage } from "next";
 
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { SANDBOX } from "../utils/constants";
 import { red } from "@mui/material/colors";
 import { FaUnderline } from "react-icons/fa";
-
+import Navbar from "../components/navbar";
+import Feedback from "../components/feedback";
+import Footer from "../components/footer";
 /* eslint-disable @next/next/no-img-element */
 
 const Sandbox: NextPage = () => {
@@ -30,6 +32,7 @@ const Sandbox: NextPage = () => {
   const [zip, setZip] = useState("");
   const [preview, setPreview] = useState("");
   const [message, setMessage] = useState("");
+  const refFeedback = useRef();
 
   async function upload() {
     if (uploading) {
@@ -100,7 +103,9 @@ const Sandbox: NextPage = () => {
   }, [zip]);
 
   return (
-    <Box sx={{ height: "100%", marginTop: 20 }}>
+    <Box sx={{ height: "100%" }}>
+      <Navbar refFeedback={refFeedback} />
+
       <div
         style={{
           marginBlock: 20,
@@ -171,7 +176,7 @@ const Sandbox: NextPage = () => {
           As you can notice subfolder names have numbers as prefix, it is for layer composing order;
           lowest number
           <br></br>
-          means backmost layerlt uses alphabetical order thus using numbers optional. When you
+          means backmost layer It uses alphabetical order thus using numbers optional. When you
           upload the zip file
           <br></br>
           composer will randomly select single image from each layer and return the composed image
@@ -276,6 +281,12 @@ const Sandbox: NextPage = () => {
       )}
 
       <Box sx={{ display: "flex", justifyContent: "center" }}>{message}</Box>
+
+      <div ref={refFeedback} style={{ marginTop: 100 }}>
+        <Feedback></Feedback>
+      </div>
+
+      <Footer gradient={"bg-gradient-to-r from-blue-1000 to-blue-50 relative text-white w-full"} />
     </Box>
   );
 };
