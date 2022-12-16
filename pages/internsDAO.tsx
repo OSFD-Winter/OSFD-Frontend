@@ -17,7 +17,7 @@ const projects = [
   {
     color: "#C3FF94",
     name: "OSFD CHAT",
-    desc: "Wallet to Wallet cryptographically secure feeless chat app built with XMTP SDK &metamask.",
+    desc: "Wallet to Wallet cryptographically secure feeless chat app built with XMTP SDK & metamask.",
     image: "./chat.png",
   },
   {
@@ -144,7 +144,7 @@ const InternsDAO: NextPage = () => {
             <br />
             <br />
             • Interns DAO is a decentralized organization that allows interns around the world to
-            come together and work on projects they're interested in.
+            come together and work on projects they&apos;re interested in.
             <br />
             <br />
             • There are three main actors in Interns DAO: stakeholders, builders, and product
