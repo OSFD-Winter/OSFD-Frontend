@@ -9,6 +9,7 @@ import React, { useRef } from "react";
 import MintButton from "../components/mintButton";
 import Feedback from "../components/feedback";
 import ProjectCard from "../components/projectCard";
+import Chat from "../components/chat";
 import image from "next/image";
 
 const projects = [

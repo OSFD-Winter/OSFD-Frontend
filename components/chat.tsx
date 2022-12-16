@@ -10,8 +10,10 @@ const Chat = () => {
   const [client, setClient] = useState<Client | null>(null);
   const [isNewMsg, setIsNewMsg] = useState(false);
   const [selectedConvo, setSelectedConvo] = useState("");
+  const [selectedConvoMessages, setSelectedConvoMessages] = useState(new Array());
   const [conversations, setConversations] = useState(new Map());
   const [convoMessages, setConvoMessages] = useState(new Map());
+  const [sortedConvos, setSortedConvos] = useState(new Map());
   const [newAddress, setNewAddress] = useState("");
   const [msgTxt, setMsgTxt] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -33,17 +35,21 @@ const Chat = () => {
             const messages = await convo.messages();
             setConvoMessages(convoMessages.set(convo.peerAddress, messages));
             setConversations(conversations.set(convo.peerAddress, convo));
+            setSortedConvos(sortConvos(convoMessages.set(convo.peerAddress, messages)));
+            console.log(convoMessages);
+            console.log(conversations);
           }
         })
       );
     }
   };
 
-  const sortedConvos = new Map(
-    [...convoMessages.entries()].sort((convoA, convoB) => {
-      return getLatestMessage(convoA[1])?.sent < getLatestMessage(convoB[1])?.sent ? 1 : -1;
-    })
-  );
+  const sortConvos = (convoMessages: any) =>
+    new Map(
+      [...convoMessages.entries()].sort((convoA, convoB) => {
+        return getLatestMessage(convoA[1])?.sent < getLatestMessage(convoB[1])?.sent ? 1 : -1;
+      })
+    );
 
   const reset = () => {
     setSelectedConvo("");
@@ -157,6 +163,9 @@ const Chat = () => {
             ...Array.from(new Map(newMessages.map((item: any) => [item["id"], item])).values()),
           ];
           setConvoMessages(convoMessages.set(conversation.peerAddress, uniqueMessages));
+          setSelectedConvoMessages(
+            convoMessages.set(conversation.peerAddress, uniqueMessages).get(selectedConvo)
+          );
         }
       };
       streamMessages();
@@ -172,6 +181,7 @@ const Chat = () => {
     }, [convoMessages, state.walletAddress, conversation]);
   };
   useStreamMessages(selectedConvo);
+
   useEffect(() => {
     // Get Conversations after connected to XMTP
     if (client) {
@@ -179,9 +189,16 @@ const Chat = () => {
     }
   }, [client]);
 
+  useEffect(() => {
+    // Get Conversations after connected to XMTP
+    if (client) {
+      setSelectedConvoMessages(convoMessages.get(selectedConvo));
+    }
+  }, [selectedConvo]);
+
   return (
-    <div className="flex flex-col p-4 mx-20 shadow justify-center items-center text-blue-50 border border-blue-50 rounded">
-      <div className="flex items-center justify-between w-full">
+    <div className="flex flex-col p-2 h-80 mx-32 shadow items-start text-blue-50 border border-blue-50 rounded">
+      <div className="flex items-start justify-between w-full">
         <p className="font-bold mr-auto">OSFD Chat</p>
         {!client ? (
           <div>
@@ -219,24 +236,26 @@ const Chat = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col divide-y">
+              <div className="flex flex-col divide-y overflow-scroll">
                 {/* Conversation list*/}
                 {Array.from(sortedConvos.keys()).map((address) => {
                   if (sortedConvos.get(address).length > 0) {
-                    console.log(sortedConvos.get(address));
                     return (
                       <div
                         key={"Convo_" + address}
                         onClick={() => setSelectedConvo(address)}
-                        className="flex justify-start border rounded p-2 mt-2 cursor-pointer"
+                        className="flex justify-start border rounded p-2 my-1 cursor-pointer"
                       >
                         <div className="flex align-start flex-col justify-start">
                           <div>
                             <b>{shortAddress(address)}</b>
                           </div>
                           <div>
-                            {getLatestMessage(sortedConvos.get(address)).content &&
-                              truncate(getLatestMessage(sortedConvos.get(address)).content, 75)}
+                            {getLatestMessage(sortConvos(sortedConvos).get(address)).content &&
+                              truncate(
+                                getLatestMessage(sortConvos(sortedConvos).get(address)).content,
+                                75
+                              )}
                           </div>
                         </div>
                       </div>
@@ -247,7 +266,7 @@ const Chat = () => {
             </div>
           ) : (
             <>
-              <div className="flex w-full flex-col align-center justify-start">
+              <div className="flex w-full h-auto flex-col align-center justify-start overflow-scroll">
                 <div className="flex">
                   <button
                     onClick={reset}
@@ -271,11 +290,12 @@ const Chat = () => {
                     <b>Chatting with: {shortAddress(selectedConvo)}</b>
                   )}
                 </div>{" "}
+                {/* Message List */}
                 <div className="flex flex-col">
-                  <div className="mt-auto">
+                  <div className="overflow-scroll">
                     {!isNewMsg &&
-                      convoMessages.get(selectedConvo) &&
-                      convoMessages.get(selectedConvo).map((msg: any) => {
+                      selectedConvoMessages &&
+                      selectedConvoMessages.map((msg: any) => {
                         return (
                           <div className="flex justify-start p-1">
                             <div className="flex align-start flex-col justify-start">
