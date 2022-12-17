@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Box, Button, Card } from "@mui/material";
+import { Box, Button, Card, Slide } from "@mui/material";
 import MintPreview from "../components/mintPreview";
 import Proposals from "../components/proposals";
 import Footer from "../components/footer";
@@ -135,9 +135,9 @@ const InternsDAO: NextPage = () => {
         ref={mint}
       >
         <div className="w-6/12 mx-auto">
-          <div className={"font-bold text-xl mb-10 text-center font-Poppins "}>
+          <h1 className={"font-bold text-xl mb-10 text-center font-Poppins "}>
             Interns DAO Stakeholder Certificates
-          </div>
+          </h1>
           <div className="leading-8">
             Interns DAO is a place where you can learn, build and ship with other interns from
             around the world. There are two ways to join us - building or investing!
@@ -168,24 +168,23 @@ const InternsDAO: NextPage = () => {
         </Box>
       </Box>
 
-      <Box style={{ backgroundColor: "rgba(24, 24, 24, 0.4)" }}>
-        <div>
-          <div className="w-full p-24">
-            <div className={"text-white font-bold text-4xl mb-24 "}>Projects</div>
+      <Box style={{ backgroundColor: "rgba(24, 24, 24, 0.4)", overflow: "hidden" }}>
+        <div className="w-full p-24">
+          <div className={"text-white font-bold text-4xl mb-24 "}>Projects</div>
 
-            <Box className={"columns-2"} ref={projectsRef}>
-              {projects.map((project, index) => (
-                <ProjectCard
-                  key={project.name}
-                  name={project.name}
-                  desc={project.desc}
-                  image={project.image}
-                  left={index < 3}
-                  color={project.color}
-                />
-              ))}
-            </Box>
-          </div>
+          <Box className={"columns-2"} ref={projectsRef}>
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.name}
+                name={project.name}
+                desc={project.desc}
+                image={project.image}
+                left={index < 3}
+                color={project.color}
+                index={index}
+              />
+            ))}
+          </Box>
         </div>
       </Box>
       <div className="flex flex-col justify-center p-24" ref={proposals}>
