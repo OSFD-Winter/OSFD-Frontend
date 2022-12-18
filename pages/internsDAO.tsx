@@ -5,7 +5,7 @@ import Proposals from "../components/proposals";
 import Footer from "../components/footer";
 import { ArrowLeft } from "@mui/icons-material";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import MintButton from "../components/mintButton";
 import Feedback from "../components/feedback";
 import ProjectCard from "../components/projectCard";
@@ -35,7 +35,7 @@ const projects = [
   {
     color: "#FFE194",
     name: "Onchain Rock Paper Scissors Game",
-    desc: "Mint and play secure decentralised onchainrock paper scissors game.",
+    desc: "Mint and play secure decentralized onchainrock paper scissors game.",
     image:
       "https://static.vecteezy.com/system/resources/previews/000/691/497/original/rock-paper-scissors-neon-icons-vector.jpg",
   },
@@ -52,14 +52,49 @@ const projects = [
     image: "./discord.jpg",
   },
 ];
-
 const InternsDAO: NextPage = () => {
   const space = "internsdao.eth";
   const mint = useRef();
   const projectsRef = useRef();
   const proposals = useRef();
+  const [inView, setInView] = useState(null);
+
+  const toggleNavBtn = useCallback(function (e) {
+    const containerInView = e[0].target;
+    document.querySelectorAll(".option-nav").forEach((item) => {
+      item.style.borderBottom = "";
+    });
+    e.forEach((entry) => {
+      if (containerInView.isSameNode(mint.current) && entry.isIntersecting) {
+        document.querySelector(".mint-nav").style.borderBottom = "2px solid black";
+        console.log("mint");
+      } else if (containerInView.isSameNode(projectsRef.current) && entry.isIntersecting) {
+        document.querySelector(".projects-nav").style.borderBottom = "2px solid black";
+        console.log("project");
+      } else if (containerInView.isSameNode(proposals.current) && entry.isIntersecting) {
+        document.querySelector(".proposals-nav").style.borderBottom = "2px solid black";
+        console.log("proposals");
+      }
+    });
+    console.log(e[0].intersectionRatio);
+    // console.log(e);
+    // console.log(mint.current);
+  }, []);
+  useEffect(() => {
+    let options = {
+      rootMargin: "100px",
+      threshold: 0.9,
+    };
+    let observer = new IntersectionObserver(toggleNavBtn, options);
+    let observer2 = new IntersectionObserver(toggleNavBtn, { threshold: 0.7 });
+    let observer3 = new IntersectionObserver(toggleNavBtn, { threshold: 1 });
+    observer.observe(mint.current);
+    observer2.observe(projectsRef.current);
+    observer3.observe(proposals.current);
+  }, [toggleNavBtn]);
 
   return (
+    // TODO: highlight what sections are in view
     <Box
       className={
         "bg-gradient-to-r from-[#73CBFD] to-[#A8E8DA] bg-fixed bg-center bg-no-repeat bg-cover"
@@ -85,6 +120,7 @@ const InternsDAO: NextPage = () => {
         <Box style={{ marginLeft: "auto" }}>
           <div className="flex ml-auto justify-between mr-[36px]">
             <Button
+              className="mint-nav option-nav"
               onClick={() => {
                 mint.current.scrollIntoView({
                   behavior: "smooth",
@@ -97,6 +133,7 @@ const InternsDAO: NextPage = () => {
               Mint
             </Button>
             <Button
+              className="projects-nav option-nav"
               onClick={() => {
                 projectsRef.current.scrollIntoView({
                   behavior: "smooth",
@@ -116,6 +153,7 @@ const InternsDAO: NextPage = () => {
                   block: "nearest",
                 });
               }}
+              className="proposals-nav option-nav"
               style={{ fontFamily: "Montserrat", fontSize: "1.3em", color: "#000000" }}
             >
               Proposals
@@ -134,7 +172,7 @@ const InternsDAO: NextPage = () => {
         className={" my-10 flex w-10/12 mx-auto bg-fixed bg-center bg-cover bg-no-repeat"}
         ref={mint}
       >
-        <div className="w-6/12 mx-auto">
+        <div className="w-6/12 mx-auto flex flex-col items-center">
           <h1 className={"font-bold text-xl mb-10 text-center font-Poppins "}>
             Interns DAO Stakeholder Certificates
           </h1>
@@ -158,6 +196,7 @@ const InternsDAO: NextPage = () => {
           <MintButton
             address="0x09aD6Fb74584fFbA72C65419c03741325CAE00a1"
             price="1000000000000000"
+            design="neo"
           ></MintButton>
         </div>
         <Box style={{ width: 500 }}>
@@ -168,11 +207,13 @@ const InternsDAO: NextPage = () => {
         </Box>
       </Box>
 
-      <Box style={{ backgroundColor: "rgba(24, 24, 24, 0.4)", overflow: "hidden" }}>
+      <Box
+        ref={projectsRef}
+        style={{ backgroundColor: "rgba(24, 24, 24, 0.4)", overflow: "hidden" }}
+      >
         <div className="w-full p-24">
           <div className={"text-white font-bold text-4xl mb-24 "}>Projects</div>
-
-          <Box className={"columns-2"} ref={projectsRef}>
+          <Box className={"columns-2"}>
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.name}
