@@ -186,6 +186,7 @@ const Home: NextPage = () => {
               <div className=" text-center w-[20vw] p-15">
                 <MintPreview
                   hash={`bafybeidn5ubtxclqpr55l5gocwstop5moqccgoakhclqxx3uiegdu5fofi`}
+                  design={"default"}
                 ></MintPreview>
               </div>
             </x>
