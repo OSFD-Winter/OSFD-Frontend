@@ -204,6 +204,7 @@ function Explore() {
                 <MintButton
                   address={`0x09aD6Fb74584fFbA72C65419c03741325CAE00a1`}
                   price={`1000000000000000`}
+                  design={"default"}
                 />
                 {/* <Button
                   variant="contained"

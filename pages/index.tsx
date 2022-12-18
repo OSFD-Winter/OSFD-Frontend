@@ -195,7 +195,7 @@ const Home: NextPage = () => {
           style={{ fontFamily: "Monestrat", fontSize: "1.3em", marginInline: "20%", marginTop: 20 }}
         >
           Powerful tool for organizations of all sizes and types that are looking to build
-          distributed autonomous organizations (DAOs). With OSFD, users have access to tools, teams,
+          decentralized autonomous organizations (DAOs). With OSFD, users have access to tools, teams,
           resources, and an entire ecosystem of DAO-focused projects. It enables them to quickly
           launch their own DAOs or join existing ones.
         </p>
