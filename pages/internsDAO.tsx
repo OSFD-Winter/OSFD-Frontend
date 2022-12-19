@@ -57,40 +57,55 @@ const InternsDAO: NextPage = () => {
   const mint = useRef();
   const projectsRef = useRef();
   const proposals = useRef();
-  const [inView, setInView] = useState(null);
+  const [initialLoad, setInitialLoad] = useState(true);
 
   const toggleNavBtn = useCallback(function (e) {
     const containerInView = e[0].target;
+    // console.log(document.querySelectorAll(".option-nav"));
     document.querySelectorAll(".option-nav").forEach((item) => {
-      item.style.borderBottom = "";
-    });
-    e.forEach((entry) => {
-      if (containerInView.isSameNode(mint.current) && entry.isIntersecting) {
-        document.querySelector(".mint-nav").style.borderBottom = "2px solid black";
-        console.log("mint");
-      } else if (containerInView.isSameNode(projectsRef.current) && entry.isIntersecting) {
-        document.querySelector(".projects-nav").style.borderBottom = "2px solid black";
-        console.log("project");
-      } else if (containerInView.isSameNode(proposals.current) && entry.isIntersecting) {
-        document.querySelector(".proposals-nav").style.borderBottom = "2px solid black";
-        console.log("proposals");
+      if (e[0].intersectionRatio > 0) {
+        console.log("clear");
+        item.style.backgroundColor = "";
+        item.style.borderBottom = "";
+        item.style.borderRight = "";
       }
     });
-    console.log(e[0].intersectionRatio);
-    // console.log(e);
-    // console.log(mint.current);
+    e.forEach((entry) => {
+      if (entry.isIntersecting) {
+        let inView;
+        if (containerInView.isSameNode(mint.current)) {
+          inView = document.querySelector(".mint-nav");
+          console.log("mint");
+        } else if (containerInView.isSameNode(projectsRef.current)) {
+          inView = document.querySelector(".projects-nav");
+          console.log("project");
+        } else if (containerInView.isSameNode(proposals.current)) {
+          inView = document.querySelector(".proposals-nav");
+          console.log("proposals");
+        }
+        inView.style.backgroundColor = "#f09e74";
+        inView.style.borderBottom = "1px solid black";
+        inView.style.borderRight = "1px solid black";
+      }
+    });
   }, []);
   useEffect(() => {
-    let options = {
-      rootMargin: "100px",
-      threshold: 0.9,
+    const options = {
+      // rootMargin: "100px",
+      threshold: 0.5,
     };
-    let observer = new IntersectionObserver(toggleNavBtn, options);
-    let observer2 = new IntersectionObserver(toggleNavBtn, { threshold: 0.7 });
-    let observer3 = new IntersectionObserver(toggleNavBtn, { threshold: 1 });
+    const observer = new IntersectionObserver(toggleNavBtn, options);
+    const observer2 = new IntersectionObserver(toggleNavBtn, {
+      rootMargin: "100px",
+      threshold: 0.7,
+    });
+    const observer3 = new IntersectionObserver(toggleNavBtn, {
+      threshold: 0.8,
+    });
     observer.observe(mint.current);
     observer2.observe(projectsRef.current);
     observer3.observe(proposals.current);
+    console.log("T");
   }, [toggleNavBtn]);
 
   return (
