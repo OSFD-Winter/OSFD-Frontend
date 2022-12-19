@@ -57,44 +57,43 @@ const InternsDAO: NextPage = () => {
   const mint = useRef();
   const projectsRef = useRef();
   const proposals = useRef();
-  const [initialLoad, setInitialLoad] = useState(true);
 
-  const toggleNavBtn = useCallback(function (e) {
-    const containerInView = e[0].target;
-    // console.log(document.querySelectorAll(".option-nav"));
+  function resetNavBar(e) {
     document.querySelectorAll(".option-nav").forEach((item) => {
       if (e[0].intersectionRatio > 0) {
-        console.log("clear");
         item.style.backgroundColor = "";
         item.style.borderBottom = "";
         item.style.borderRight = "";
       }
     });
+  }
+  const toggleNavBtn = useCallback(function (e) {
+    const containerInView = e[0].target;
     e.forEach((entry) => {
       if (entry.isIntersecting) {
         let inView;
         if (containerInView.isSameNode(mint.current)) {
           inView = document.querySelector(".mint-nav");
-          console.log("mint");
         } else if (containerInView.isSameNode(projectsRef.current)) {
           inView = document.querySelector(".projects-nav");
-          console.log("project");
         } else if (containerInView.isSameNode(proposals.current)) {
           inView = document.querySelector(".proposals-nav");
-          console.log("proposals");
         }
+        resetNavBar(e);
         inView.style.backgroundColor = "#f09e74";
         inView.style.borderBottom = "1px solid black";
         inView.style.borderRight = "1px solid black";
+      } else if (containerInView.isSameNode(proposals.current) && entry.intersectionRatio > 0) {
+        // Check if last container is out of view
+        resetNavBar(e);
       }
     });
   }, []);
   useEffect(() => {
-    const options = {
-      // rootMargin: "100px",
+    const observer = new IntersectionObserver(toggleNavBtn, {
+      rootMargin: "100px",
       threshold: 0.5,
-    };
-    const observer = new IntersectionObserver(toggleNavBtn, options);
+    });
     const observer2 = new IntersectionObserver(toggleNavBtn, {
       rootMargin: "100px",
       threshold: 0.7,
@@ -105,11 +104,9 @@ const InternsDAO: NextPage = () => {
     observer.observe(mint.current);
     observer2.observe(projectsRef.current);
     observer3.observe(proposals.current);
-    console.log("T");
   }, [toggleNavBtn]);
 
   return (
-    // TODO: highlight what sections are in view
     <Box
       className={
         "bg-gradient-to-r from-[#73CBFD] to-[#A8E8DA] bg-fixed bg-center bg-no-repeat bg-cover"
@@ -243,7 +240,7 @@ const InternsDAO: NextPage = () => {
           </Box>
         </div>
       </Box>
-      <div className="flex flex-col justify-center p-24" ref={proposals}>
+      <div ref={proposals} className="flex flex-col justify-center p-24">
         <h2 className="text-black text-3xl font-bold">Proposals</h2>
         <div className="flex justify-between gap-8">
           <div className="w-1/3">
