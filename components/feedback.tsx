@@ -75,6 +75,14 @@ function Feedback({ hash: any }) {
     }
   }, [image, update]);
 
+  const FeebackTitle = [
+    "What did you find interesting about the site ?",
+    "Would you like to particpate in the intern program ?",
+    "Contact Us",
+    "Send a message to our discord!",
+  ];
+  const selectTitle = FeebackTitle[Math.floor(Math.random() * FeebackTitle.length)];
+
   return (
     <>
       <div className="">
@@ -97,9 +105,10 @@ function Feedback({ hash: any }) {
                       justifyContent: "center",
                       color: "#01052a",
                       fontSize: 40,
+                      textAlign: "center",
                     }}
                   >
-                    FEEDBACK
+                    {selectTitle}
                   </div>
 
                   <TextField
