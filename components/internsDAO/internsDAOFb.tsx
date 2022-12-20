@@ -141,6 +141,9 @@ function InternsFeedback({ hash: any }) {
                       ...neoBorder,
                       color: "black",
                       bgcolor: "#FFF48F",
+                      "&:hover": {
+                        color: "white",
+                      },
                     }}
                     variant="contained"
                     component="span"
@@ -171,7 +174,11 @@ function InternsFeedback({ hash: any }) {
                     pushToDiscord();
                   }}
                   variant="contained"
-                  sx={{ ...neoBorder, bgcolor: "#4277FF", color: "white !IMPORTANT" }}
+                  sx={{
+                    ...neoBorder,
+                    bgcolor: "#4277FF",
+                    color: "white !IMPORTANT",
+                  }}
                 >
                   Send
                 </Button>

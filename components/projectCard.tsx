@@ -2,7 +2,6 @@
 import { Box, Button, Card, withStyles, Slide } from "@mui/material";
 
 function ProjectCard({ name, desc, image, left, color, index }) {
-  console.log(name + index);
   return (
     <Slide direction={left ? "right" : "left"} in={true} timeout={500} mountOnEnter unmountOnExit>
       <Card
@@ -33,7 +32,7 @@ function ProjectCard({ name, desc, image, left, color, index }) {
             left ? "ml-auto mr-20" : "mr-auto ml-20"
           }`}
         >
-          <div>
+          <div className="mb-4">
             <p className={"font-bold text-xl mb-4"}>{name}</p>
             <p>{desc}</p>
           </div>

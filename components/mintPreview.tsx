@@ -23,6 +23,9 @@ const neoStyling = {
   boxShadow: "1px 1px 0px #000000",
   width: "100%",
   marginTop: "10px",
+  "&:hover": {
+    color: "white",
+  },
 } as const;
 
 const defaultStyling = {
