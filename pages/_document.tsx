@@ -11,6 +11,11 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta
+            name="description"
+            content="OSFD is a powerful tool allowing organizations to join the 
+            DAO ecosystem. Join OSFD today to create or join a DAO."
+          />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"

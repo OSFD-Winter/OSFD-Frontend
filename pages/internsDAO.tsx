@@ -1,11 +1,11 @@
 // @ts-nocheck
-import { Box, Button, Card } from "@mui/material";
+import { Box, Button, Card, Slide } from "@mui/material";
 import MintPreview from "../components/mintPreview";
 import Proposals from "../components/proposals";
 import Footer from "../components/footer";
 import { ArrowLeft } from "@mui/icons-material";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import MintButton from "../components/mintButton";
 import Feedback from "../components/feedback";
 import ProjectCard from "../components/projectCard";
@@ -35,7 +35,7 @@ const projects = [
   {
     color: "#FFE194",
     name: "Onchain Rock Paper Scissors Game",
-    desc: "Mint and play secure decentralised onchainrock paper scissors game.",
+    desc: "Mint and play secure decentralized onchainrock paper scissors game.",
     image:
       "https://static.vecteezy.com/system/resources/previews/000/691/497/original/rock-paper-scissors-neon-icons-vector.jpg",
   },
@@ -52,12 +52,59 @@ const projects = [
     image: "./discord.jpg",
   },
 ];
-
 const InternsDAO: NextPage = () => {
   const space = "internsdao.eth";
   const mint = useRef();
   const projectsRef = useRef();
   const proposals = useRef();
+
+  function resetNavBar(e) {
+    document.querySelectorAll(".option-nav").forEach((item) => {
+      if (e[0].intersectionRatio > 0) {
+        item.style.backgroundColor = "";
+        item.style.borderBottom = "";
+        item.style.borderRight = "";
+      }
+    });
+  }
+  const toggleNavBtn = useCallback(function (e) {
+    const containerInView = e[0].target;
+    e.forEach((entry) => {
+      if (entry.isIntersecting) {
+        let inView;
+        if (containerInView.isSameNode(mint.current)) {
+          inView = document.querySelector(".mint-nav");
+        } else if (containerInView.isSameNode(projectsRef.current)) {
+          inView = document.querySelector(".projects-nav");
+        } else if (containerInView.isSameNode(proposals.current)) {
+          inView = document.querySelector(".proposals-nav");
+        }
+        resetNavBar(e);
+        inView.style.backgroundColor = "#f09e74";
+        inView.style.borderBottom = "1px solid black";
+        inView.style.borderRight = "1px solid black";
+      } else if (containerInView.isSameNode(proposals.current) && entry.intersectionRatio > 0) {
+        // Check if last container is out of view
+        resetNavBar(e);
+      }
+    });
+  }, []);
+  useEffect(() => {
+    const observer = new IntersectionObserver(toggleNavBtn, {
+      rootMargin: "100px",
+      threshold: 0.5,
+    });
+    const observer2 = new IntersectionObserver(toggleNavBtn, {
+      rootMargin: "100px",
+      threshold: 0.7,
+    });
+    const observer3 = new IntersectionObserver(toggleNavBtn, {
+      threshold: 0.8,
+    });
+    observer.observe(mint.current);
+    observer2.observe(projectsRef.current);
+    observer3.observe(proposals.current);
+  }, [toggleNavBtn]);
 
   return (
     <Box
@@ -85,6 +132,7 @@ const InternsDAO: NextPage = () => {
         <Box style={{ marginLeft: "auto" }}>
           <div className="flex ml-auto justify-between mr-[36px]">
             <Button
+              className="mint-nav option-nav"
               onClick={() => {
                 mint.current.scrollIntoView({
                   behavior: "smooth",
@@ -97,6 +145,7 @@ const InternsDAO: NextPage = () => {
               Mint
             </Button>
             <Button
+              className="projects-nav option-nav"
               onClick={() => {
                 projectsRef.current.scrollIntoView({
                   behavior: "smooth",
@@ -116,6 +165,7 @@ const InternsDAO: NextPage = () => {
                   block: "nearest",
                 });
               }}
+              className="proposals-nav option-nav"
               style={{ fontFamily: "Montserrat", fontSize: "1.3em", color: "#000000" }}
             >
               Proposals
@@ -134,10 +184,10 @@ const InternsDAO: NextPage = () => {
         className={" my-10 flex w-10/12 mx-auto bg-fixed bg-center bg-cover bg-no-repeat"}
         ref={mint}
       >
-        <div className="w-6/12 mx-auto">
-          <div className={"font-bold text-xl mb-10 text-center font-Poppins "}>
+        <div className="w-6/12 mx-auto flex flex-col items-center">
+          <h1 className={"font-bold text-xl mb-10 text-center font-Poppins "}>
             Interns DAO Stakeholder Certificates
-          </div>
+          </h1>
           <div className="leading-8">
             Interns DAO is a place where you can learn, build and ship with other interns from
             around the world. There are two ways to join us - building or investing!
@@ -158,6 +208,7 @@ const InternsDAO: NextPage = () => {
           <MintButton
             address="0x09aD6Fb74584fFbA72C65419c03741325CAE00a1"
             price="1000000000000000"
+            design="neo"
           ></MintButton>
         </div>
         <Box style={{ width: 500 }}>
@@ -168,27 +219,28 @@ const InternsDAO: NextPage = () => {
         </Box>
       </Box>
 
-      <Box style={{ backgroundColor: "rgba(24, 24, 24, 0.4)" }}>
-        <div>
-          <div className="w-full p-24">
-            <div className={"text-white font-bold text-4xl mb-24 "}>Projects</div>
-
-            <Box className={"columns-2"} ref={projectsRef}>
-              {projects.map((project, index) => (
-                <ProjectCard
-                  key={project.name}
-                  name={project.name}
-                  desc={project.desc}
-                  image={project.image}
-                  left={index < 3}
-                  color={project.color}
-                />
-              ))}
-            </Box>
-          </div>
+      <Box
+        ref={projectsRef}
+        style={{ backgroundColor: "rgba(24, 24, 24, 0.4)", overflow: "hidden" }}
+      >
+        <div className="w-full p-24">
+          <div className={"text-white font-bold text-4xl mb-24 "}>Projects</div>
+          <Box className={"columns-2"}>
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.name}
+                name={project.name}
+                desc={project.desc}
+                image={project.image}
+                left={index < 3}
+                color={project.color}
+                index={index}
+              />
+            ))}
+          </Box>
         </div>
       </Box>
-      <div className="flex flex-col justify-center p-24" ref={proposals}>
+      <div ref={proposals} className="flex flex-col justify-center p-24">
         <h2 className="text-black text-3xl font-bold">Proposals</h2>
         <div className="flex justify-between gap-8">
           <div className="w-1/3">
