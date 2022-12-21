@@ -17,7 +17,7 @@ const projects = [
   {
     color: "#C3FF94",
     name: "OSFD CHAT",
-    desc: "Wallet to Wallet cryptographically secure feeless chat app built with XMTP SDK &metamask.",
+    desc: "Wallet to Wallet cryptographically secure feeless chat app built with XMTP SDK & metamask.",
     image: "./chat.png",
   },
   {
@@ -135,15 +135,25 @@ const InternsDAO: NextPage = () => {
         ref={mint}
       >
         <div className="w-6/12 mx-auto">
-          <div className={"font-bold text-xl my-10 text-center font-Poppins "}>
+          <div className={"font-bold text-xl mb-10 text-center font-Poppins "}>
             Interns DAO Stakeholder Certificates
           </div>
-          <div>
-            Silent sir say desire fat him letter. Whatever settling goodness too and honoured she
-            building answered her. Strongly thoughts remember mr to do consider debating. Spirits
-            musical behaved on we he farther letters. Repulsive he he as deficient newspaper
-            dashwoods we. Discovered her his pianoforte insipidity entreaties. Began he at terms
-            meant as fancy. Breakfast arranging he if furniture we described on.
+          <div className="leading-8">
+            Interns DAO is a place where you can learn, build and ship with other interns from
+            around the world. There are two ways to join us - building or investing!
+            <br />
+            <br />
+            • Interns DAO is a decentralized organization that allows interns around the world to
+            come together and work on projects they&apos;re interested in.
+            <br />
+            <br />
+            • There are three main actors in Interns DAO: stakeholders, builders, and product
+            owners. Stakeholders have the ability to change product owners, while builders can
+            complete tasks and claim bounties.
+            <br />
+            <br />• The goal of Interns DAO is to provide opportunities for students to learn and
+            build projects aligned with their interests. If successful, builders will be compensated
+            via bounties.
           </div>
           <MintButton
             address="0x09aD6Fb74584fFbA72C65419c03741325CAE00a1"

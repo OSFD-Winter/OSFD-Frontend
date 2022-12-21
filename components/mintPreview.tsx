@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button } from "@mui/material";
+import { Button, Zoom } from "@mui/material";
 import { CasinoOutlined } from "@mui/icons-material";
 
 import { SERVER } from "../utils/constants";
@@ -21,6 +21,8 @@ const neoStyling = {
   border: "1px solid black",
   fontFamily: "Montserrat",
   boxShadow: "1px 1px 0px #000000",
+  width: "100%",
+  marginTop: "10px",
 } as const;
 
 const defaultStyling = {
@@ -51,7 +53,10 @@ function MintPreview({ hash, design }: IHash) {
   }
   return (
     <div>
-      <img className="w-full" src={image} alt="" />
+      <Zoom in={true}>
+        <img className="w-full" src={image} alt="" />
+      </Zoom>
+
       <Button
         onClick={() => {
           setImage("/spinner.svg");
