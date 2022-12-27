@@ -30,6 +30,7 @@ import { injected } from "../src/web3ReactInjector";
 import GoodsAbi from "../src/Goods.json";
 import Referral from "../components/referral";
 import { ReducerContextProvider, useReducerContext } from "../api/context";
+import NFTDisplay from "../components/NFTDisplay";
 import { ToastContainer, toast } from "react-toastify";
 const curated = [
   {
@@ -196,6 +197,7 @@ const Home: NextPage = () => {
         </div>
       </div>
       <TreasuryDisplay safeAddress={"0x432b351Db56d95F0ed37c7De3E20249200f8d3C9"}></TreasuryDisplay>
+      <NFTDisplay owner={"0x4bA9285EDE9D46Bc367ee1d5cD5a8F1d9e6572e6"}></NFTDisplay>
       <Referral />
       <Footer />
       <ToastContainer limit={1} />

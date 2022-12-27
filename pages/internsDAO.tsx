@@ -8,6 +8,7 @@ import Link from "next/link";
 import React, { useRef } from "react";
 import MintButton from "../components/mintButton";
 import Feedback from "../components/feedback";
+import NFTDisplay from "../components/NFTDisplay";
 import ProjectCard from "../components/projectCard";
 import image from "next/image";
 import InternsFeedback from "../components/internsDAO/internsDAOFb";
@@ -194,6 +195,7 @@ const InternsDAO: NextPage = () => {
           <div className="w-1/3">
             <Proposals space={space}></Proposals>
           </div>
+          <NFTDisplay owner="0x4bA9285EDE9D46Bc367ee1d5cD5a8F1d9e6572e6" />
           {/* <div className="w-7/12">
             <ProposalSuggestion />
           </div> */}
