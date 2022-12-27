@@ -1,4 +1,5 @@
-import { API_BASE_URL, API_PLACE_HOLDER } from "../utils/constants";
+const apiKey = "zgrXoFNALjBoNx6U_R0xLkfZJph_Yxz6";
+const endpoint = `https://eth-goerli.g.alchemy.com/v2/${apiKey}`;
 
 
 export const fetchNFTs = async (owner, setNFTs, retryAttempt) => {
@@ -9,9 +10,9 @@ export const fetchNFTs = async (owner, setNFTs, retryAttempt) => {
         let data;
         try {
             if (contractAddress) {
-                data = await fetch(`${API_BASE_URL}/getNFTs?owner=${owner}&contractAddresses%5B%5D=${contractAddress}`).then(data => data.json())
+                data = await fetch(`${endpoint}/getNFTs?owner=${owner}&contractAddresses%5B%5D=${contractAddress}`).then(data => data.json())
             } else {
-                data = await fetch(`${API_BASE_URL}/getNFTs?owner=${owner}`).then(data => data.json())
+                data = await fetch(`${endpoint}/getNFTs?owner=${owner}`).then(data => data.json())
             }
         } catch (e) {
             fetchNFTs(API_BASE_URL, owner, setNFTs, retryAttempt+1)
