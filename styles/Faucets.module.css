@@ -22,6 +22,15 @@
   height: 58.5px;
 }
 
+/* ============== Faucet Image Styles ============= */
+
+.image__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+}
+
 /* ============== General Styles ============= */
 
 .container {
